@@ -20,14 +20,21 @@ namespace Account.DAL.Repositories
         {
             _factory = factory;
         }
-        public Task<bool> CheckEmailExists(string email)
+        public async Task<bool> CheckEmailExists(string email)
         {
-            throw new NotImplementedException();
+
+            using var context = _factory.CreateDbContext();
+            //how can I get await in here with func ANY that returns bool?
+            return context.Customers.Any(c => c.Email.Equals(email));
+
         }
 
-        public Task<bool> CheckPasswordValid(string email, string password)
+        public async Task<bool> CheckPasswordValid(string email, string password)
         {
-            throw new NotImplementedException();
+            using var context = _factory.CreateDbContext();
+            var customer = await context.Customers.FirstAsync(c => c.Email.Equals(email));
+            return customer.Password.Equals(password);
+
         }
 
         public Task<bool> CheckUniqueEmail(string email)
@@ -68,14 +75,21 @@ namespace Account.DAL.Repositories
 
         }
 
-        public Task<int> GetAccountIdByEmailAndPassword(string email)
+        public  async Task<int> GetAccountIdByEmail(string email)
         {
-            throw new NotImplementedException();
+            using var context = _factory.CreateDbContext();
+            var customer = await context.Customers.FirstAsync(c => c.Email.Equals(email));
+            var account = await context.Accounts.FirstAsync(a => a.CustomerId == customer.Id);
+            return account.Id;
+
         }
 
-        public Task<AccountEntity> GetAccountInfoByAccountID(int id)
+        public async Task<AccountEntity> GetAccountInfoByAccountID(int id)
         {
-            throw new NotImplementedException();
+            using var context = _factory.CreateDbContext();
+            var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            return account;
+
         }
     }
 }
