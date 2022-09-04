@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Account.DAL.Entities
 {
-    internal interface CustomerEntity
+    public interface CustomerEntity
     {
         [Key]
         [Index(IsUnique = true)]

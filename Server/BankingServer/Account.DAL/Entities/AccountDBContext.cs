@@ -7,10 +7,14 @@ using System.Threading.Tasks;
 
 namespace Account.DAL.Entities
 {
-    internal class AccountDBContext:DbContext
+    public class AccountDBContext:DbContext
     {
         public DbSet<CustomerEntity> Customers { get; set; } 
         public DbSet<AccountEntity> Accounts { get; set; }
+        public AccountDBContext(DbContextOptions options) :base(options)
+        {
+
+        }
 
     }
 }
