@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Account.DAL.Interfaces
 {
-    internal interface IAccountRepository
+    public interface IAccountRepository
     {
         Task<bool> CreateCustomer(CustomerEntity customer);
         Task<bool> CreateAccount(AccountEntity account);

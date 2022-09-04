@@ -15,8 +15,8 @@ namespace Account.DAL.Entities
         [Required]
         public int Id { get; set; }
         [ForeignKey("CustomerEntity")]
-        public int CostomerId { get; set; }
-        public CustomerEntity Costomer { get; set; }
+        public int CustomerId { get; set; }
+        public CustomerEntity Customer { get; set; }
         [Required]
         public DateTime OpenDate { get; set; }
         [Required]
