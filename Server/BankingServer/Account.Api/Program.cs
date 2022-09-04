@@ -1,7 +1,11 @@
 
 
 using Account.DAL.Entities;
-using Microsoft.EntityFrameworkCore;
+using Account.DAL.Repositories;
+using Account.DAL.Interfaces;
+    using Microsoft.EntityFrameworkCore;
+using Account.Services.Interfaces;
+using Account.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +17,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<AccountDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 
 var app = builder.Build();
 
