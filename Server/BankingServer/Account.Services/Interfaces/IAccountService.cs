@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Account.Services.Interfaces
 {
-    internal interface IAccountService
+    public interface IAccountService
     {
         Task<bool> CreateAccount(CustomerDTO customerDTO);
         Task<int> Login(LoginDTO loginDTO);

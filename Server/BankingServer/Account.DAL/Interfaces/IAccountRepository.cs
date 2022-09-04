@@ -7,14 +7,14 @@ using System.Threading.Tasks;
 
 namespace Account.DAL.Interfaces
 {
-    internal interface IAccountRepository
+    public interface IAccountRepository
     {
         Task<bool> CreateCustomer(CustomerEntity customer);
         Task<bool> CreateAccount(AccountEntity account);
         Task<bool> CheckUniqueEmail(string email);
         Task<bool> CheckEmailExists(string email);
         Task<bool> CheckPasswordValid(string email, string password);
-        Task<int> GetAccountIdByEmailAndPassword(string email);
+        Task<int> GetAccountIdByEmail(string email);
         Task<AccountEntity> GetAccountInfoByAccountID(int id);
 
     }
