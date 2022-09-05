@@ -3,7 +3,7 @@
 using Account.DAL.Entities;
 using Account.DAL.Repositories;
 using Account.DAL.Interfaces;
-    using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Account.Services.Interfaces;
 using Account.Services.Services;
 
@@ -19,6 +19,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<AccountDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
 builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 var app = builder.Build();
 

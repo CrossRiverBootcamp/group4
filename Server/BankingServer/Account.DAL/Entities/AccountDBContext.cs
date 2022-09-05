@@ -6,7 +6,7 @@ namespace Account.DAL.Entities
     {
         public DbSet<CustomerEntity> Customers { get; set; } 
         public DbSet<AccountEntity> Accounts { get; set; }
-        public AccountDBContext(DbContextOptions options) :base(options)
+        public AccountDBContext(DbContextOptions<AccountDBContext> options) :base(options)
         {
 
         }

@@ -15,6 +15,7 @@ namespace Account.DAL.Interfaces
         Task<bool> CheckPasswordValid(string email, string password);
         Task<int> GetAccountIdByEmail(string email);
         Task<AccountEntity> GetAccountInfoByAccountID(int id);
+        Task<CustomerEntity> GetCustomerByEmail(string email);
 
     }
 }
