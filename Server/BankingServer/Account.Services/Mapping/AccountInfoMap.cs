@@ -13,12 +13,9 @@ namespace Account.Services.Mapping
     {
         public AccountInfoMap()
         {
-            CreateMap<AccountEntity,AccountInfoDTO>()
-                   .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id))
-                .IncludeMembers(a=> a.Customer);
-
-            CreateMap<CustomerEntity, AccountInfoDTO>()
-                  .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id));
+            CreateMap<AccountEntity, AccountInfoDTO>();
+                //   .ForMember(dest => dest.AccountId, opt => opt.MapFrom(src => src.Id))
+                //.IncludeMembers(a=> a.Customer);
         }
     }
 }

@@ -26,10 +26,10 @@ namespace Account.Services.Services
             try
             {
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
-                //if (await _accountRepository.CheckEmailExists(customerDTO.Email))
-                //{
-                //    return false;
-                //}
+                if (await _accountRepository.CheckEmailExists(customerDTO.Email))
+                {
+                    return false;
+                }
                 var createdCustomer = await _accountRepository.CreateCustomer(customer);
                 CustomerEntity newCustomer = await _accountRepository.GetCustomerByEmail(customer.Email);
                 AccountEntity account = new AccountEntity();
