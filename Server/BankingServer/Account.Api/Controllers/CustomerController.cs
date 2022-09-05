@@ -9,7 +9,12 @@ namespace Account.Api.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        IAccountService _accountService;
+        private readonly IAccountService _accountService;
+        public CustomerController(IAccountService accountService)
+        {
+            _accountService = accountService;
+        }
+
         [HttpPost]
         public async Task<bool> CreateAccount([FromBody] CustomerDTO customer)
         {

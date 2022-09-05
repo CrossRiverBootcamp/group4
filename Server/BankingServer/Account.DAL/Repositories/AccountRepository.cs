@@ -37,11 +37,6 @@ namespace Account.DAL.Repositories
 
         }
 
-        public Task<bool> CheckUniqueEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> CreateAccount(AccountEntity account)
         {
             try

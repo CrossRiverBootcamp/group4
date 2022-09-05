@@ -11,7 +11,6 @@ namespace Account.DAL.Interfaces
     {
         Task<bool> CreateCustomer(CustomerEntity customer);
         Task<bool> CreateAccount(AccountEntity account);
-        Task<bool> CheckUniqueEmail(string email);
         Task<bool> CheckEmailExists(string email);
         Task<bool> CheckPasswordValid(string email, string password);
         Task<int> GetAccountIdByEmail(string email);

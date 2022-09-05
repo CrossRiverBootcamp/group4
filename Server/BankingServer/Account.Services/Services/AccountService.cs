@@ -17,6 +17,7 @@ namespace Account.Services.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<AccountInfoMap>();
+                cfg.AddProfile<CustomerMapping>();
             });
             _mapper = config.CreateMapper();
         }
