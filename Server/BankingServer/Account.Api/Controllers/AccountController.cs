@@ -8,17 +8,17 @@ namespace Account.Api.Controllers
     [ApiController]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountService _accountServise;
-        public AccountController(IAccountService accountServise)
+        private readonly IAccountService _accountService;
+        public AccountController(IAccountService accountService)
         {
-            _accountServise = accountServise;
+            _accountService = accountService;
         }
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountInfoDTO>> GetAccountInfo(int id)
         {
             try
             {
-                return await _accountServise.GetAccountInfo(id);
+                return await _accountService.GetAccountInfo(id);
             }
             catch(Exception ex)
             {
@@ -35,7 +35,7 @@ namespace Account.Api.Controllers
             }
             try
             {
-                return await _accountServise.Login(loginDTO);
+                return await _accountService.Login(loginDTO);
             }
             catch(Exception ex)
             {

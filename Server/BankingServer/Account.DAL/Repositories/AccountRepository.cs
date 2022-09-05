@@ -37,11 +37,6 @@ namespace Account.DAL.Repositories
 
         }
 
-        public Task<bool> CheckUniqueEmail(string email)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<bool> CreateAccount(AccountEntity account)
         {
             try
@@ -64,8 +59,10 @@ namespace Account.DAL.Repositories
             try
             {
                 using var context = _factory.CreateDbContext();
-                await context.Customers.AddAsync(customer);
-                context.SaveChangesAsync();
+                {
+                    await context.Customers.AddAsync(customer);
+                    context.SaveChangesAsync();
+                }
                 return true;
             }
             catch
@@ -90,6 +87,22 @@ namespace Account.DAL.Repositories
             var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));
             return account;
 
+        }
+
+        public async Task<CustomerEntity> GetCustomerByEmail(string email)
+        {
+            try { 
+            using var context = _factory.CreateDbContext();
+            var customer= await context.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email));
+                if (customer != null)
+                    return customer;
+                else throw new Exception();
+            }
+            catch
+            {
+                throw;
+            }
+             
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Account.Services.Services
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<AccountInfoMap>();
+                cfg.AddProfile<CustomerMapping>();
             });
             _mapper = config.CreateMapper();
         }
@@ -25,17 +26,18 @@ namespace Account.Services.Services
             try
             {
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
-                if (!await _accountRepository.CheckEmailExists(customerDTO.Email))
-                {
-                    return false;
-                }
+                //if (await _accountRepository.CheckEmailExists(customerDTO.Email))
+                //{
+                //    return false;
+                //}
+                var createdCustomer = await _accountRepository.CreateCustomer(customer);
+                CustomerEntity newCustomer = await _accountRepository.GetCustomerByEmail(customer.Email);
                 AccountEntity account = new AccountEntity();
-                account.CustomerId = customer.Id;
-                account.Customer = customer;
+                account.CustomerId =newCustomer.Id;
+                account.Customer = newCustomer;
                 account.OpenDate = DateTime.UtcNow;
                 //i want to input here from appsettings.json instead of hardcoding
                 account.Balance = 1000;
-                var createdCustomer = await _accountRepository.CreateCustomer(customer);
                 var createdAccount = await _accountRepository.CreateAccount(account);
                 if (createdAccount && createdCustomer)
                     return true;
