@@ -1,8 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-
 import { AuthService } from './auth.service';
 import { RouterTestingModule } from '@angular/router/testing';
 import { OktaAuth } from '@okta/okta-auth-js';
+
 
 describe('AuthService', () => {
   let service: AuthService;
