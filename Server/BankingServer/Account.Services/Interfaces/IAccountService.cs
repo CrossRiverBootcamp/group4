@@ -9,7 +9,7 @@ namespace Account.Services.Interfaces
 {
     public interface IAccountService
     {
-        Task<bool> CreateAccount(CustomerDTO customerDTO);
+        Task CreateAccount(CustomerDTO customerDTO);
         Task<int> Login(LoginDTO loginDTO);
         Task<AccountInfoDTO> GetAccountInfo(int id);
     }

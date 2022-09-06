@@ -21,31 +21,25 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task<bool> CreateAccount(CustomerDTO customerDTO)
+        public async Task CreateAccount(CustomerDTO customerDTO)
         {
             try
             {
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
                 if (await _accountRepository.CheckEmailExists(customerDTO.Email))
                 {
-                    return false;
+                    throw new Exception("account exists");
                 }
-                var createdCustomer = await _accountRepository.CreateCustomer(customer);
-                CustomerEntity newCustomer = await _accountRepository.GetCustomerByEmail(customer.Email);
                 AccountEntity account = new AccountEntity();
-                account.CustomerId =newCustomer.Id;
-                account.Customer = newCustomer;
+                account.Customer = customer;
                 account.OpenDate = DateTime.UtcNow;
                 //i want to input here from appsettings.json instead of hardcoding
                 account.Balance = 1000;
-                var createdAccount = await _accountRepository.CreateAccount(account);
-                if (createdAccount && createdCustomer)
-                    return true;
-                return false;
+                await _accountRepository.CreateAccount(account);
             }
-            catch (Exception ex)
+            catch
             {
-                return false;
+                throw;
             }
         }
 
