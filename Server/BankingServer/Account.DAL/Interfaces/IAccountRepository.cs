@@ -9,8 +9,7 @@ namespace Account.DAL.Interfaces
 {
     public interface IAccountRepository
     {
-        Task<bool> CreateCustomer(CustomerEntity customer);
-        Task<bool> CreateAccount(AccountEntity account);
+        Task CreateAccount(AccountEntity account);
         Task<bool> CheckEmailExists(string email);
         Task<bool> CheckPasswordValid(string email, string password);
         Task<int> GetAccountIdByEmail(string email);

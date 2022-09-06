@@ -16,16 +16,20 @@ namespace Account.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<bool> CreateAccount([FromBody] CustomerDTO customer)
+        public async Task<ActionResult<bool>> CreateAccount([FromBody] CustomerDTO customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest();
+            }
             try
             {
                await _accountService.CreateAccount(customer);
-                return true;
+                return Ok(true);
             }
             catch
             {
-                return false;
+                return Ok(false);
             }
         }
     }
