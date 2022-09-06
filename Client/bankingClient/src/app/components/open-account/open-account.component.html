@@ -1,4 +1,3 @@
-
 <h1>Open New Account</h1>
 
 <form [formGroup]="openAccountForm" (ngSubmit)="onSubmit()" novalidate >
@@ -12,4 +11,3 @@
     <input type="password" formControlName="password" /><br>
     <button type="submit" [disabled]="!openAccountForm.valid">Register</button>
   </form>
-

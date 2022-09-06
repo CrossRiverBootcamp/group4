@@ -6,7 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Account.DAL.Entities;
+using Account.DAL.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Account.DAL.Repositories
 {
@@ -35,38 +37,19 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task<bool> CreateAccount(AccountEntity account)
+        public async Task CreateAccount(AccountEntity account)
         {
             try
             {
                 using var context = _factory.CreateDbContext();
                 await context.Accounts.AddAsync(account);
                 context.SaveChangesAsync();
-                return true;
             }
             catch
             {
-                return false;
+                throw;
             }
 
-
-        }
-
-        public async Task<bool> CreateCustomer(CustomerEntity customer)
-        {
-            try
-            {
-                using var context = _factory.CreateDbContext();
-                {
-                    await context.Customers.AddAsync(customer);
-                    context.SaveChangesAsync();
-                }
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
 
         }
 
@@ -82,7 +65,7 @@ namespace Account.DAL.Repositories
         public async Task<AccountEntity> GetAccountInfoByAccountID(int id)
         {
             using var context = _factory.CreateDbContext();
-            var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
             return account;
 
         }

@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Login } from '../interfaces/Login';
+import { AccountInfo } from '../interfaces/AccountInfo';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountDetailsService {
 
-  constructor() { }
-}
+  public Login(loginDTO:Login):Observable<Number>{
+    return this.http.get<Number>("https://localhost:7248/api/Account");
+  }
+  public getAccountInfo(accountId: Number):Observable<AccountInfo>{
+    return this.http.get<AccountInfo>(`https://localhost:7248/api/Account/${accountId}`);
+  }
+    constructor(private http: HttpClient) { }
+  }
