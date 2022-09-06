@@ -8,8 +8,8 @@ import { AccountDetailsComponent } from './components/account-details/account-de
 import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from "@angular/material/form-field";
+import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
@@ -33,8 +33,10 @@ import { RouterTestingModule } from '@angular/router/testing';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     FlexLayoutModule,
     FormsModule,
+    ReactiveFormsModule,
     MatToolbarModule,
     MatInputModule,
     MatCardModule,

@@ -1,6 +1,6 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
     <span>
-      <button mat-button routerLink="/">{{title}}</button>
+      <button mat-button routerLink="/">Bank</button>
       <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
     </span>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
@@ -13,7 +13,7 @@
         Logout
       </button> -->
       <button mat-button routerLink="/signup">
-        <mat-icon>gamepad</mat-icon>
+        <mat-icon>account_circle</mat-icon>
         signup
       </button>
     </div>
@@ -23,11 +23,11 @@
   </mat-toolbar>
   <mat-menu x-position="before" #menu="matMenu">
     <button mat-menu-item routerLink="/">
-      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+      <mat-icon>home</mat-icon>
       Home
     </button>
     <button mat-menu-item routerLink="/signup">
-      <mat-icon>gamepad</mat-icon>
+      <mat-icon>account_circle</mat-icon>
       signup
     </button>
     <button mat-menu-item routerLink="/login">
