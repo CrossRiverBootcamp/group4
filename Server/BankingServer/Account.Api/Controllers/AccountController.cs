@@ -13,6 +13,7 @@ namespace Account.Api.Controllers
         {
             _accountService = accountService;
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountInfoDTO>> GetAccountInfo(int id)
         {
