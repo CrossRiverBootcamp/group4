@@ -1,1 +1,13 @@
-<p>open-account works!</p>
+<h1>Open New Account</h1>
+
+<form [formGroup]="openAccountForm" (ngSubmit)="onSubmit()" novalidate >
+    <label>First Name</label><br>
+    <input formControlName="firstName" /><br>
+    <label>Last Name</label><br>
+    <input formControlName="lastName" /><br>
+    <label>Email</label><br>
+    <input formControlName="email" /> <br>
+    <label>Password</label><br>
+    <input type="password" formControlName="password" /><br>
+    <button type="submit" [disabled]="!openAccountForm.valid">Register</button>
+  </form>
