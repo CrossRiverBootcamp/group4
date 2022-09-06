@@ -25,6 +25,6 @@ namespace Account.DTO
 
         public DateTime OpenDate { get; set; }
 
-        public float Balance { get; set; }
+        public int Balance { get; set; }
     }
 }

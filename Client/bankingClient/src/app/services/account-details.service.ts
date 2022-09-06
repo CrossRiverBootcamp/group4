@@ -10,10 +10,11 @@ import { AccountInfo } from '../interfaces/AccountInfo';
 export class AccountDetailsService {
 
   public Login(loginDTO:Login):Observable<Number>{
-    return this.http.get<Number>("https://localhost:7248/api/Account");
+    return this.http.post<Number>("https://localhost:7248/api/Account",loginDTO);
   }
   public getAccountInfo(accountId: Number):Observable<AccountInfo>{
     return this.http.get<AccountInfo>(`https://localhost:7248/api/Account/${accountId}`);
   }
+
     constructor(private http: HttpClient) { }
   }

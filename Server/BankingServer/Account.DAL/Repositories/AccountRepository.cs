@@ -35,7 +35,7 @@ namespace Account.DAL.Repositories
             {
                 using var context = _factory.CreateDbContext();
                 await context.Accounts.AddAsync(account);
-                context.SaveChangesAsync();
+                await context.SaveChangesAsync();
             }
             catch
             {

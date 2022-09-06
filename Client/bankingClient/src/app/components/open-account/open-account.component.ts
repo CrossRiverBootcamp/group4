@@ -31,9 +31,13 @@ export class OpenAccountComponent implements OnInit {
   onSubmit(){
     const newCustomer:Customer= 
     Object.assign({},this.openAccountForm.value);
-    this.openService.openAccount(newCustomer);
     console.log(newCustomer);
+    this.openService.openAccount(newCustomer).subscribe(
+      success => {console.log(success)}
+      ,err=>console.log(err)
+    );
     this.openAccountForm.reset();
 
   }
+  
 }

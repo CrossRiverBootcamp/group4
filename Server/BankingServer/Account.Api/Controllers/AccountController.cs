@@ -26,7 +26,7 @@ namespace Account.Api.Controllers
             }
         }
         
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult<int>> Login([FromBody] LoginDTO loginDTO)
         {
             if (!ModelState.IsValid)

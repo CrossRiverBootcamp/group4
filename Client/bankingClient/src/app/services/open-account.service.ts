@@ -7,10 +7,9 @@ import { Customer } from '../interfaces/Customer';
   providedIn: 'root'
 })
 export class OpenAccountService {
-private baseUrl="https://localhost:7248/api/Customer";
   constructor( private http:HttpClient) { }
 
-  openAccount(newCustomer: Customer):Observable<any>{
-    return this.http.post(`${this.baseUrl}`,newCustomer)
+ public openAccount(newCustomer: Customer):Observable<boolean>{
+    return this.http.post<boolean>("https://localhost:7248/api/Customer",newCustomer);
   }
 }

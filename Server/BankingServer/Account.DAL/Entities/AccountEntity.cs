@@ -20,6 +20,6 @@ namespace Account.DAL.Entities
         [Required]
         public DateTime OpenDate { get; set; }
         [Required]
-        public float Balance { get; set; }
+        public int Balance { get; set; }
     }
 }
