@@ -17,7 +17,7 @@ namespace Account.DAL.Repositories
 
             using var context = _factory.CreateDbContext();
             //how can I get await in here with func ANY that returns bool?
-            return context.Customers.Any(c => c.Email.Equals(email));
+            return await context.Customers.AnyAsync(c => c.Email.Equals(email));
 
         }
 
