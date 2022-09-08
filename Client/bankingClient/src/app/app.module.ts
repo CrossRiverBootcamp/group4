@@ -21,13 +21,15 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     OpenAccountComponent,
-    AccountDetailsComponent
+    AccountDetailsComponent,
+    CreateTransactionComponent
   ],
   imports: [
     BrowserModule,

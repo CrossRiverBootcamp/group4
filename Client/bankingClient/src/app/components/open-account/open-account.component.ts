@@ -37,7 +37,7 @@ export class OpenAccountComponent implements OnInit {
       ,err=>console.log(err)
     );
     this.openAccountForm.reset();
-
+    
   }
   
 }
