@@ -2,7 +2,7 @@
 
 namespace Messages
 {
-    public class TransactionPayloaded :IEvent
+    public class TransactionPayload :ICommand
     {
         public Guid TransactionId { get; set; }
         public int FromAccount { get; set; }

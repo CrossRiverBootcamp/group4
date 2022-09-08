@@ -22,7 +22,7 @@ namespace Transaction.Services.Handler
         public async Task Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
             log.Info($"Received BalanceUpdated , did I have success?  {message.BalanceUpdatedSucceeded} ");
-            await _transaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
+            //await _transaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
             
         }
     }

@@ -13,7 +13,7 @@ namespace Transaction.Services.Mapping
     {
         public TransactionMap()
         {
-            CreateMap<TransactionDto, TransactionPayloaded>();
+            CreateMap<TransactionDto, TransactionPayload>();
         }
     }
 }

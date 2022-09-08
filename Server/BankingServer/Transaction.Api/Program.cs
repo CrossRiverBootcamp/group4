@@ -1,4 +1,5 @@
 
+using Messages;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using System.Data.SqlClient;
@@ -25,6 +26,8 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
     dialect.Schema("dbo");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
+    var routing = transport.Routing();
+    routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Transaction.NSB");
     transport.ConnectionString("host=localhost");
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
@@ -39,7 +42,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<TransactionDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
 builder.Services.AddScoped<ITransactionService, TransactionService>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-
+builder.Services.AddScoped<IUpdateTransactionStatusService, UpdateTransactionStatusService>();
+builder.Services.AddScoped<IUpdateTransactionStatusRepository, UpdateTransactionStatusRepository>();
 
 
 var app = builder.Build();

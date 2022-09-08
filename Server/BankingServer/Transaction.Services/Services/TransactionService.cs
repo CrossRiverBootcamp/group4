@@ -37,7 +37,7 @@ namespace Transaction.Services.Services
             transactionEntity.Id = Guid.NewGuid();
             await _transactionRepository.addTransaction(transactionEntity);
             TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
-            await messageSession.Publish(payload);
+            await messageSession.Send(payload);
             //if saga event failes return false
             return true;
         }

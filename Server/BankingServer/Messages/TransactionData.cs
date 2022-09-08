@@ -10,7 +10,8 @@ namespace Messages
     public class TransactionData : ContainSagaData
     {
         public Guid TransactionId { get; set; }
-        public bool IsTransactionFinished { get; set; }
-        public bool IsTransactionStatusUpdateCompleted { get; set; }
+        public bool GetCommandPayload { get; set; }
+
+        public bool IsBalanceUpdated { get; set; }
     }
 }
