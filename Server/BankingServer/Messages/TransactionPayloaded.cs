@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Messages
 {
-    public class TransactionData : ContainSagaData
+    public class TransactionPayloaded:IEvent
     {
         public Guid TransactionId { get; set; }
-        public bool GetEventPayload { get; set; }
-
-        public bool IsBalanceUpdated { get; set; }
+        public int FromAccount { get; set; }
+        public int ToAccount { get; set; }
+        public int Amount { get; set; }
     }
 }

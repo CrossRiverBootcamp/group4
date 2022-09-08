@@ -12,8 +12,8 @@ using Transaction.DAL.Entities;
 namespace Transaction.DAL.Migrations
 {
     [DbContext(typeof(TransactionDBContext))]
-    [Migration("20220908072345_changeIdToGuid")]
-    partial class changeIdToGuid
+    [Migration("20220908115837_initDB")]
+    partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

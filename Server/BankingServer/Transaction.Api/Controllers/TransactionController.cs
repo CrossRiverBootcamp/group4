@@ -18,7 +18,7 @@ namespace Transaction.Api.Controllers
             _messageSession = messageSession;
         }
         [HttpPost]
-        public async Task<ActionResult> CreateTransaction(TransactionDto transactionDto)
+        public async Task<ActionResult<bool>> CreateTransaction(TransactionDto transactionDto)
         {
             try
             {

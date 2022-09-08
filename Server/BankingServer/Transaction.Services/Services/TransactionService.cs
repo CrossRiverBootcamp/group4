@@ -31,15 +31,22 @@ namespace Transaction.Services.Services
         }
         public async Task<bool> SendTransaction(TransactionDto transactionDto, IMessageSession messageSession)
         {
-            TransactionEntity transactionEntity = _mapper.Map<TransactionEntity>(transactionDto);
-            transactionEntity.DateOfTransaction = DateTime.UtcNow;
-            transactionEntity.Status = DAL.TransactionStatus.Processing;
-            transactionEntity.Id = Guid.NewGuid();
-            await _transactionRepository.addTransaction(transactionEntity);
-            TransactionPayload payload = _mapper.Map<TransactionPayload>(transactionEntity);
-            await messageSession.Send(payload);
-            //if saga event failes return false
-            return true;
+            try
+            {
+                TransactionEntity transactionEntity = _mapper.Map<TransactionEntity>(transactionDto);
+                transactionEntity.DateOfTransaction = DateTime.UtcNow;
+                transactionEntity.Status = DAL.TransactionStatus.Processing;
+                transactionEntity.Id = Guid.NewGuid();
+                await _transactionRepository.addTransaction(transactionEntity);
+                TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
+                await messageSession.Publish(payload);
+                //if saga event failes should return false
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
     }

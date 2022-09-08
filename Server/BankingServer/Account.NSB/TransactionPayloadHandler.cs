@@ -29,16 +29,22 @@ namespace Account.NSB
                 {
                     await _accountSagaService.UpdateBalance(message.FromAccount, message.ToAccount, message.Amount);
                     balanceUpdated.BalanceUpdatedSucceeded = true;
+                    log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
+
                 }
                 catch
                 {
                     balanceUpdated.BalanceUpdatedSucceeded = false;
+                    log.Info($"Received TransactionPayload command didnt updat, TransactionId = {message.TransactionId} ...");
+
                 }
 
             }
             else
             {
                 balanceUpdated.BalanceUpdatedSucceeded = false;
+                log.Info($"Received TransactionPayload command didnt updat, TransactionId = {message.TransactionId} ...");
+
             }
             await context.Publish(balanceUpdated);
         }
