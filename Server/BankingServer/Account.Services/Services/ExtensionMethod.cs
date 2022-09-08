@@ -9,16 +9,18 @@ using Account.DAL.Entities;
 using Account.Services.Services;
 using Account.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 
 namespace Account.Services.Services
 {
     public class ExtensionMethod
     {
-        public void ExtensionDI(WebApplicationBuilder builder)
+        public static void ExtensionDI(IServiceCollection service,string connectionString)
         {
-            builder.Services.AddDbContextFactory<AccountDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
-            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-            builder.Services.AddScoped<IAccountService, AccountService>();
+          service.AddDbContextFactory<AccountDBContext>(item=>item.UseSqlServer(connectionString));
+          service.AddScoped<IAccountRepository, AccountRepository>();
+          service.AddScoped<IAccountService, AccountService>();
 
         }
     }
