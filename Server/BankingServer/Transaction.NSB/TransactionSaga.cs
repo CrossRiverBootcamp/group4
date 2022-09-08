@@ -28,7 +28,7 @@ namespace Transaction.NSB
             //balanceUpdated.TransactionId = message.TransactionId;
             //Data.IsTransactionFinished = true;
             await context.Send(message);
-            await ProccessTransaction(context);
+            //await ProccessTransaction(context);
         }
         //public async Task Handle(TransactionStatusUpdateCompleted message, IMessageHandlerContext context)
         //{
@@ -39,6 +39,7 @@ namespace Transaction.NSB
         public async Task Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
             await _updateTransaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
+            MarkAsComplete();
         }
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionData> mapper)
         {
@@ -48,15 +49,15 @@ namespace Transaction.NSB
             mapper.MapSaga(sagaData => sagaData.TransactionId)
                 .ToMessage<BalanceUpdated>(message => message.TransactionId);
         }
-        private async Task ProccessTransaction(IMessageHandlerContext context)
-        {
-            if (Data.IsTransactionFinished && Data.IsTransactionStatusUpdateCompleted)
-            {
-                //subscriber.Status = SubscriberStatus.Succeeded;
-                //await context.Publish(subscriber);
-                MarkAsComplete();
-            }
-        }
+        //private async Task ProccessTransaction(IMessageHandlerContext context)
+        //{
+        //    if (Data.IsTransactionFinished && Data.IsTransactionStatusUpdateCompleted)
+        //    {
+        //        //subscriber.Status = SubscriberStatus.Succeeded;
+        //        //await context.Publish(subscriber);
+                
+        //    }
+        //}
 
 
     }

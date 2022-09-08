@@ -1,5 +1,6 @@
 ﻿using Messages;
 using NServiceBus;
+using System.Data.SqlClient;
 
 class Program
 {

@@ -36,7 +36,7 @@ namespace Transaction.Services.Services
             transactionEntity.Status = DAL.TransactionStatus.Processing;
             transactionEntity.Id = Guid.NewGuid();
             await _transactionRepository.addTransaction(transactionEntity);
-            TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
+            TransactionPayload payload = _mapper.Map<TransactionPayload>(transactionEntity);
             await messageSession.Send(payload);
             //if saga event failes return false
             return true;

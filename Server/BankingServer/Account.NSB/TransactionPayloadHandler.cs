@@ -14,19 +14,20 @@ namespace Account.NSB
     {
         private readonly IAccountSagaService _accountSagaService;
         static ILog log = LogManager.GetLogger<TransactionPayloadHandler>();
+        static BalanceUpdated balanceUpdated = new();
         public TransactionPayloadHandler(IAccountSagaService accountSagaService)
         {
             _accountSagaService = accountSagaService;
         }
         
-        public Task Handle(TransactionPayload message, IMessageHandlerContext context)
+        public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
-            if (await _accountSagaRepository.CheckIdValid(message.FromAccount) && await _accountSagaRepository.CheckIdValid(message.ToAccount)
-                && await _accountSagaRepository.CheckBalance(message.FromAccount, message.Amount))
+            if (await _accountSagaService.CheckIdValid(message.FromAccount) && await _accountSagaService.CheckIdValid(message.ToAccount)
+                && await _accountSagaService.CheckBalance(message.FromAccount, message.Amount))
             {
                 try
                 {
-                    await _accountSagaRepository.UpdateBalance(message.FromAccount, message.ToAccount, message.Amount);
+                    await _accountSagaService.UpdateBalance(message.FromAccount, message.ToAccount, message.Amount);
                     balanceUpdated.BalanceUpdatedSucceeded = true;
                 }
                 catch
@@ -39,6 +40,7 @@ namespace Account.NSB
             {
                 balanceUpdated.BalanceUpdatedSucceeded = false;
             }
+            await context.Publish(balanceUpdated);
         }
     }
 }
