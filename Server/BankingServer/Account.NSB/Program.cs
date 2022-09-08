@@ -11,9 +11,9 @@ class Program
     {
         Console.Title = "Account.NSB";
         var endpointConfiguration = new EndpointConfiguration("Account.NSB");
-        //var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
-        //containerSettings.ServiceCollection.AddScoped<IAccountSagaService, AccountSagaService>();
-        //containerSettings.ServiceCollection.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
+        var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddScoped<IAccountSagaService, AccountSagaService>();
+        containerSettings.ServiceCollection.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
         endpointConfiguration.EnableOutbox();
         endpointConfiguration.EnableInstallers();
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
