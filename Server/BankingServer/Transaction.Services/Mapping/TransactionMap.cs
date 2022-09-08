@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Transaction.DAL.Entities;
 using Transaction.DTO;
 
 namespace Transaction.Services.Mapping
@@ -13,7 +14,11 @@ namespace Transaction.Services.Mapping
     {
         public TransactionMap()
         {
-            CreateMap<TransactionDto, TransactionPayload>();
+            CreateMap<TransactionDto, TransactionPayload>().ReverseMap();
+            CreateMap<TransactionEntity, TransactionPayloaded>().ReverseMap();
+
+            CreateMap<TransactionPayloaded, TransactionPayload>().ReverseMap();
+            
         }
     }
 }

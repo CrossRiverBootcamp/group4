@@ -18,13 +18,14 @@ namespace Transaction.DAL.Entities
         [Required]
         public int ToAccountId { get; set; }
         [Required]
-        [Range(1,100000000)]
+        [Range(1, 100000000)]
         public int Amount { get; set; }
         [Required]
         public DateTime DateOfTransaction { get; set; }
         [Required]
         public TransactionStatus Status { get; set; }
-        public string FailureReason { get; set; }
+        
+        public string? FailureReason { get; set; }
 
 
     }

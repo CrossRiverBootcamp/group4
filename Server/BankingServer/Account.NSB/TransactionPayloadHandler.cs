@@ -22,12 +22,12 @@ namespace Account.NSB
         
         public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
-            if (await _accountSagaService.CheckIdValid(message.FromAccount) && await _accountSagaService.CheckIdValid(message.ToAccount)
-                && await _accountSagaService.CheckBalance(message.FromAccount, message.Amount))
+            if (await _accountSagaService.CheckIdValid(message.FromAccountId) && await _accountSagaService.CheckIdValid(message.ToAccountId)
+                && await _accountSagaService.CheckBalance(message.FromAccountId, message.Amount))
             {
                 try
                 {
-                    await _accountSagaService.UpdateBalance(message.FromAccount, message.ToAccount, message.Amount);
+                    await _accountSagaService.UpdateBalance(message.FromAccountId, message.ToAccountId, message.Amount);
                     balanceUpdated.BalanceUpdatedSucceeded = true;
                     log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
 
