@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AccountDetailsService } from 'src/app/services/account-details.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class AccountDetailsComponent implements OnInit{
   public lastName:string='';
   public openDate:Date = new Date();
 
-  constructor(private accountService: AccountDetailsService, private activatedroute: ActivatedRoute) { 
+  constructor(private accountService: AccountDetailsService, private activatedroute: ActivatedRoute,private router: Router) { 
   }
   ngOnInit(){
     this.activatedroute.params.subscribe(params=> {
@@ -33,5 +33,8 @@ export class AccountDetailsComponent implements OnInit{
       this.openDate = account.openDate;
     },err=>console.log(err)
     );
+}
+routeWithData(){
+  this.router.navigate(['/NewTransaction', {accountId: this.accountId}]);
 }
 }

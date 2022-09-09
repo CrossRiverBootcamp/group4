@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { CustomButton } from '@okta/okta-signin-widget';
-import { Customer } from 'src/app/interfaces/Customer';
+import { Customer } from 'src/app/models/Customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 
 @Component({

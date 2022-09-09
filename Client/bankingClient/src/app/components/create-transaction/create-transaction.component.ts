@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Transaction } from 'src/app/interfaces/Transaction';
+import { ActivatedRoute } from '@angular/router';
+import { Transaction } from 'src/app/models/Transaction';
 import { CreateTransactionService } from 'src/app/services/create-transaction.service';
 
 @Component({
@@ -15,13 +16,30 @@ export class CreateTransactionComponent implements OnInit {
    amount?:Number;
    transaction?:Transaction;
    
-  constructor(private createTransactionService:CreateTransactionService) { }
+  constructor(private createTransactionService:CreateTransactionService,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-  }
-
+    this.accountIdFrom = this.route
+    .data
+    .subscribe(v => console.log(v)
+    ,err=>console.log(err)
+    );
+}
+  
   public onSubmit():void {
-     
+     this.formValid = true;
+     this.transaction = {
+      accountIdFrom:this.accountIdFrom,
+      accountIdTo:this.accountIdTo,
+      amount:this.amount
+     }
+     this.createTransactionService.createNewTransaction(this.transaction)
+     .subscribe(a=>console.log(a),
+     err=>console.log(err));
   }
 
+  
+    ngOnDestroy() {
+      this.sub.unsubscribe();
+    }
 }

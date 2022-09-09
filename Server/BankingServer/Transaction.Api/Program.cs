@@ -21,7 +21,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
     {
-        return new SqlConnection(builder.Configuration.GetConnectionString("MyPersistenceCon"));
+        return new SqlConnection(/*builder.Configuration.GetConnectionString("myPersistenceCon")*/ @"Data Source=.;Initial Catalog=BankPersistence;Integrated Security=True");
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
     persistence.TablePrefix("Transaction");

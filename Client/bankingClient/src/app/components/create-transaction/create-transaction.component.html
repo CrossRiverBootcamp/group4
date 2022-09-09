@@ -9,7 +9,7 @@
             </mat-error>
           </mat-form-field>
         <mat-form-field>
-          <input matInput type="number" placeholder="Amount" [(ngModel)]="amount" name="amount" required>
+          <input matInput type="number" max="1000000" placeholder="Amount" [(ngModel)]="amount" name="amount" required>
           <mat-error>
             Please provide a valid amount
           </mat-error>
