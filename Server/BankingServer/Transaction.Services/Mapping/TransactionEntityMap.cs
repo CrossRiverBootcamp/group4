@@ -13,7 +13,7 @@ namespace Transaction.Services.Mapping
     {
         public TransactionEntityMap()
         {
-            CreateMap<TransactionDto, TransactionEntity>();
+            CreateMap<TransactionDto, TransactionEntity>().ReverseMap();
         }
     }
 }

@@ -1,4 +1,9 @@
-﻿using NServiceBus;
+﻿using Account.DAL.Interfaces;
+using Account.DAL.Repositories;
+using Account.Services.Interfaces;
+using Account.Services.Services;
+using Microsoft.Extensions.DependencyInjection;
+using NServiceBus;
 using System.Data.SqlClient;
 class Program
 {
@@ -6,12 +11,15 @@ class Program
     {
         Console.Title = "Account.NSB";
         var endpointConfiguration = new EndpointConfiguration("Account.NSB");
+        var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddScoped<IAccountSagaService, AccountSagaService>();
+        containerSettings.ServiceCollection.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
         endpointConfiguration.EnableOutbox();
         endpointConfiguration.EnableInstallers();
         var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
         transport.UseConventionalRoutingTopology(QueueType.Quorum);
         transport.ConnectionString("host=localhost");
-        var connection = @"Data Source=.;Initial Catalog=BankPersistence;Integrated Security=True";
+        var connection = @"Data Source=DESKTOP-0OR8G5P\ADINA;Initial Catalog=BankPersistence;Integrated Security=True";
         var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
         //var subscriptions = persistence.SubscriptionSettings();
         //subscriptions.CacheFor(TimeSpan.FromMinutes(1));
@@ -23,7 +31,9 @@ class Program
         var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
         dialect.Schema("dbo");
         persistence.TablePrefix("Account");
+        
         var endpointInstance = await Endpoint.Start(endpointConfiguration);
+       
         Console.WriteLine("Press Enter to exit.");
         Console.ReadLine();
         await endpointInstance.Stop();
