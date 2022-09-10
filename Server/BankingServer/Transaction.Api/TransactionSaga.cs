@@ -1,4 +1,5 @@
-﻿using Messages;
+﻿using AutoMapper;
+using Messages;
 using NServiceBus;
 using NServiceBus.Logging;
 using System;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transaction.Services.Interfaces;
+using Transaction.Services.Mapping;
 
 namespace Transaction.Api
 {
@@ -15,17 +17,24 @@ namespace Transaction.Api
         IHandleMessages<BalanceUpdated>
     {
         private readonly IUpdateTransactionStatusService _updateTransaction;
+        private readonly IMapper _mapper;
+
         public TransactionSaga(IUpdateTransactionStatusService updateTransaction)
         {
             _updateTransaction = updateTransaction;
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile<TransactionMap>();
+            });
+            _mapper = config.CreateMapper();
         }
         static BalanceUpdated balanceUpdated = new();
         static ILog log = LogManager.GetLogger<TransactionSaga>();
         public async Task Handle(TransactionPayloaded message, IMessageHandlerContext context)
         {
             log.Info($"Received TransactionPayloaded, TransactionId = {message.TransactionId} ...");
-           
-            await context.Send(message);
+            TransactionPayload transaction = _mapper.Map<TransactionPayload>(message);
+            await context.Send(transaction);
             Data.GetEventPayload = true;
             //await ProccessTransaction(context);
         }

@@ -35,7 +35,7 @@ namespace Account.NSB
                 catch
                 {
                     balanceUpdated.BalanceUpdatedSucceeded = false;
-                    log.Info($"Received TransactionPayload command didnt updat, TransactionId = {message.TransactionId} ...");
+                    log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
 
                 }
 
@@ -43,7 +43,7 @@ namespace Account.NSB
             else
             {
                 balanceUpdated.BalanceUpdatedSucceeded = false;
-                log.Info($"Received TransactionPayload command didnt updat, TransactionId = {message.TransactionId} ...");
+                log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
 
             }
             await context.Publish(balanceUpdated);

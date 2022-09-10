@@ -1,7 +1,9 @@
-﻿using Account.DAL.Interfaces;
+﻿using Account.DAL.Entities;
+using Account.DAL.Interfaces;
 using Account.DAL.Repositories;
 using Account.Services.Interfaces;
 using Account.Services.Services;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NServiceBus;
 using System.Data.SqlClient;
@@ -12,6 +14,7 @@ class Program
         Console.Title = "Account.NSB";
         var endpointConfiguration = new EndpointConfiguration("Account.NSB");
         var containerSettings = endpointConfiguration.UseContainer(new DefaultServiceProviderFactory());
+        containerSettings.ServiceCollection.AddDbContext<AccountDBContext>(item => item.UseSqlServer("server=DESKTOP-0OR8G5P\\ADINA; database=AccountDb;Trusted_Connection=True;"));
         containerSettings.ServiceCollection.AddScoped<IAccountSagaService, AccountSagaService>();
         containerSettings.ServiceCollection.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
         endpointConfiguration.EnableOutbox();
