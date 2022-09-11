@@ -11,6 +11,7 @@ namespace Account.DAL.Interfaces
     {
         Task AddToHistoryTable(OperationEntity opEntityFrom, OperationEntity opEntityTo);
         Task<int> GetAccountBalanceByAccountID(int id);
+        Task<int>  GetOtherSideId(Guid transactionId, int accountId);
         Task<List<OperationEntity>> GetOperationsByAccountId(int id);
     }
 }

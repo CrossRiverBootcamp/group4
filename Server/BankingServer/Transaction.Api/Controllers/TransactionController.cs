@@ -22,7 +22,7 @@ namespace Transaction.Api.Controllers
         {
             try
             {
-                var result = _transactionService.SendTransaction(transactionDto, _messageSession);
+                var result =await _transactionService.SendTransaction(transactionDto, _messageSession);
                 return Ok(result);
             }
             catch
