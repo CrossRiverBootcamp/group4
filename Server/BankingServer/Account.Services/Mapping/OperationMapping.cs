@@ -1,6 +1,7 @@
 ﻿using Account.DAL.Entities;
 using Account.DTO;
 using AutoMapper;
+using Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,9 @@ namespace Account.Services.Mapping
         public OperationMapping()
         {
             CreateMap<OperationEntity, OperationDto>().ReverseMap();
+            CreateMap<OperationMapDTO, OperationEntity>()
+                   .ForMember(dest => dest.OperationTime, opt => opt.MapFrom(src => src.DateOfTransaction))
+                .ReverseMap();
         }
-       
     }
 }

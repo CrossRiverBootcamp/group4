@@ -15,7 +15,7 @@ namespace Account.DAL.Entities
         [Required]
         public int AccountId{ get; set; }
         [Required]
-        public string TransactionId{ get; set; }
+        public Guid TransactionId{ get; set; }
         [Required]
         public bool DebitOrCredit { get; set; }
         [Required]

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Account.DAL\Account.DAL.csproj" />
     <ProjectReference Include="..\Account.DTO\Account.DTO.csproj" />
+    <ProjectReference Include="..\Messages\Messages.csproj" />
   </ItemGroup>
 
   <ItemGroup>

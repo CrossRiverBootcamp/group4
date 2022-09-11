@@ -13,13 +13,15 @@ namespace Account.Api
     public class TransactionPayloadHandler : IHandleMessages<TransactionPayload>
     {
         private readonly IAccountSagaService _accountSagaService;
+        private readonly IOperationService _operationService;
         static ILog log = LogManager.GetLogger<TransactionPayloadHandler>();
         static BalanceUpdated balanceUpdated = new();
-        public TransactionPayloadHandler(IAccountSagaService accountSagaService)
+        public TransactionPayloadHandler(IAccountSagaService accountSagaService, IOperationService operationService)
         {
             _accountSagaService = accountSagaService;
+            _operationService = operationService;
         }
-        
+
         public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
             log.Info($"in Account handler, TransactionId = {message.TransactionId} ...");
@@ -30,6 +32,17 @@ namespace Account.Api
                 {
                     await _accountSagaService.UpdateBalance(message.FromAccountId, message.ToAccountId, message.Amount);
                     balanceUpdated.BalanceUpdatedSucceeded = true;
+                    try
+                    {
+                        await _operationService.AddToHistoryTable(message);
+                        log.Info($"manage to add to history table, TransactionId = {message.TransactionId} ...");
+
+                    }
+                    catch
+                    {
+                        log.Info($"failed to add to history table, TransactionId = {message.TransactionId} ...");
+
+                    }
                     log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
 
                 }
