@@ -21,7 +21,8 @@ namespace Account.Services.Services
           service.AddDbContextFactory<AccountDBContext>(item=>item.UseSqlServer(connectionString));
           service.AddScoped<IAccountRepository, AccountRepository>();
           service.AddScoped<IAccountService, AccountService>();
-         
+          service.AddScoped<IAccountSagaService, AccountSagaService>();
+          service.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
 
         }
     }

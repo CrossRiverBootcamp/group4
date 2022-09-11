@@ -35,6 +35,6 @@ export class AccountDetailsComponent implements OnInit{
     );
 }
 routeWithData(){
-  this.router.navigate(['/NewTransaction', {accountId: this.accountId}]);
+  this.router.navigate(['/NewTransaction'],{state: {accountId: this.accountId}});
 }
 }

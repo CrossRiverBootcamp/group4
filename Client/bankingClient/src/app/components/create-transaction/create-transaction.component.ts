@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Transaction } from 'src/app/models/Transaction';
 import { CreateTransactionService } from 'src/app/services/create-transaction.service';
 
@@ -16,14 +16,13 @@ export class CreateTransactionComponent implements OnInit {
    amount?:Number;
    transaction?:Transaction;
    
-  constructor(private createTransactionService:CreateTransactionService,private route: ActivatedRoute) { }
+  constructor(private createTransactionService:CreateTransactionService,private router: Router) {
+    
+   }
 
   ngOnInit(): void {
-    this.accountIdFrom = this.route
-    .data
-    .subscribe(v => console.log(v)
-    ,err=>console.log(err)
-    );
+    const state = this.router.getCurrentNavigation().extras.state;
+    this.accountIdFrom = state['accountId'];
 }
   
   public onSubmit():void {

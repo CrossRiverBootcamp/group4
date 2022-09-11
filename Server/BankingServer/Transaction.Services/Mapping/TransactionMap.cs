@@ -15,7 +15,8 @@ namespace Transaction.Services.Mapping
         public TransactionMap()
         {
             CreateMap<TransactionDto, TransactionPayload>().ReverseMap();
-            CreateMap<TransactionEntity, TransactionPayloaded>().ReverseMap();
+            CreateMap<TransactionEntity, TransactionPayloaded>()
+                .ForMember(dest => dest.TransactionId, opt => opt.MapFrom(src => src.Id)).ReverseMap();
 
             CreateMap<TransactionPayloaded, TransactionPayload>().ReverseMap();
             

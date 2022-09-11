@@ -21,14 +21,14 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
     {
-        return new SqlConnection(/*builder.Configuration.GetConnectionString("myPersistenceCon")*/ @"Data Source=.;Initial Catalog=BankPersistence;Integrated Security=True");
+        return new SqlConnection(builder.Configuration.GetConnectionString("myPersistenceCon"));
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
     persistence.TablePrefix("Transaction");
     dialect.Schema("dbo");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     var routing = transport.Routing();
-    routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Account.NSB");
+    routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Account.Api");
     transport.ConnectionString("host=localhost");
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;

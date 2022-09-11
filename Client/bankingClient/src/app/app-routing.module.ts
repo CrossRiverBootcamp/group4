@@ -22,8 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'NewTransaction',
-    component: CreateTransactionComponent,
-    data: {accountId: 'accountId'}
+    component: CreateTransactionComponent
   }
 ];
 
