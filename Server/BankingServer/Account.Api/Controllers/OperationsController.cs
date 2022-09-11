@@ -15,11 +15,11 @@ namespace Account.Api.Controllers
             _operationService = operationService;
         }
         [HttpGet]
-        public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId)
+        public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId, bool sortByDateDesc)
         {
             try
             {
-                List<OperationDto> operations = await _operationService.GetOperationsByAccountId(accountId);
+                List<OperationDto> operations = await _operationService.GetOperationsByAccountId(accountId,sortByDateDesc);
                 return operations;
             }
             catch(Exception ex)
