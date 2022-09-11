@@ -23,6 +23,10 @@ namespace Account.Services.Services
           service.AddScoped<IAccountService, AccountService>();
           service.AddScoped<IAccountSagaService, AccountSagaService>();
           service.AddScoped<IAccountSagaRepository, AccountSagaRepository>();
+          service.AddScoped<IOperationService, OperationService>();
+          service.AddScoped<IOperationRepository, OperationRepository>();
+
+
 
         }
     }
