@@ -25,8 +25,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transaction.Services", "Tra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Messages", "Messages\Messages.csproj", "{76D0AF15-442B-47A4-B625-76CD2E2FAEB9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.NSB", "Account.NSB\Account.NSB.csproj", "{967D2BBB-A510-428E-9042-7E81F910B0E8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,10 +67,6 @@ Global
 		{76D0AF15-442B-47A4-B625-76CD2E2FAEB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76D0AF15-442B-47A4-B625-76CD2E2FAEB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76D0AF15-442B-47A4-B625-76CD2E2FAEB9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{967D2BBB-A510-428E-9042-7E81F910B0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{967D2BBB-A510-428E-9042-7E81F910B0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{967D2BBB-A510-428E-9042-7E81F910B0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{967D2BBB-A510-428E-9042-7E81F910B0E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -86,7 +80,6 @@ Global
 		{750A4E23-CEE7-41B2-9213-836327C4E437} = {20B620F5-493D-4029-88AA-49A164574153}
 		{472932E2-67BF-4EAF-8CE6-56C9E9082C4A} = {20B620F5-493D-4029-88AA-49A164574153}
 		{ABB47FB8-1628-4A12-BC10-021249B55FA0} = {20B620F5-493D-4029-88AA-49A164574153}
-		{967D2BBB-A510-428E-9042-7E81F910B0E8} = {C052B651-A4E9-46E4-B0BD-36FD766DCA04}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {170CD48B-C19C-4685-AEFC-B82B7C56A774}
