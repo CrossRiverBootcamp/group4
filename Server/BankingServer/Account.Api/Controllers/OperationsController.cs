@@ -1,4 +1,5 @@
 ﻿using Account.DTO;
+using Account.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,18 +9,27 @@ namespace Account.Api.Controllers
     [ApiController]
     public class OperationsController : ControllerBase
     {
-        public OperationsController()
+        private readonly IOperationService _operationService;
+        public OperationsController(IOperationService operationService)
         {
-
+            _operationService = operationService;
         }
-        //[HttpGet]
-        //public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId)
-        //{
+        [HttpGet]
+        public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId, bool sortByDateDesc)
+        {
+            try
+            {
+                List<OperationDto> operations = await _operationService.GetOperationsByAccountId(accountId,sortByDateDesc);
+                return operations;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Could not get operations",ex);
+            }
+        }
 
-        //}
-        
 
-        
+
 
 
     }
