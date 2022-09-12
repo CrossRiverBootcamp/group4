@@ -40,11 +40,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContextFactory<TransactionDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myContextCon")));
-builder.Services.AddScoped<ITransactionService, TransactionService>();
-builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-builder.Services.AddScoped<IUpdateTransactionStatusService, UpdateTransactionStatusService>();
-builder.Services.AddScoped<IUpdateTransactionStatusRepository, UpdateTransactionStatusRepository>();
+ExtensionMethod.ExtensionDI(builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
+//builder.Services.AddDbContextFactory<TransactionDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myContextCon")));
+//builder.Services.AddScoped<ITransactionService, TransactionService>();
+//builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+//builder.Services.AddScoped<IUpdateTransactionStatusService, UpdateTransactionStatusService>();
+//builder.Services.AddScoped<IUpdateTransactionStatusRepository, UpdateTransactionStatusRepository>();
 
 
 
