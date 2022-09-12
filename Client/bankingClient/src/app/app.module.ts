@@ -22,8 +22,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
-import { HistoriyComponent } from './components/historiy/historiy.component';
+import { historyComponent } from './components/history/history.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { TransactionDetailsComponent } from './components/transaction-details/tr
     OpenAccountComponent,
     AccountDetailsComponent,
     CreateTransactionComponent,
-    HistoriyComponent,
+    historyComponent,
     TransactionDetailsComponent
   ],
   imports: [
@@ -53,7 +55,9 @@ import { TransactionDetailsComponent } from './components/transaction-details/tr
     MatSlideToggleModule,
     MatSelectModule,
     MatOptionModule,
-    RouterTestingModule
+    RouterTestingModule,
+    MatPaginatorModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent]

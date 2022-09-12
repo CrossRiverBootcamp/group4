@@ -9,7 +9,7 @@ import { Operation } from '../models/Operation';
 export class HistoryService {
 
   constructor(private http:HttpClient) { }
-  public getAllOperations():Observable<Operation[]>{
+  public getAllOperations(accountId:Number , isChecked:Boolean ):Observable<Operation[]>{
     return this.http.get<Operation[]>("https://localhost:7248/api/Operation");//id and bool
 }
 }

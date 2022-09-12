@@ -53,38 +53,37 @@ namespace Account.Services.Services
 
         public async Task<List<OperationDto>> GetOperationsByAccountId(int id, bool sortByDateDesc)
         {
-            List<OperationEntity> operationsEnitity = await _operationRepository.GetOperationsByAccountId(id);
-            var operationsDto = new List<OperationDto>();
-            foreach (var operation in operationsEnitity)
-            {
-                try
-                {
-                    operationsDto.Add(await MapToOperationDto(operation));
-                }
-                catch
-                {
-                    //dont add
-                }
-            }
+
+            List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountId(id);
+            List<OperationDto>  operationsListDTO =await MapToOperationDto(operationList);
             if (sortByDateDesc)
-                return sortOperations(operationsDto);
-            return operationsDto;
+                return sortOperations(operationsListDTO);
+            return operationsListDTO;
 
         }
-        public async Task<OperationDto> MapToOperationDto(OperationEntity operation)
+        public async Task<List<OperationDto>> MapToOperationDto(List<OperationEntity> operations)
         {
-            OperationDto operationDto = _mapper.Map<OperationDto>(operation);
-            operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
-            return operationDto;
+            List<OperationDto> operationDtoList = new();
+            foreach(OperationEntity operation in operations)
+            {
+                OperationDto operationDto = _mapper.Map<OperationDto>(operation);
+                operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
+                operationDtoList.Add(operationDto);
+            }
+            return operationDtoList;
         }
         public List<OperationDto> sortOperations(List<OperationDto> operationsDto)
         {
             operationsDto.Sort((x, y) => DateTime.Compare(x.OperationTime, y.OperationTime));
             return operationsDto;
         }
-        public Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
         {
-            throw new NotImplementedException();
+            List<OperationEntity> operationList = await _operationRepository.getOpertaionsByFilterPage(accountId, pageNumber, numOfRecrds);
+            List<OperationDto> operationsListDTO = await MapToOperationDto(operationList);
+            if (sortByDateDesc)
+                return sortOperations(operationsListDTO);
+            return operationsListDTO;
         }
     }
 }

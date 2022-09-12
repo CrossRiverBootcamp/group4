@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
-import { HistoriyComponent } from './components/historiy/historiy.component';
+import { historyComponent } from './components/history/history.component';
 import { LoginComponent } from './components/login/login.component';
 import { OpenAccountComponent } from './components/open-account/open-account.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: 'history',
-    component: HistoriyComponent
+    component: historyComponent
   },
   {
     path: 'transactionDetails',

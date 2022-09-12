@@ -34,9 +34,18 @@ namespace Account.DAL.Repositories
         public async Task<List<OperationEntity>> GetOperationsByAccountId(int id)
         {
             using var context = _factory.CreateDbContext();
-            //Need to make async
-            var operations = context.Operations.ToList().FindAll(operation => operation.AccountId == id);
+            var operations =await context.Operations.Where(operation => operation.AccountId == id).ToListAsync();
             return operations;
+        }
+
+        public async Task<List<OperationEntity>> getOpertaionsByFilterPage(int accountId, int pageNumber, int numOfRecrds)
+        {
+            using var context = _factory.CreateDbContext();
+            //int count = await context.Operations.CountAsync(operation => operation.AccountId == accountId);
+            List<OperationEntity> operationList = await context.Operations
+                .Where(operation => operation.AccountId == accountId)
+                .Skip((pageNumber - 1) * numOfRecrds + 1).Take(numOfRecrds).ToListAsync();
+            return operationList;
         }
 
         public async Task<int> GetOtherSideId(Guid transactionId, int accountId)
