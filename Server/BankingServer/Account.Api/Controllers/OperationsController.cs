@@ -14,7 +14,7 @@ namespace Account.Api.Controllers
         {
             _operationService = operationService;
         }
-        [HttpGet]
+        [HttpGet("id")]
         public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId, bool sortByDateDesc)
         {
             try
@@ -28,12 +28,12 @@ namespace Account.Api.Controllers
             }
         }
 
-        [HttpGet("{id}")]
-        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        [HttpGet("filter")]
+        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecords)
         {
             try
             {
-                List<OperationDto> operations = await _operationService.getOpertaionsByFilterPage(accountId, sortByDateDesc,pageNumber,numOfRecrds);
+                List<OperationDto> operations = await _operationService.getOpertaionsByFilterPage(accountId, sortByDateDesc,pageNumber,numOfRecords);
                 return operations;
             }
             catch (Exception ex)
@@ -41,7 +41,18 @@ namespace Account.Api.Controllers
                 throw new Exception("Could not get operations", ex);
             }
         }
-
+        [HttpGet("count")]
+        public async Task<int> getOpertaionsByFilterPage(int accountId)
+        {
+            try
+            {
+                return await _operationService.countOpertaionsById(accountId);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not get operations", ex);
+            }
+        }
 
 
     }

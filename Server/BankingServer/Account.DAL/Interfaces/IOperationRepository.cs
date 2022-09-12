@@ -14,5 +14,6 @@ namespace Account.DAL.Interfaces
         Task<int>  GetOtherSideId(Guid transactionId, int accountId);
         Task<List<OperationEntity>> GetOperationsByAccountId(int id);
         Task<List<OperationEntity>> getOpertaionsByFilterPage(int accountId,int pageNumber,int numOfRecrds);
+        Task<int> countOpertaionsById(int accountId);
     }
 }

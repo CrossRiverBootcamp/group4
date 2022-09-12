@@ -85,5 +85,10 @@ namespace Account.Services.Services
                 return sortOperations(operationsListDTO);
             return operationsListDTO;
         }
+
+        public async Task<int> countOpertaionsById(int accountId)
+        {
+           await _operationRepository.countOpertaionsById(accountId);
+        }
     }
 }

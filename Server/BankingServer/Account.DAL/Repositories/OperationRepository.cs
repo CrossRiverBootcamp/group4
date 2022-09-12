@@ -24,6 +24,12 @@ namespace Account.DAL.Repositories
             await context.SaveChangesAsync();
         }
 
+        public async Task<int> countOpertaionsById(int accountId)
+        {
+            using var context = _factory.CreateDbContext();
+            return await context.Operations.CountAsync(operation => operation.AccountId == accountId);
+        }
+
         public async Task<int> GetAccountBalanceByAccountID(int id)
         {
             using var context = _factory.CreateDbContext();
@@ -41,7 +47,6 @@ namespace Account.DAL.Repositories
         public async Task<List<OperationEntity>> getOpertaionsByFilterPage(int accountId, int pageNumber, int numOfRecrds)
         {
             using var context = _factory.CreateDbContext();
-            //int count = await context.Operations.CountAsync(operation => operation.AccountId == accountId);
             List<OperationEntity> operationList = await context.Operations
                 .Where(operation => operation.AccountId == accountId)
                 .Skip((pageNumber - 1) * numOfRecrds + 1).Take(numOfRecrds).ToListAsync();

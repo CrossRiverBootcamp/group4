@@ -8,7 +8,7 @@ import { AccountDetailsComponent } from './components/account-details/account-de
 import { LoginComponent } from './components/login/login.component';
 import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule,ReactiveFormsModule  } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
@@ -24,8 +24,9 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
 import { historyComponent } from './components/history/history.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatPaginatorIntlCro } from './services/MatPaginatorIntlCro';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,10 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatPaginatorModule,
     MatCheckboxModule
   ],
-  providers: [],
+  providers: [{
+    provide: MatPaginatorIntl,
+    useClass: MatPaginatorIntlCro
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -13,6 +13,6 @@ namespace Account.Services.Interfaces
         Task AddToHistoryTable(TransactionPayload message);
         Task<List<OperationDto>> GetOperationsByAccountId(int id,bool sortByDateDesc);
         Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc,int pageNumber,int numOfRecrds);
-
+        Task<int> countOpertaionsById(int accountId);
     }
 }
