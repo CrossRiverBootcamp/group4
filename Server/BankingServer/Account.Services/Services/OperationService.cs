@@ -57,14 +57,34 @@ namespace Account.Services.Services
             var operationsDto = new List<OperationDto>();
             foreach (var operation in operationsEnitity)
             {
-                OperationDto operationDto = _mapper.Map<OperationDto>(operation);
-                operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
-                operationsDto.Add(operationDto);
+                try
+                {
+                    operationsDto.Add(await MapToOperationDto(operation));
+                }
+                catch
+                {
+                    //dont add
+                }
             }
             if (sortByDateDesc)
-                operationsDto.Sort((x, y) => DateTime.Compare(x.OperationTime, y.OperationTime));
+                return sortOperations(operationsDto);
             return operationsDto;
 
+        }
+        public async Task<OperationDto> MapToOperationDto(OperationEntity operation)
+        {
+            OperationDto operationDto = _mapper.Map<OperationDto>(operation);
+            operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
+            return operationDto;
+        }
+        public List<OperationDto> sortOperations(List<OperationDto> operationsDto)
+        {
+            operationsDto.Sort((x, y) => DateTime.Compare(x.OperationTime, y.OperationTime));
+            return operationsDto;
+        }
+        public Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        {
+            throw new NotImplementedException();
         }
     }
 }

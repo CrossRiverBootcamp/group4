@@ -28,7 +28,19 @@ namespace Account.Api.Controllers
             }
         }
 
-
+        [HttpGet("{id}")]
+        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        {
+            try
+            {
+                List<OperationDto> operations = await _operationService.getOpertaionsByFilterPage(accountId, sortByDateDesc,pageNumber,numOfRecrds);
+                return operations;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Could not get operations", ex);
+            }
+        }
 
 
 
