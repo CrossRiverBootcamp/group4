@@ -21,11 +21,9 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
         return new SqlConnection(builder.Configuration.GetConnectionString("myPersistenceCon"));
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    persistence.TablePrefix("Transaction");
+    persistence.TablePrefix("Account");
     dialect.Schema("dbo");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-    //var routing = transport.Routing();
-    //routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Account.NSB");
     transport.ConnectionString("host=localhost");
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;

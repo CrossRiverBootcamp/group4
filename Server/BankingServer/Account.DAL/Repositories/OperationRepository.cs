@@ -28,7 +28,7 @@ namespace Account.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
-            return account.Id;
+            return account.Balance;
         }
 
         public async Task<List<OperationEntity>> GetOperationsByAccountId(int id)

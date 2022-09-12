@@ -34,7 +34,10 @@ export class AccountDetailsComponent implements OnInit{
     },err=>console.log(err)
     );
 }
-routeWithData(){
-  this.router.navigate(['/NewTransaction'],{state: {accountId: this.accountId}});
+public routeTocreateTransaction():void{
+  this.router.navigate(['newTransaction'],{state: {accountId: this.accountId}});
+}
+public routeToHistory():void{
+  this.router.navigate(['history'],{state: {accountId: this.accountId}});
 }
 }

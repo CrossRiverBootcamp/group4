@@ -40,6 +40,7 @@ namespace Transaction.Api
         }
         public async Task/*<bool>*/ Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
+            log.Info($"in sage handle for balanceupdate, TransactionId = {message.TransactionId} ...");
             try
             {
                 await _updateTransaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);

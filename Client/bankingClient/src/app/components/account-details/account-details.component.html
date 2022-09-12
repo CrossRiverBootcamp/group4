@@ -3,4 +3,7 @@
         {{balance}} , {{email}} , {{firstName}} , {{lastName}} , {{openDate}}
     </mat-card-content>
   </mat-card>
-  <button onclick="routeWithData()">Pass data and route</button>
+  <button mat-raised-button (click)="routeTocreateTransaction()">Deliver Money</button>
+  <button mat-raised-button (click)="routeToHistory()">watch action history</button>
+
+<!-- <router-outlet></router-outlet> -->

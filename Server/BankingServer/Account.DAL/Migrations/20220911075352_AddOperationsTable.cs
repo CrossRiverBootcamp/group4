@@ -16,7 +16,7 @@ namespace Account.DAL.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AccountId = table.Column<int>(type: "int", nullable: false),
-                    TransactionId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TransactionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DebitOrCredit = table.Column<bool>(type: "bit", nullable: false),
                     TransactionAmount = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<int>(type: "int", nullable: false),

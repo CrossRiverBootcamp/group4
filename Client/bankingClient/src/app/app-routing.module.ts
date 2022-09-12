@@ -3,8 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
+import { HistoriyComponent } from './components/historiy/historiy.component';
 import { LoginComponent } from './components/login/login.component';
 import { OpenAccountComponent } from './components/open-account/open-account.component';
+import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 
 
 const routes: Routes = [
@@ -21,8 +23,16 @@ const routes: Routes = [
     component: AccountDetailsComponent
   },
   {
-    path: 'NewTransaction',
+    path: 'newTransaction',
     component: CreateTransactionComponent
+  },
+  {
+    path: 'history',
+    component: HistoriyComponent
+  },
+  {
+    path: 'transactionDetails',
+    component: TransactionDetailsComponent
   }
 ];
 

@@ -24,6 +24,7 @@ namespace Account.Api
 
         public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
+            balanceUpdated.TransactionId = message.TransactionId;
             log.Info($"in Account handler, TransactionId = {message.TransactionId} ...");
             if (await _accountSagaService.CheckIdValid(message.FromAccountId) && await _accountSagaService.CheckIdValid(message.ToAccountId)
                 && await _accountSagaService.CheckBalance(message.FromAccountId, message.Amount))

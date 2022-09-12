@@ -8,7 +8,7 @@ import { CreateTransactionService } from 'src/app/services/create-transaction.se
   templateUrl: './create-transaction.component.html',
   styleUrls: ['./create-transaction.component.css']
 })
-export class CreateTransactionComponent implements OnInit {
+export class CreateTransactionComponent{
 
    formValid=true;
    accountIdFrom?:Number;
@@ -16,15 +16,12 @@ export class CreateTransactionComponent implements OnInit {
    amount?:Number;
    transaction?:Transaction;
    
-  constructor(private createTransactionService:CreateTransactionService,private router: Router) {
+  constructor(private router: Router, private createTransactionService:CreateTransactionService) {
+    const extras  = this.router.getCurrentNavigation()?.extras;
+    this.accountIdFrom = !!extras && !!extras.state ? extras.state['accountId'] : null;  
+    console.log(this.accountIdFrom);
     
-   }
-
-  ngOnInit(): void {
-    const state = this.router.getCurrentNavigation().extras.state;
-    this.accountIdFrom = state['accountId'];
-}
-  
+  }
   public onSubmit():void {
      this.formValid = true;
      this.transaction = {
@@ -37,8 +34,4 @@ export class CreateTransactionComponent implements OnInit {
      err=>console.log(err));
   }
 
-  
-    ngOnDestroy() {
-      this.sub.unsubscribe();
-    }
 }

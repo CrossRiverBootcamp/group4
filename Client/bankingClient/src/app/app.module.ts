@@ -22,6 +22,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
+import { HistoriyComponent } from './components/historiy/historiy.component';
+import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CreateTransactionComponent } from './components/create-transaction/crea
     LoginComponent,
     OpenAccountComponent,
     AccountDetailsComponent,
-    CreateTransactionComponent
+    CreateTransactionComponent,
+    HistoriyComponent,
+    TransactionDetailsComponent
   ],
   imports: [
     BrowserModule,
