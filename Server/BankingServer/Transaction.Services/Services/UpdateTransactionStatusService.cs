@@ -16,6 +16,11 @@ namespace Transaction.Services.Services
             _transaction = transaction;
         }
 
+        public async Task UpdateReasonFailed(string reason, Guid transactionId)
+        {
+            await _transaction.UpdateReasonFailed(reason, transactionId);
+        }
+
         //private readonly TransactionService _transactionService;
         public async Task UpdateStatus(bool status, Guid transactionId)
         {

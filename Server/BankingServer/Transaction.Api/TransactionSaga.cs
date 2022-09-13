@@ -40,18 +40,19 @@ namespace Transaction.Api
         }
         public async Task/*<bool>*/ Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
-            log.Info($"in sage handle for balanceupdate, TransactionId = {message.TransactionId} ...");
+            log.Info($"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...");
             try
             {
                 await _updateTransaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
+                await _updateTransaction.UpdateReasonFailed(message.FailureReason, message.TransactionId);
                 Data.IsBalanceUpdated = true;
-                log.Info($"Received BalanceUpdated true, TransactionId = {message.TransactionId} ...");
+                log.Info($"Received BalanceUpdated info , TransactionId = {message.TransactionId} ...");
 
             }
-            catch
+            catch(Exception ex)
             {
                 Data.IsBalanceUpdated = false;
-                log.Info($"Received BalanceUpdated false, TransactionId = {message.TransactionId} ...");
+                log.Info($"Couldn't update transaction balance, TransactionId = {message.TransactionId} ...");
 
             }
             //bool flag = ProccessTransaction(context);

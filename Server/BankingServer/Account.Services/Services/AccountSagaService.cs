@@ -18,6 +18,9 @@ namespace Account.Services.Services
       public async Task<bool> CheckIdValid(int id)
         {
             return await _accountSagaRepository.CheckIdValid(id);
+            /* if(!await _accountSagaRepository.CheckIdValid(id))
+             * return transaction failed Because account id is not valid.
+             */
         }
         public async Task<bool> CheckBalance(int id, int amount)
         {

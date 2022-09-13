@@ -11,5 +11,7 @@ namespace Messages
     {
         public bool BalanceUpdatedSucceeded { get; set; }
         public Guid TransactionId { get; set; }
+        public string FailureReason { get; set; }
+
     }
 }

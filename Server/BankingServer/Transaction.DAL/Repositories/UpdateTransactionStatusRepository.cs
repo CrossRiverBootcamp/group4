@@ -16,6 +16,16 @@ namespace Transaction.DAL.Repositories
         {
             _factory = factory;
         }
+
+        public async Task UpdateReasonFailed(string reason, Guid transactionId)
+        {
+            using var context = _factory.CreateDbContext();
+            TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
+            transactionEntity.FailureReason = reason;
+            context.SaveChanges();
+
+        }
+
         public async Task UpdateTransaction(bool status, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();

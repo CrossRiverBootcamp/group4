@@ -9,5 +9,6 @@ namespace Transaction.Services.Interfaces
     public interface IUpdateTransactionStatusService
     {
         Task UpdateStatus(bool status, Guid transactionId);
+        Task UpdateReasonFailed(string reason, Guid transactionId); 
     }
 }

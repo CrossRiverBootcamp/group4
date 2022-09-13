@@ -11,7 +11,6 @@ namespace Messages
     {
         public Guid TransactionId { get; set; }
         public bool GetEventPayload { get; set; }
-
         public bool IsBalanceUpdated { get; set; }
     }
 }

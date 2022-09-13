@@ -9,5 +9,6 @@ namespace Transaction.DAL.Interfaces
     public interface IUpdateTransactionStatusRepository
     {
         Task UpdateTransaction(bool status, Guid transactionId);
+        Task UpdateReasonFailed(string reason, Guid transactionId);
     }
 }
