@@ -3,10 +3,6 @@ using Messages;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
 using System.Data.SqlClient;
-using Transaction.DAL.Entities;
-using Transaction.DAL.Interfaces;
-using Transaction.DAL.Repositories;
-using Transaction.Services.Interfaces;
 using Transaction.Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,7 +12,6 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var endpointConfiguration = new EndpointConfiguration("Transaction");
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
-    //endpointConfiguration.SendOnly();
     var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
@@ -41,11 +36,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 ExtensionMethod.ExtensionDI(builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
-//builder.Services.AddDbContextFactory<TransactionDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myContextCon")));
-//builder.Services.AddScoped<ITransactionService, TransactionService>();
-//builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
-//builder.Services.AddScoped<IUpdateTransactionStatusService, UpdateTransactionStatusService>();
-//builder.Services.AddScoped<IUpdateTransactionStatusRepository, UpdateTransactionStatusRepository>();
+
 
 
 

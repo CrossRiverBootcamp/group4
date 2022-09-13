@@ -1,6 +1,5 @@
 ﻿using Account.DTO;
 using Account.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Api.Controllers

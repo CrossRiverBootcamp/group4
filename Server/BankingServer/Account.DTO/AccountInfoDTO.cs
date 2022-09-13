@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+
 
 namespace Account.DTO
 {
     public class AccountInfoDTO
     {
-        
+        //Why did we not put required annotations?
         public int AccountId { get; set; }
 
         [MinLength(2)]

@@ -1,11 +1,6 @@
 ﻿using Account.DAL.Entities;
 using Account.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.DAL.Repositories
 {
@@ -28,6 +23,10 @@ namespace Account.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
+            if(account == null)
+            {
+                throw new Exception("Account doesn't exist");
+            }
             return account.Balance;
         }
 

@@ -1,11 +1,7 @@
 ﻿using Account.DAL.Entities;
 using Account.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Account.DAL.Repositories
 {
@@ -27,7 +23,6 @@ namespace Account.DAL.Repositories
             {
                 return false;
             }
-
         }
         public async Task<bool> CheckBalanceAsync(int id, int amount)
         {
@@ -43,7 +38,6 @@ namespace Account.DAL.Repositories
             accountFrom.Balance -= amount;
             accountTo.Balance += amount;
             await context.SaveChangesAsync();
-
         }
     }
 }

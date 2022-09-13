@@ -15,17 +15,21 @@ namespace Transaction.DAL.Repositories
         public async Task UpdateReasonFailedAsync(string reason, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();
-            TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
-            transactionEntity.FailureReason = reason;
-            context.SaveChangesAsync();
+            var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
+            if (transaction == null)
+            {
+                throw new Exception("Couldn't find transaction");
+            }
+            transaction.FailureReason = reason;
+            await context.SaveChangesAsync();
 
         }
 
         public async Task UpdateTransactionAsync(bool status, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();
-            TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
-            if (transactionEntity == null)
+            var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
+            if (transaction == null)
             {
                 throw new InvalidOperationException();
             }
@@ -33,11 +37,11 @@ namespace Transaction.DAL.Repositories
             {
                 if (status)
                 {
-                    transactionEntity.Status = TransactionStatus.Succeeded;
+                    transaction.Status = TransactionStatus.Succeeded;
                 }
                 else
                 {
-                    transactionEntity.Status = TransactionStatus.Failed;
+                    transaction.Status = TransactionStatus.Failed;
                 }
             }
             await context.SaveChangesAsync();

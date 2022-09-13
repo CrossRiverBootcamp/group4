@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using Messages;
 using NServiceBus;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.DAL.Entities;
 using Transaction.DAL.Interfaces;
 using Transaction.DTO;
@@ -45,7 +40,6 @@ namespace Transaction.Services.Services
             }
             catch
             {
-                
                 return false;
             }
         }

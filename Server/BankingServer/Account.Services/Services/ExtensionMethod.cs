@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Account.DAL.Interfaces;
+﻿using Account.DAL.Interfaces;
 using Account.DAL.Repositories;
 using Account.DAL.Entities;
-using Account.Services.Services;
 using Account.Services.Interfaces;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
