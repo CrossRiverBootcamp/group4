@@ -88,7 +88,7 @@ namespace Account.Services.Services
 
         public async Task<int> countOpertaionsById(int accountId)
         {
-           await _operationRepository.countOpertaionsById(accountId);
+           return await _operationRepository.countOpertaionsById(accountId);
         }
     }
 }

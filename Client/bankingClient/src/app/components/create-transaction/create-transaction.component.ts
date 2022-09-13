@@ -25,8 +25,8 @@ export class CreateTransactionComponent{
   public onSubmit():void {
      this.formValid = true;
      this.transaction = {
-      accountIdFrom:this.accountIdFrom,
-      accountIdTo:this.accountIdTo,
+      fromAccountId:this.accountIdFrom,
+      toAccountId:this.accountIdTo,
       amount:this.amount
      }
      this.createTransactionService.createNewTransaction(this.transaction)

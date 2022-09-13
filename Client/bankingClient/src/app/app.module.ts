@@ -60,10 +60,7 @@ import { MatPaginatorIntlCro } from './services/MatPaginatorIntlCro';
     MatPaginatorModule,
     MatCheckboxModule
   ],
-  providers: [{
-    provide: MatPaginatorIntl,
-    useClass: MatPaginatorIntlCro
-  }],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
