@@ -15,11 +15,11 @@ namespace Account.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountInfoDTO>> GetAccountInfo(int id)
+        public async Task<ActionResult<AccountInfoDTO>> GetAccountInfoAsync(int id)
         {
             try
             {
-                return await _accountService.GetAccountInfo(id);
+                return await _accountService.GetAccountInfoAsync(id);
             }
             catch(Exception ex)
             {
@@ -28,7 +28,7 @@ namespace Account.Api.Controllers
         }
         
         [HttpPost]
-        public async Task<ActionResult<int>> Login([FromBody] LoginDTO loginDTO)
+        public async Task<ActionResult<int>> LoginAsync([FromBody] LoginDTO loginDTO)
         {
             if (!ModelState.IsValid)
             {
@@ -36,7 +36,7 @@ namespace Account.Api.Controllers
             }
             try
             {
-                return await _accountService.Login(loginDTO);
+                return await _accountService.LoginAsync(loginDTO);
             }
             catch(Exception ex)
             {

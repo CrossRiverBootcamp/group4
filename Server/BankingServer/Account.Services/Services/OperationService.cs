@@ -5,11 +5,6 @@ using Account.Services.Interfaces;
 using Account.Services.Mapping;
 using AutoMapper;
 using Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.Services.Services
 {
@@ -26,7 +21,7 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task AddToHistoryTable(TransactionPayload message)
+        public async Task AddToHistoryTableAsync(TransactionPayload message)
         {
             OperationMapDTO fromAccount = new OperationMapDTO(message.FromAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
             OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
@@ -34,8 +29,8 @@ namespace Account.Services.Services
             OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
             try
             {
-                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountID(message.FromAccountId);
-                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountID(message.ToAccountId);
+                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountIDAsync(message.FromAccountId);
+                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountIDAsync(message.ToAccountId);
             }
             catch
             {
@@ -43,7 +38,7 @@ namespace Account.Services.Services
             }
             try
             {
-                await _operationRepository.AddToHistoryTable(accountFrom, accountTo);
+                await _operationRepository.AddToHistoryTableAsync(accountFrom, accountTo);
             }
             catch
             {
@@ -51,10 +46,10 @@ namespace Account.Services.Services
             }
         }
 
-        public async Task<List<OperationDto>> GetOperationsByAccountId(int id, bool sortByDateDesc)
+        public async Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id, bool sortByDateDesc)
         {
 
-            List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountId(id);
+            List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountIdAsync(id);
             List<OperationDto>  operationsListDTO =await MapToOperationDto(operationList);
             if (sortByDateDesc)
                 return sortOperations(operationsListDTO);
@@ -67,7 +62,7 @@ namespace Account.Services.Services
             foreach(OperationEntity operation in operations)
             {
                 OperationDto operationDto = _mapper.Map<OperationDto>(operation);
-                operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
+                operationDto.OtherSide = await _operationRepository.GetOtherSideIdAsync(operation.TransactionId, operation.AccountId);
                 operationDtoList.Add(operationDto);
             }
             return operationDtoList;
@@ -79,7 +74,7 @@ namespace Account.Services.Services
         }
         public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
         {
-            List<OperationEntity> operationList = await _operationRepository.getOpertaionsByFilterPage(accountId, pageNumber, numOfRecrds);
+            List<OperationEntity> operationList = await _operationRepository.getOpertaionsByFilterPageAsync(accountId, pageNumber, numOfRecrds);
             List<OperationDto> operationsListDTO = await MapToOperationDto(operationList);
             if (sortByDateDesc)
                 return sortOperations(operationsListDTO);
@@ -88,7 +83,7 @@ namespace Account.Services.Services
 
         public async Task<int> countOpertaionsById(int accountId)
         {
-           return await _operationRepository.countOpertaionsById(accountId);
+           return await _operationRepository.countOpertaionsByIdAsync(accountId);
         }
     }
 }

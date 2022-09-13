@@ -2,11 +2,7 @@
 using Messages;
 using NServiceBus;
 using NServiceBus.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Account.Api
 {
@@ -25,41 +21,60 @@ namespace Account.Api
         public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
             balanceUpdated.TransactionId = message.TransactionId;
-            log.Info($"in Account handler, TransactionId = {message.TransactionId} ...");
-            if (await _accountSagaService.CheckIdValid(message.FromAccountId) && await _accountSagaService.CheckIdValid(message.ToAccountId)
-                && await _accountSagaService.CheckBalance(message.FromAccountId, message.Amount))
+            log.Info($"In Account handler, TransactionId = {message.TransactionId} ...");
+            if (await _accountSagaService.CheckIdValidAsync(message.FromAccountId))
             {
-                try
+                if (await _accountSagaService.CheckIdValidAsync(message.ToAccountId))
                 {
-                    await _accountSagaService.UpdateBalance(message.FromAccountId, message.ToAccountId, message.Amount);
-                    balanceUpdated.BalanceUpdatedSucceeded = true;
-                    try
+                    if (await _accountSagaService.CheckBalanceAsync(message.FromAccountId, message.Amount))
                     {
-                        await _operationService.AddToHistoryTable(message);
-                        log.Info($"manage to add to history table, TransactionId = {message.TransactionId} ...");
+                        try
+                        {
+                            await _accountSagaService.UpdateBalanceAsync(message.FromAccountId, message.ToAccountId, message.Amount);
+                            balanceUpdated.BalanceUpdatedSucceeded = true;
+                            try
+                            {
+                                await _operationService.AddToHistoryTableAsync(message);
+                                log.Info($"Manage to add to history table, TransactionId = {message.TransactionId} ...");
+
+                            }
+                            catch
+                            {
+                                log.Info($"Failed to add to history table, TransactionId = {message.TransactionId} ...");
+
+                            }
+                            log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
+
+                        }
+                        catch
+                        {
+                            balanceUpdated.BalanceUpdatedSucceeded = false;
+                            log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
+
+                        }
+
 
                     }
-                    catch
+                    else
                     {
-                        log.Info($"failed to add to history table, TransactionId = {message.TransactionId} ...");
-
+                        balanceUpdated.FailureReason = "Transaction failed because there is not enough money in your account";
+                        balanceUpdated.BalanceUpdatedSucceeded = false;
+                        log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
                     }
-                    log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
-
                 }
-                catch
+                else
                 {
+                    balanceUpdated.FailureReason = "The account you are trying to transfer to doesn't exist";
                     balanceUpdated.BalanceUpdatedSucceeded = false;
                     log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
-
                 }
 
             }
             else
             {
                 balanceUpdated.BalanceUpdatedSucceeded = false;
+                balanceUpdated.FailureReason = "The account you are trying to transfer from doesn't exist";
                 log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
-
             }
             await context.Publish(balanceUpdated);
         }

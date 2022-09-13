@@ -1,6 +1,5 @@
 ﻿using Account.DTO;
 using Account.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Api.Controllers
@@ -16,7 +15,7 @@ namespace Account.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<bool>> CreateAccount([FromBody] CustomerDTO customer)
+        public async Task<ActionResult<bool>> CreateAccountAsync([FromBody] CustomerDTO customer)
         {
             if (!ModelState.IsValid)
             {
@@ -24,7 +23,7 @@ namespace Account.Api.Controllers
             }
             try
             {
-               await _accountService.CreateAccount(customer);
+               await _accountService.CreateAccountAsync(customer);
                 return Ok(true);
             }
             catch

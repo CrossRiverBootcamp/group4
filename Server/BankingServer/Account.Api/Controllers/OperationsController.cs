@@ -1,6 +1,5 @@
 ﻿using Account.DTO;
 using Account.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Account.Api.Controllers
@@ -19,7 +18,7 @@ namespace Account.Api.Controllers
         {
             try
             {
-                List<OperationDto> operations = await _operationService.GetOperationsByAccountId(accountId,sortByDateDesc);
+                List<OperationDto> operations = await _operationService.GetOperationsByAccountIdAsync(accountId,sortByDateDesc);
                 return operations;
             }
             catch(Exception ex)

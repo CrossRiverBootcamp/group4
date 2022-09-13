@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Messages\Messages.csproj" />
-    <ProjectReference Include="..\Transaction.DAL\Transaction.DAL.csproj" />
     <ProjectReference Include="..\Transaction.DTO\Transaction.DTO.csproj" />
     <ProjectReference Include="..\Transaction.Services\Transaction.Services.csproj" />
   </ItemGroup>

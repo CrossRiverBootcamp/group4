@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿
 using Microsoft.AspNetCore.Mvc;
 using NServiceBus;
 using Transaction.DTO;
@@ -18,11 +18,11 @@ namespace Transaction.Api.Controllers
             _messageSession = messageSession;
         }
         [HttpPost]
-        public async Task<ActionResult<bool>> CreateTransaction(TransactionDto transactionDto)
+        public async Task<ActionResult<bool>> CreateTransactionAsync(TransactionDto transactionDto)
         {
             try
             {
-                var result =await _transactionService.SendTransaction(transactionDto, _messageSession);
+                var result =await _transactionService.SendTransactionAsync(transactionDto, _messageSession);
                 return Ok(result);
             }
             catch

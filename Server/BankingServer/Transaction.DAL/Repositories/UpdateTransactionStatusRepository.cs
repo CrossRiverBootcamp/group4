@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.DAL.Entities;
 using Transaction.DAL.Interfaces;
 
@@ -16,11 +11,25 @@ namespace Transaction.DAL.Repositories
         {
             _factory = factory;
         }
-        public async Task UpdateTransaction(bool status, Guid transactionId)
+
+        public async Task UpdateReasonFailedAsync(string reason, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();
-            TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
-            if (transactionEntity == null)
+            var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
+            if (transaction == null)
+            {
+                throw new Exception("Couldn't find transaction");
+            }
+            transaction.FailureReason = reason;
+            await context.SaveChangesAsync();
+
+        }
+
+        public async Task UpdateTransactionAsync(bool status, Guid transactionId)
+        {
+            using var context = _factory.CreateDbContext();
+            var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
+            if (transaction == null)
             {
                 throw new InvalidOperationException();
             }
@@ -28,11 +37,11 @@ namespace Transaction.DAL.Repositories
             {
                 if (status)
                 {
-                    transactionEntity.Status = TransactionStatus.Succeeded;
+                    transaction.Status = TransactionStatus.Succeeded;
                 }
                 else
                 {
-                    transactionEntity.Status = TransactionStatus.Failed;
+                    transaction.Status = TransactionStatus.Failed;
                 }
             }
             await context.SaveChangesAsync();

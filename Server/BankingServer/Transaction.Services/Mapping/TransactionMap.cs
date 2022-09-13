@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using Messages;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.DAL.Entities;
 using Transaction.DTO;
 

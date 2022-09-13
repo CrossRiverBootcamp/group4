@@ -1,11 +1,6 @@
 ﻿using Account.DAL.Entities;
 using Account.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Account.DAL.Repositories
 {
@@ -16,7 +11,7 @@ namespace Account.DAL.Repositories
         {
             _factory = factory;
         }
-        public async Task AddToHistoryTable(OperationEntity opEntityFrom, OperationEntity opEntityTo)
+        public async Task AddToHistoryTableAsync(OperationEntity opEntityFrom, OperationEntity opEntityTo)
         {
             using var context = _factory.CreateDbContext();
             await context.Operations.AddAsync(opEntityFrom);
@@ -24,27 +19,31 @@ namespace Account.DAL.Repositories
             await context.SaveChangesAsync();
         }
 
-        public async Task<int> countOpertaionsById(int accountId)
+        public async Task<int> countOpertaionsByIdAsync(int accountId)
         {
             using var context = _factory.CreateDbContext();
             return await context.Operations.CountAsync(operation => operation.AccountId == accountId);
         }
 
-        public async Task<int> GetAccountBalanceByAccountID(int id)
+        public async Task<int> GetAccountBalanceByAccountIDAsync(int id)
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
+            if(account == null)
+            {
+                throw new Exception("Account doesn't exist");
+            }
             return account.Balance;
         }
 
-        public async Task<List<OperationEntity>> GetOperationsByAccountId(int id)
+        public async Task<List<OperationEntity>> GetOperationsByAccountIdAsync(int id)
         {
             using var context = _factory.CreateDbContext();
             var operations =await context.Operations.Where(operation => operation.AccountId == id).ToListAsync();
             return operations;
         }
 
-        public async Task<List<OperationEntity>> getOpertaionsByFilterPage(int accountId, int pageNumber, int numOfRecrds)
+        public async Task<List<OperationEntity>> getOpertaionsByFilterPageAsync(int accountId, int pageNumber, int numOfRecrds)
         {
             using var context = _factory.CreateDbContext();
             List<OperationEntity> operationList = await context.Operations
@@ -53,7 +52,7 @@ namespace Account.DAL.Repositories
             return operationList;
         }
 
-        public async Task<int> GetOtherSideId(Guid transactionId, int accountId)
+        public async Task<int> GetOtherSideIdAsync(Guid transactionId, int accountId)
         {
             using var context = _factory.CreateDbContext();
             OperationEntity operation = await context.Operations.FirstAsync(a => a.TransactionId == transactionId && a.AccountId != accountId);

@@ -2,11 +2,6 @@
 using Messages;
 using NServiceBus;
 using NServiceBus.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.Services.Interfaces;
 using Transaction.Services.Mapping;
 
@@ -40,18 +35,19 @@ namespace Transaction.Api
         }
         public async Task/*<bool>*/ Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
-            log.Info($"in sage handle for balanceupdate, TransactionId = {message.TransactionId} ...");
+            log.Info($"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...");
             try
             {
-                await _updateTransaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
+                await _updateTransaction.UpdateStatusAsync(message.BalanceUpdatedSucceeded, message.TransactionId);
+                await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
                 Data.IsBalanceUpdated = true;
-                log.Info($"Received BalanceUpdated true, TransactionId = {message.TransactionId} ...");
+                log.Info($"Received BalanceUpdated info , TransactionId = {message.TransactionId} ...");
 
             }
-            catch
+            catch(Exception ex)
             {
                 Data.IsBalanceUpdated = false;
-                log.Info($"Received BalanceUpdated false, TransactionId = {message.TransactionId} ...");
+                log.Info($"Couldn't update transaction balance, TransactionId = {message.TransactionId} ...");
 
             }
             //bool flag = ProccessTransaction(context);
