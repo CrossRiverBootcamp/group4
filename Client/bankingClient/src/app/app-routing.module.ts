@@ -31,7 +31,7 @@ const routes: Routes = [
     component: historyComponent
   },
   {
-    path: 'transactionDetails',
+    path: 'details',
     component: TransactionDetailsComponent
   }
 ];

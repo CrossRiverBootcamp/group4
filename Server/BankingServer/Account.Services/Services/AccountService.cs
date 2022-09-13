@@ -50,6 +50,12 @@ namespace Account.Services.Services
             return accountDTO;
         }
 
+        public async Task<CustomerDTO> GetCustomerByAccountId(int accountId)
+        {
+            CustomerDTO customer = _mapper.Map<CustomerDTO>(await _accountRepository.GetCustomerByAccountId(accountId));
+            return customer;
+        }
+
         public async Task<int> LoginAsync(LoginDTO loginDTO)
         {
             string email = loginDTO.Email;

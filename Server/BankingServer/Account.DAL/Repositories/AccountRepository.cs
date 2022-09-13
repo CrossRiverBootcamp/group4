@@ -58,6 +58,12 @@ namespace Account.DAL.Repositories
             }
             return account;
         }
+        public async Task<CustomerEntity> GetCustomerByAccountId(int accountId)
+        {
+            using var context = _factory.CreateDbContext();
+            AccountEntity account = await context.Accounts.Include(a => a.Customer).FirstAsync(a => a.Id == accountId);
+            return account.Customer;
+        }
 
         public async Task<CustomerEntity> GetCustomerByEmailAsync(string email)
         {

@@ -34,8 +34,11 @@ export class historyComponent implements OnInit ,AfterViewInit{
     // this.paginator.length
   }
   ngOnInit(): void {
+    this.getOperations()
   }
-
+  details(){
+    this.router.navigate(['/details'],{state:{accountId:this.accountId}});
+  }
   // public getOperations(pageIndex:NumberInput,pageSize:NumberInput): void {
   //   this.historyService.getOperationsByDetails(this.accountId, this.isChecked,pageIndex,pageSize).subscribe(op => {
   //     // this.paginator.pageIndex = pageIndex;

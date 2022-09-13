@@ -31,5 +31,18 @@ namespace Account.Api.Controllers
                 return Ok(false);
             }
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CustomerDTO>> GetCustomerByAccountId(int accountId)
+        {
+            try
+            {
+                return await _accountService.GetCustomerByAccountId(accountId);
+            }
+            catch
+            {
+                return NotFound();
+            }
+        }
+
     }
 }

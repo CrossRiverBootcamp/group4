@@ -8,5 +8,6 @@ namespace Account.Services.Interfaces
         Task CreateAccountAsync(CustomerDTO customerDTO);
         Task<int> LoginAsync(LoginDTO loginDTO);
         Task<AccountInfoDTO> GetAccountInfoAsync(int id);
+        Task<CustomerDTO> GetCustomerByAccountId(int accountId);
     }
 }
