@@ -43,8 +43,8 @@ namespace Transaction.Api
             log.Info($"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...");
             try
             {
-                await _updateTransaction.UpdateStatus(message.BalanceUpdatedSucceeded, message.TransactionId);
-                await _updateTransaction.UpdateReasonFailed(message.FailureReason, message.TransactionId);
+                await _updateTransaction.UpdateStatusAsync(message.BalanceUpdatedSucceeded, message.TransactionId);
+                await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
                 Data.IsBalanceUpdated = true;
                 log.Info($"Received BalanceUpdated info , TransactionId = {message.TransactionId} ...");
 

@@ -26,7 +26,7 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task AddToHistoryTable(TransactionPayload message)
+        public async Task AddToHistoryTableAsync(TransactionPayload message)
         {
             OperationMapDTO fromAccount = new OperationMapDTO(message.FromAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
             OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
@@ -34,8 +34,8 @@ namespace Account.Services.Services
             OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
             try
             {
-                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountID(message.FromAccountId);
-                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountID(message.ToAccountId);
+                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.FromAccountId);
+                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.ToAccountId);
             }
             catch
             {
@@ -43,7 +43,7 @@ namespace Account.Services.Services
             }
             try
             {
-                await _operationRepository.AddToHistoryTable(accountFrom, accountTo);
+                await _operationRepository.AddToHistoryTableAsync(accountFrom, accountTo);
             }
             catch
             {
@@ -51,15 +51,15 @@ namespace Account.Services.Services
             }
         }
 
-        public async Task<List<OperationDto>> GetOperationsByAccountId(int id, bool sortByDateDesc)
+        public async Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id, bool sortByDateDesc)
         {
-            List<OperationEntity> operationsEnitity = await _operationRepository.GetOperationsByAccountId(id);
+            List<OperationEntity> operationsEnitity = await _operationRepository.GetOperationsByAccountIdAsync(id);
             var operationsDto = new List<OperationDto>();
             foreach (var operation in operationsEnitity)
             {
                 try
                 {
-                    operationsDto.Add(await MapToOperationDto(operation));
+                    operationsDto.Add(await MapToOperationDtoAsync(operation));
                 }
                 catch
                 {
@@ -71,10 +71,10 @@ namespace Account.Services.Services
             return operationsDto;
 
         }
-        public async Task<OperationDto> MapToOperationDto(OperationEntity operation)
+        public async Task<OperationDto> MapToOperationDtoAsync(OperationEntity operation)
         {
             OperationDto operationDto = _mapper.Map<OperationDto>(operation);
-            operationDto.OtherSide = await _operationRepository.GetOtherSideId(operation.TransactionId, operation.AccountId);
+            operationDto.OtherSide = await _operationRepository.GetOtherSideIdAsync(operation.TransactionId, operation.AccountId);
             return operationDto;
         }
         public List<OperationDto> sortOperations(List<OperationDto> operationsDto)

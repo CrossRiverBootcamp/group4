@@ -21,12 +21,12 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task CreateAccount(CustomerDTO customerDTO)
+        public async Task CreateAccountAsync(CustomerDTO customerDTO)
         {
             try
             {
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
-                if (await _accountRepository.CheckEmailExists(customerDTO.Email))
+                if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
                 {
                     throw new Exception("account exists");
                 }
@@ -35,7 +35,7 @@ namespace Account.Services.Services
                 account.OpenDate = DateTime.UtcNow;
                 //i want to input here from appsettings.json instead of hardcoding
                 account.Balance = 1000;
-                await _accountRepository.CreateAccount(account);
+                await _accountRepository.CreateAccountAsync(account);
             }
             catch
             {
@@ -43,21 +43,21 @@ namespace Account.Services.Services
             }
         }
 
-        public async Task<AccountInfoDTO> GetAccountInfo(int id)
+        public async Task<AccountInfoDTO> GetAccountInfoAsync(int id)
         {
-            var account = await _accountRepository.GetAccountInfoByAccountID(id);
+            var account = await _accountRepository.GetAccountInfoByAccountIdAsync(id);
             AccountInfoDTO accountDTO = _mapper.Map<AccountInfoDTO>(account);
             return accountDTO;
         }
 
-        public async Task<int> Login(LoginDTO loginDTO)
+        public async Task<int> LoginAsync(LoginDTO loginDTO)
         {
             string email = loginDTO.Email;
             string password = loginDTO.Password;
-            if(await _accountRepository.CheckEmailExists(email) && await _accountRepository.CheckPasswordValid(email, password))
+            if(await _accountRepository.CheckEmailExistsAsync(email) && await _accountRepository.CheckPasswordValidAsync(email, password))
             {
                 //where to validate that get back right response?
-               return await _accountRepository.GetAccountIdByEmail(email);
+               return await _accountRepository.GetAccountIdByEmailAsync(email);
             }
             else
             {

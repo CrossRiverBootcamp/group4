@@ -26,19 +26,19 @@ namespace Account.Api
         {
             balanceUpdated.TransactionId = message.TransactionId;
             log.Info($"In Account handler, TransactionId = {message.TransactionId} ...");
-            if (await _accountSagaService.CheckIdValid(message.FromAccountId))
+            if (await _accountSagaService.CheckIdValidAsync(message.FromAccountId))
             {
-                if (await _accountSagaService.CheckIdValid(message.ToAccountId))
+                if (await _accountSagaService.CheckIdValidAsync(message.ToAccountId))
                 {
-                    if (await _accountSagaService.CheckBalance(message.FromAccountId, message.Amount))
+                    if (await _accountSagaService.CheckBalanceAsync(message.FromAccountId, message.Amount))
                     {
                         try
                         {
-                            await _accountSagaService.UpdateBalance(message.FromAccountId, message.ToAccountId, message.Amount);
+                            await _accountSagaService.UpdateBalanceAsync(message.FromAccountId, message.ToAccountId, message.Amount);
                             balanceUpdated.BalanceUpdatedSucceeded = true;
                             try
                             {
-                                await _operationService.AddToHistoryTable(message);
+                                await _operationService.AddToHistoryTableAsync(message);
                                 log.Info($"Manage to add to history table, TransactionId = {message.TransactionId} ...");
 
                             }
@@ -80,42 +80,6 @@ namespace Account.Api
                 balanceUpdated.FailureReason = "The account you are trying to transfer from doesn't exist";
                 log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
             }
-
-            //if (await _accountSagaService.CheckIdValid(message.FromAccountId) && await _accountSagaService.CheckIdValid(message.ToAccountId)
-            //    && await _accountSagaService.CheckBalance(message.FromAccountId, message.Amount))
-            //{
-            //    try
-            //    {
-            //        await _accountSagaService.UpdateBalance(message.FromAccountId, message.ToAccountId, message.Amount);
-            //        balanceUpdated.BalanceUpdatedSucceeded = true;
-            //        try
-            //        {
-            //            await _operationService.AddToHistoryTable(message);
-            //            log.Info($"Manage to add to history table, TransactionId = {message.TransactionId} ...");
-
-            //        }
-            //        catch
-            //        {
-            //            log.Info($"Failed to add to history table, TransactionId = {message.TransactionId} ...");
-
-            //        }
-            //        log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
-
-            //    }
-            //    catch
-            //    {
-            //        balanceUpdated.BalanceUpdatedSucceeded = false;
-            //        log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
-
-            //    }
-
-            //}
-            //else
-            //{
-            //    balanceUpdated.BalanceUpdatedSucceeded = false;
-            //    log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
-
-            //}
             await context.Publish(balanceUpdated);
         }
     }

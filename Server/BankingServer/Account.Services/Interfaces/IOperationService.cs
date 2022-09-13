@@ -10,8 +10,8 @@ namespace Account.Services.Interfaces
 {
     public interface IOperationService
     {
-        Task AddToHistoryTable(TransactionPayload message);
-        Task<List<OperationDto>> GetOperationsByAccountId(int id,bool sortByDateDesc);
+        Task AddToHistoryTableAsync(TransactionPayload message);
+        Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id,bool sortByDateDesc);
         Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc,int pageNumber,int numOfRecrds);
 
     }

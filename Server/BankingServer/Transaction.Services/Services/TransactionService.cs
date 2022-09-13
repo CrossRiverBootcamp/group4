@@ -29,7 +29,7 @@ namespace Transaction.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task<bool> SendTransaction(TransactionDto transactionDto, IMessageSession messageSession)
+        public async Task<bool> SendTransactionAsync(TransactionDto transactionDto, IMessageSession messageSession)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace Transaction.Services.Services
                 transactionEntity.DateOfTransaction = DateTime.UtcNow;
                 transactionEntity.Status = DAL.TransactionStatus.Processing;
                 transactionEntity.Id = Guid.NewGuid();
-                await _transactionRepository.addTransaction(transactionEntity);
+                await _transactionRepository.AddTransactionAsync(transactionEntity);
                 TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
                 await messageSession.Publish(payload);
                 //if saga event failes should return false

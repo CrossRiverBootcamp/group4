@@ -16,7 +16,7 @@ namespace Account.DAL.Repositories
         {
             _factory = factory;
         }
-        public async Task<bool> CheckIdValid(int id)
+        public async Task<bool> CheckIdValidAsync(int id)
         {
             try
             {
@@ -29,13 +29,13 @@ namespace Account.DAL.Repositories
             }
 
         }
-        public async Task<bool> CheckBalance(int id, int amount)
+        public async Task<bool> CheckBalanceAsync(int id, int amount)
         {
             using var context = _factory.CreateDbContext();
             AccountEntity account = await context.Accounts.FirstAsync(a => a.Id == id);
             return account.Balance >= amount;
         }
-        public async Task UpdateBalance(int fromAccount, int toAccount, int amount)
+        public async Task UpdateBalanceAsync(int fromAccount, int toAccount, int amount)
         {
             using var context = _factory.CreateDbContext();
             AccountEntity accountFrom = await context.Accounts.FirstAsync(a => a.Id == fromAccount);

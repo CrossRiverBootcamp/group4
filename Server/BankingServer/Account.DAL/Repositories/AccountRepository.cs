@@ -20,7 +20,7 @@ namespace Account.DAL.Repositories
         {
             _factory = factory;
         }
-        public async Task<bool> CheckEmailExists(string email)
+        public async Task<bool> CheckEmailExistsAsync(string email)
         {
 
             using var context = _factory.CreateDbContext();
@@ -29,7 +29,7 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task<bool> CheckPasswordValid(string email, string password)
+        public async Task<bool> CheckPasswordValidAsync(string email, string password)
         {
             using var context = _factory.CreateDbContext();
             var customer = await context.Customers.FirstAsync(c => c.Email.Equals(email));
@@ -37,7 +37,7 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task CreateAccount(AccountEntity account)
+        public async Task CreateAccountAsync(AccountEntity account)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Account.DAL.Repositories
 
         }
 
-        public  async Task<int> GetAccountIdByEmail(string email)
+        public  async Task<int> GetAccountIdByEmailAsync(string email)
         {
             using var context = _factory.CreateDbContext();
             var customer = await context.Customers.FirstAsync(c => c.Email.Equals(email));
@@ -62,7 +62,7 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task<AccountEntity> GetAccountInfoByAccountID(int id)
+        public async Task<AccountEntity> GetAccountInfoByAccountIdAsync(int id)
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
@@ -70,7 +70,7 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task<CustomerEntity> GetCustomerByEmail(string email)
+        public async Task<CustomerEntity> GetCustomerByEmailAsync(string email)
         {
             try { 
             using var context = _factory.CreateDbContext();

@@ -15,11 +15,11 @@ namespace Account.Api.Controllers
             _operationService = operationService;
         }
         [HttpGet]
-        public async Task<List<OperationDto>> getOpertaionsByAccountId(int accountId, bool sortByDateDesc)
+        public async Task<List<OperationDto>> getOpertaionsByAccountIdAsync(int accountId, bool sortByDateDesc)
         {
             try
             {
-                List<OperationDto> operations = await _operationService.GetOperationsByAccountId(accountId,sortByDateDesc);
+                List<OperationDto> operations = await _operationService.GetOperationsByAccountIdAsync(accountId,sortByDateDesc);
                 return operations;
             }
             catch(Exception ex)
@@ -29,7 +29,7 @@ namespace Account.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        public async Task<List<OperationDto>> getOpertaionsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
         {
             try
             {

@@ -16,7 +16,7 @@ namespace Transaction.DAL.Repositories
         {
             _factory = factory;
         }
-        public async Task addTransaction(TransactionEntity transaction) {
+        public async Task AddTransactionAsync(TransactionEntity transaction) {
             using var context = _factory.CreateDbContext();
             await context.Transactions.AddAsync(transaction);
             await context.SaveChangesAsync();

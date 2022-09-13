@@ -9,6 +9,6 @@ namespace Transaction.DAL.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task addTransaction(TransactionEntity transaction);
+        Task AddTransactionAsync(TransactionEntity transaction);
     }
 }

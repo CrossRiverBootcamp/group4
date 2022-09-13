@@ -1,9 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Transaction.DAL.Entities;
 using Transaction.DAL.Interfaces;
 
@@ -17,16 +12,16 @@ namespace Transaction.DAL.Repositories
             _factory = factory;
         }
 
-        public async Task UpdateReasonFailed(string reason, Guid transactionId)
+        public async Task UpdateReasonFailedAsync(string reason, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();
             TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
             transactionEntity.FailureReason = reason;
-            context.SaveChanges();
+            context.SaveChangesAsync();
 
         }
 
-        public async Task UpdateTransaction(bool status, Guid transactionId)
+        public async Task UpdateTransactionAsync(bool status, Guid transactionId)
         {
             using var context = _factory.CreateDbContext();
             TransactionEntity transactionEntity = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));

@@ -10,6 +10,6 @@ namespace Transaction.Services.Interfaces
 {
     public interface ITransactionService
     {
-        Task<bool> SendTransaction(TransactionDto transactionDto, IMessageSession messageSession);
+        Task<bool> SendTransactionAsync(TransactionDto transactionDto, IMessageSession messageSession);
     }
 }
