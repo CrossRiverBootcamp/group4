@@ -29,8 +29,8 @@ namespace Account.Services.Services
             OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
             try
             {
-                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountIDAsync(message.FromAccountId);
-                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountIDAsync(message.ToAccountId);
+                accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.FromAccountId);
+                accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.ToAccountId);
             }
             catch
             {
@@ -72,7 +72,7 @@ namespace Account.Services.Services
             operationsDto.Sort((x, y) => DateTime.Compare(x.OperationTime, y.OperationTime));
             return operationsDto;
         }
-        public async Task<List<OperationDto>> getOpertaionsByFilterPage(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+        public async Task<List<OperationDto>> getOpertaionsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
         {
             List<OperationEntity> operationList = await _operationRepository.getOpertaionsByFilterPageAsync(accountId, pageNumber, numOfRecrds);
             List<OperationDto> operationsListDTO = await MapToOperationDto(operationList);
@@ -81,7 +81,7 @@ namespace Account.Services.Services
             return operationsListDTO;
         }
 
-        public async Task<int> countOpertaionsById(int accountId)
+        public async Task<int> countOpertaionsByIdAsync(int accountId)
         {
            return await _operationRepository.countOpertaionsByIdAsync(accountId);
         }

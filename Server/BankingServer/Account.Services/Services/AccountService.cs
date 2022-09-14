@@ -28,7 +28,7 @@ namespace Account.Services.Services
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
                 if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
                 {
-                    throw new Exception("account exists");
+                    throw new Exception("An account with this email address aleady exists.");
                 }
                 AccountEntity account = new AccountEntity();
                 account.Customer = customer;
@@ -37,9 +37,9 @@ namespace Account.Services.Services
                 account.Balance = 1000;
                 await _accountRepository.CreateAccountAsync(account);
             }
-            catch
+            catch (Exception ex)
             {
-                throw;
+                Console.WriteLine(ex);
             }
         }
 
