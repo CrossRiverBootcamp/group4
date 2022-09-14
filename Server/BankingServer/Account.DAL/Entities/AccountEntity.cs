@@ -6,7 +6,7 @@ namespace Account.DAL.Entities
     public class AccountEntity
     {
         [Key]
-        [Index(IsUnique = true)]
+        //[Index(IsUnique = true)]
         [Required]
         public int Id { get; set; }
         [ForeignKey("CustomerEntity")]
