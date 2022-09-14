@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Account.DAL.Migrations
 {
     [DbContext(typeof(AccountDBContext))]
-    [Migration("20220911075352_AddOperationsTable")]
-    partial class AddOperationsTable
+    [Migration("20220914072923_RebuildDB")]
+    partial class RebuildDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -80,6 +80,24 @@ namespace Account.DAL.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Account.DAL.Entities.EmailVerificationEntity", b =>
+                {
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("ExpirationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("VerificationCode")
+                        .IsRequired()
+                        .HasMaxLength(4)
+                        .HasColumnType("nvarchar(4)");
+
+                    b.HasKey("Email");
+
+                    b.ToTable("Verifications");
+                });
+
             modelBuilder.Entity("Account.DAL.Entities.OperationEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -103,9 +121,8 @@ namespace Account.DAL.Migrations
                     b.Property<int>("TransactionAmount")
                         .HasColumnType("int");
 
-                    b.Property<string>("TransactionId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("TransactionId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

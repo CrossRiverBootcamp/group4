@@ -19,5 +19,6 @@ namespace Account.DTO
         [MaxLength(20)]
         [MinLength(5)]
         public string Password { get; set; }
+        public string VerificationCode { get; set; }
     }
 }

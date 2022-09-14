@@ -25,6 +25,7 @@ namespace Account.Services.Services
         {
             try
             {
+                //check verificatin code match
                 CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
                 if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
                 {
@@ -35,6 +36,7 @@ namespace Account.Services.Services
                 account.OpenDate = DateTime.UtcNow;
                 //i want to input here from appsettings.json instead of hardcoding
                 account.Balance = 1000;
+
                 await _accountRepository.CreateAccountAsync(account);
             }
             catch (Exception ex)

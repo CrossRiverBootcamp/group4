@@ -9,26 +9,37 @@ namespace Account.Api.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        public CustomerController(IAccountService accountService)
+        private readonly IEmailVerificationService _emailVerificationService;
+     
+
+        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService)
         {
             _accountService = accountService;
+            _emailVerificationService = emailVerificationService;
         }
 
         [HttpPost]
         public async Task<ActionResult<bool>> CreateAccountAsync([FromBody] CustomerDTO customer)
         {
-            if (!ModelState.IsValid)
+            if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
             {
-                return BadRequest();
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                try
+                {
+                    await _accountService.CreateAccountAsync(customer);
+                    return Ok(true);
+                }
+                catch
+                {
+                    return Ok(false);
+                }
             }
-            try
+            else
             {
-               await _accountService.CreateAccountAsync(customer);
-                return Ok(true);
-            }
-            catch
-            {
-                return Ok(false);
+                throw new Exception("The verification code is wrong. Can't create account");
             }
         }
     }
