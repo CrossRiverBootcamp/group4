@@ -40,9 +40,16 @@ namespace Transaction.Api
             {
                 await _updateTransaction.UpdateStatusAsync(message.BalanceUpdatedSucceeded, message.TransactionId);
                 await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
-                Data.IsBalanceUpdated = true;
-                log.Info($"Received BalanceUpdated info , TransactionId = {message.TransactionId} ...");
-
+                if (message.FailureReason == null)
+                {
+                    Data.IsBalanceUpdated = false;
+                    log.Info($"Couldn't execute transcation because {message.FailureReason} , TransactionId = {message.TransactionId} ...");
+                }
+                else
+                {
+                    Data.IsBalanceUpdated = true;
+                    log.Info($"Balance was updated, transcation succeeded , TransactionId = {message.TransactionId} ...");
+                }
             }
             catch(Exception ex)
             {

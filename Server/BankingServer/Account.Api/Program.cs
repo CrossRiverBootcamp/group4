@@ -39,6 +39,7 @@ builder.Services.AddSwaggerGen();
 //builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 //builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddAutoMapper(typeof(Program));
+
 ExtensionMethod.ExtensionDI( builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
 
 
