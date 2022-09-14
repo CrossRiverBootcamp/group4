@@ -1,7 +1,7 @@
 export interface Operation{
     DebitOrCredit:boolean,
-    FromTo:Number,
-    Amount:number,
-    Balance:Number,
-    OperationDate:Date
+    otherSide:Number,
+    amount:number,
+    balance:Number,
+    operationTime:Date
 }

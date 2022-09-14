@@ -5,7 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Operation } from 'src/app/models/Operation';
 import { HistoryService } from 'src/app/services/history.service';
-import { operations } from 'src/app/Data/Dummy';
+// import { operations } from 'src/app/Data/Dummy';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -13,7 +13,7 @@ import { operations } from 'src/app/Data/Dummy';
 })
 export class historyComponent implements OnInit ,AfterViewInit{
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns = ['DebitOrCredit', 'FromTo', 'amount', 'balance', 'OperationDate'];
+  displayedColumns = ['DebitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
   dataSource!: MatTableDataSource<Operation>;
   accountId!: Number;
   isChecked: boolean = false;
@@ -24,17 +24,20 @@ export class historyComponent implements OnInit ,AfterViewInit{
     const extras = this.router.getCurrentNavigation()?.extras;
     this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
     console.log(this.accountId);
-    this.dataSource = new MatTableDataSource();
+    this.dataSource = new MatTableDataSource<Operation>();
     this.dataSource.paginator = this.paginator;
     // this.paginator.pageIndex = 1;
     // this.paginator.pageSize = 100;
     // this.paginator.length = 100;
   
-    this.getOperations()
+    this.getOperations();
+    console.log('in ctor')
     // this.paginator.length
   }
   ngOnInit(): void {
+    this.dataSource = new MatTableDataSource<Operation>();
     this.getOperations()
+    console.log('in init')
   }
   details(){
     this.router.navigate(['/details'],{state:{accountId:this.accountId}});
@@ -53,10 +56,11 @@ export class historyComponent implements OnInit ,AfterViewInit{
 
   public getOperations():void{
     this.historyService.getOperationsByDetails(this.accountId, this.isChecked,1,2)
-    .subscribe(res=>console.log(res),err=>console.log(err));
+    .subscribe(res=>{console.log(res); this.dataSource.data = res;},err=>console.log(err));
   }
   ngAfterViewInit(): void {
-    // this.getOperations(1,2);
+    this.dataSource.paginator = this.paginator;
+    this.getOperations();
   }
   public changeChecked(): void {
     this.isChecked = !this.isChecked;
