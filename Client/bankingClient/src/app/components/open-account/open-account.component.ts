@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { CustomButton } from '@okta/okta-signin-widget';
 import { Customer } from 'src/app/models/Customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 
@@ -11,33 +10,33 @@ import { OpenAccountService } from 'src/app/services/open-account.service';
 })
 export class OpenAccountComponent implements OnInit {
 
-  openAccountForm:FormGroup;
+  public firstName='';
+  public lastName='';
+  public email = '';
+  public password = '';
+  public registrationValid=false;
+  public customer?:Customer;
 
-  constructor(private formBuilder:FormBuilder, private openService:OpenAccountService) {
-    this.openAccountForm=this.createFormGroup(formBuilder);
+  constructor( private openService:OpenAccountService) {
+
    }
-  createFormGroup(formBuilder: FormBuilder) {
-    return formBuilder.group({
-      firstName:[,[Validators.required],],
-      lastName:[,[Validators.required],],
-      email:[,[Validators.email,Validators.required],],
-      password:[,[Validators.required],],
-    });
-  }
+
 
   ngOnInit(): void {
   }
 
   onSubmit(){
-    const newCustomer:Customer= 
-    Object.assign({},this.openAccountForm.value);
-    console.log(newCustomer);
-    this.openService.openAccount(newCustomer).subscribe(
+    this.registrationValid=true;
+    this.customer={
+      firstName=this.firstName,
+      lastName=this.lastName,
+      email=this.email,
+      password=this.password
+    }
+    this.openService.openAccount(this.customer).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
     );
-    this.openAccountForm.reset();
-    
   }
   
 }

@@ -1,6 +1,6 @@
 
 <h1>Open New Account</h1>
-
+<!-- 
 <form [formGroup]="openAccountForm" (ngSubmit)="onSubmit()" novalidate class="registerForm">
     <label>First Name</label><br>
     <input formControlName="firstName" /><br>
@@ -9,7 +9,39 @@
     <label>Email</label><br>
     <input formControlName="email" /> <br>
     <label>Password</label><br>
-    <input type="password" formControlName="password" /><br>
+    <input type="password" formControlName="password" /><br><br>
     <button type="submit" [disabled]="!openAccountForm.valid">Register</button>
-  </form>
+  </form> -->
 
+
+  <mat-card>
+    <mat-card-content>
+      <form #registrationForm="ngForm" (ngSubmit)="onSubmit()">
+          <mat-form-field>
+          <input matInput type="string" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required minlength="2" maxlength="20">
+          <mat-error>
+            Please entera valid first name.
+          </mat-error>
+        </mat-form-field>
+          <mat-form-field>
+          <input matInput type="string" placeholder="Last Name" [(ngModel)]="lastName" name="lastName" required maxlength="25">
+          <mat-error>
+            Please enter a valid last name.
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="email" placeholder="Email" [(ngModel)]="email" name="username" required >
+          <mat-error>
+            Please enter a valid email address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="Password" [(ngModel)]="password" name="password" required minlength="5" maxlength="20">
+          <mat-error>
+            Password must be at least five characters long.
+          </mat-error>
+        </mat-form-field>
+        <button mat-raised-button color="primary" [disabled]="!registrationForm.form.valid">Login</button>
+      </form>
+    </mat-card-content>
+  </mat-card> 
