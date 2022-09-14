@@ -13,7 +13,6 @@ namespace Transaction.Services.Services
     {
         private readonly IMapper _mapper;
         private readonly ITransactionRepository _transactionRepository;
-        //private readonly IMessageSession _messageSession;
         public TransactionService(ITransactionRepository transactionRepository)
         {
             _transactionRepository = transactionRepository; 

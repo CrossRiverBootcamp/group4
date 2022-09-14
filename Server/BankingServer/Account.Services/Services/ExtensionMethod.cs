@@ -21,7 +21,6 @@ namespace Account.Services.Services
             service.AddScoped<IOperationRepository, OperationRepository>();
             service.AddScoped<IEmailVerificationRepository, EmailVerificationRepository>();
             service.AddScoped<IEmailVerificationService, EmailVerificationService>();
-           // service.AddTransient<IEmailSender, EmailVerificationService>();
 
         }
     }

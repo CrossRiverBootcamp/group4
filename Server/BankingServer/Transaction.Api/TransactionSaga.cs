@@ -69,20 +69,5 @@ namespace Transaction.Api
             mapper.MapSaga(sagaData => sagaData.TransactionId)
                 .ToMessage<BalanceUpdated>(message => message.TransactionId);
         }
-        //private bool ProccessTransaction(IMessageHandlerContext context)
-        //{
-        //    if (Data.GetEventPayload && Data.IsBalanceUpdated)
-        //    {
-        //        //subscriber.Status = SubscriberStatus.Succeeded;
-        //        //await context.Publish(subscriber);
-        //        return true;
-        //    }
-        //    else
-        //    {
-        //        return false;
-        //    }
-        //}
-
-
     }
 }

@@ -9,6 +9,5 @@ namespace Transaction.DAL.Entities
         {
 
         }
-
     }
 }

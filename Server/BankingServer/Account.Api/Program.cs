@@ -13,7 +13,6 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
     endpointConfiguration.SendFailedMessagesTo("error");
-    //endpointConfiguration.SendOnly();
     var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
@@ -24,7 +23,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     persistence.TablePrefix("Account");
     dialect.Schema("dboAccount");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
-    transport.ConnectionString("host=localhost");
+    transport.ConnectionString(builder.Configuration.GetConnectionString("NSB"));
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
 });
@@ -35,13 +34,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddDbContextFactory<AccountDBContext>(item => item.UseSqlServer(builder.Configuration.GetConnectionString("myConnection")));
-//builder.Services.AddScoped<IAccountRepository, AccountRepository>();
-//builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddAutoMapper(typeof(Program));
-
+//Extension method for dependency injection
 ExtensionMethod.ExtensionDI( builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
-
 
 var app = builder.Build();
 

@@ -1,5 +1,4 @@
-﻿
-namespace Account.DTO
+﻿namespace Account.DTO
 {
     public class OperationDto
     {

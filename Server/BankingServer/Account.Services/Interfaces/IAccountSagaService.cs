@@ -1,5 +1,4 @@
-﻿
-namespace Account.Services.Interfaces
+﻿namespace Account.Services.Interfaces
 {
     public interface IAccountSagaService
     {

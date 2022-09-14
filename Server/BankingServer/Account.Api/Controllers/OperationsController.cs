@@ -52,7 +52,5 @@ namespace Account.Api.Controllers
                 throw new Exception("Could not get operations", ex);
             }
         }
-
-
     }
 }

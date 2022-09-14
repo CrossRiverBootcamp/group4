@@ -1,5 +1,4 @@
 ﻿
-
 namespace Transaction.Services.Interfaces
 {
     public interface IUpdateTransactionStatusService
