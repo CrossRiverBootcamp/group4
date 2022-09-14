@@ -39,8 +39,8 @@ export class historyComponent implements OnInit ,AfterViewInit{
     this.getOperations()
     console.log('in init')
   }
-  details(){
-    this.router.navigate(['/details'],{state:{accountId:this.accountId}});
+  details(accountIdOtherSide:Number){
+    this.router.navigate(['/details'],{state:{accountId:accountIdOtherSide}});
   }
   // public getOperations(pageIndex:NumberInput,pageSize:NumberInput): void {
   //   this.historyService.getOperationsByDetails(this.accountId, this.isChecked,pageIndex,pageSize).subscribe(op => {

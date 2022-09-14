@@ -42,7 +42,7 @@ namespace Account.Api.Controllers
                 throw new Exception("The verification code is wrong. Can't create account");
             }
         }
-        [HttpGet("{id}")]
+        [HttpGet("{accountId}")]
         public async Task<ActionResult<CustomerDTO>> GetCustomerByAccountId(int accountId)
         {
             try

@@ -22,7 +22,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
     persistence.TablePrefix("Account");
-    dialect.Schema("dbo");
+    dialect.Schema("dboAccount");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     transport.ConnectionString("host=localhost");
     transport.UseConventionalRoutingTopology(QueueType.Quorum);

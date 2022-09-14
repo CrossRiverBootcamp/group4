@@ -20,7 +20,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
     persistence.TablePrefix("Transaction");
-    dialect.Schema("dbo");
+    dialect.Schema("dboTransaction");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     var routing = transport.Routing();
     routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Account.Api");
