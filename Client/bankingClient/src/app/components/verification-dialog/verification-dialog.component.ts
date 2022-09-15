@@ -28,6 +28,7 @@ export class VerificationDialogComponent implements OnInit {
       success => {console.log(success)}
       ,err=>console.log(err)
     );
+    
   }
   onSubmitAgain(){
     this.openService.emailVerificationAgain(this.data.Email).subscribe(

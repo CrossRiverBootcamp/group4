@@ -33,8 +33,15 @@ namespace Account.Services.Services
             emailVerification.ExpirationTime = DateTime.UtcNow.AddMinutes(5);
             EmailVerificationEntity emailVerificationEntity = _mapper.Map<EmailVerificationEntity>(emailVerification);
             await _emailVerificationRepository.AddEmailVerification(emailVerificationEntity);
+            //await runThread(emailVerificationEntity);
+             Task.Delay(300000).ContinueWith(async _ =>
+            {
+               await _emailVerificationRepository.RemoveEmailVerification(emailVerificationEntity);
+            });
             await SendEmailAsync(emailVerification.Email, "Verify your email address", $"Your verification code is {emailVerification.VerificationCode}");
         }
+        
+
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
             string fromMail = "sendemail081@gmail.com";

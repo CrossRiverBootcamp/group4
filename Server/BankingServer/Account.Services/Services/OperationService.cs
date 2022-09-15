@@ -24,7 +24,7 @@ namespace Account.Services.Services
         public async Task AddToHistoryTableAsync(TransactionPayload message)
         {
             OperationMapDTO fromAccount = new OperationMapDTO(message.FromAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
-            OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
+            OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, true, message.Amount, message.DateOfTransaction);
             OperationEntity accountFrom = _mapper.Map<OperationEntity>(fromAccount);
             OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
             try

@@ -17,6 +17,12 @@ namespace Account.DAL.Repositories
             await context.Verifications.AddAsync(emailVerificationEntity);
             await context.SaveChangesAsync();
         }
+        public async Task RemoveEmailVerification(EmailVerificationEntity emailVerificationEntity)
+        {
+            using var context = _factory.CreateDbContext();
+            context.Verifications.Remove(emailVerificationEntity);
+            await context.SaveChangesAsync();
+        }
 
        public async Task<bool> CheckVerificationAsync(string email, string verificationCode)
         {
