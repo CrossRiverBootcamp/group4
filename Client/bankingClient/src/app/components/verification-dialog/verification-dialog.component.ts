@@ -23,10 +23,16 @@ export class VerificationDialogComponent implements OnInit {
     //   verificationCode:this.verificationCode
     // }
     console.log(this.data);
-    // this.data.VerificationCode = this.code!;
-    this.openService.openAccount(this.data,this.code!).subscribe(
+    this.data.VerificationCode = this.code!;
+    this.openService.openAccount(this.data).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
+    );
+  }
+  onSubmitAgain(){
+    this.openService.emailVerificationAgain(this.data.Email).subscribe(
+      success => {console.log(success)}
+      ,err=>alert(err)
     );
   }
 }

@@ -24,8 +24,11 @@ protected get requestHeaders(): { headers: HttpHeaders | { [header: string]: str
     const body=JSON.stringify(email);
     return this.http.post("https://localhost:7248/api/EmailVerification",body,this.requestHeaders);
   }
- public openAccount(newCustomer: Customer,code:string):Observable<boolean>{
-  newCustomer.VerificationCode = code;
+  public emailVerificationAgain(email:string):Observable<any>{
+    const body=JSON.stringify(email);
+    return this.http.post("https://localhost:7248/api/EmailVerification/ResendCode",body,this.requestHeaders);
+  }
+ public openAccount(newCustomer: Customer):Observable<boolean>{
     return this.http.post<boolean>("https://localhost:7248/api/Customer",newCustomer);
   }
 }
