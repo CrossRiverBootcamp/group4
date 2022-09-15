@@ -10,26 +10,37 @@ namespace Account.Api.Controllers
     public class EmailVerificationController : ControllerBase
     {
         private readonly IEmailVerificationService _emailVerificationService;
-       
+
         public EmailVerificationController(IEmailVerificationService emailVerificationService)
         {
             _emailVerificationService = emailVerificationService;
         }
-    
+
         // POST api/<IEmailVerificationController>
         [HttpPost]
         public async void PostEmailVerification([FromBody] string email)
         {
             try
             {
-                await _emailVerificationService.AddEmailVerification(email);
+                await _emailVerificationService.AddEmailVerificationAsync(email);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw new Exception("Couldn't verify email",ex);
+                throw new Exception("Couldn't verify email", ex);
             }
-            
-           
+        }
+
+        [HttpPost("ResendCode")]
+        public async void ResendCodeAsync([FromBody] string email)
+        {
+            try
+            {
+                await _emailVerificationService.ResendCodeAsync(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Couldn't resend code", ex);
+            }
         }
 
     }

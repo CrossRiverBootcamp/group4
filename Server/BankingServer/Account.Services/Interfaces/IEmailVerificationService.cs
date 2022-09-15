@@ -4,7 +4,8 @@ namespace Account.Services.Interfaces
 {
     public interface IEmailVerificationService
     {
-       Task AddEmailVerification(string email);
+       Task AddEmailVerificationAsync(string email);
         Task<bool> CheckVerificationAsync(string email, string verificationCode);
+        Task ResendCodeAsync(string email);
     }
 }

@@ -25,7 +25,7 @@ namespace Account.Services.Services
             _mapper = config.CreateMapper();
         }
 
-        public async Task AddEmailVerification(string email)
+        public async Task AddEmailVerificationAsync(string email)
         {
             EmailVerificationDto emailVerification = new EmailVerificationDto();
             emailVerification.Email = email;
@@ -58,6 +58,14 @@ namespace Account.Services.Services
         public async Task<bool> CheckVerificationAsync(string email, string verificationCode)
         {
             return await _emailVerificationRepository.CheckVerificationAsync(email, verificationCode);
+        }
+        public async Task ResendCodeAsync(string email)
+        {
+            var code= await _emailVerificationRepository.CodeForExistingEmail(email);
+            if(code==String.Empty)
+              await  AddEmailVerificationAsync(email);
+            else
+                await SendEmailAsync(email, "Verify your email address", $"Your verification code is {code}");
         }
     }
 }
