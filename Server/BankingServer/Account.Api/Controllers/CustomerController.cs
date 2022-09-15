@@ -10,12 +10,14 @@ namespace Account.Api.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IEmailVerificationService _emailVerificationService;
+        private readonly IConfiguration _configuration;
      
 
-        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService)
+        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService,IConfiguration configuration)
         {
             _accountService = accountService;
             _emailVerificationService = emailVerificationService;
+            _configuration = configuration;
         }
 
         [HttpPost]
@@ -28,8 +30,9 @@ namespace Account.Api.Controllers
                     return BadRequest();
                 }
                 try
+
                 {
-                    await _accountService.CreateAccountAsync(customer);
+                    await _accountService.CreateAccountAsync(customer, int.Parse(_configuration.GetSection("InitBalance").Value));
                     return Ok(true);
                 }
                 catch
@@ -39,7 +42,7 @@ namespace Account.Api.Controllers
             }
             else
             {
-                throw new Exception("The verification code is wrong. Can't create account");
+                throw new Exception("The verification code is wrong or expired. Can't create account");
             }
         }
         [HttpGet("{accountId}")]

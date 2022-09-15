@@ -30,7 +30,7 @@ namespace Account.Services.Services
             EmailVerificationDto emailVerification = new EmailVerificationDto();
             emailVerification.Email = email;
             emailVerification.VerificationCode = new Random().Next(1000, 9999).ToString();
-            emailVerification.ExpirationTime = DateTime.UtcNow.AddHours(24);
+            emailVerification.ExpirationTime = DateTime.UtcNow.AddMinutes(5);
             EmailVerificationEntity emailVerificationEntity = _mapper.Map<EmailVerificationEntity>(emailVerification);
             await _emailVerificationRepository.AddEmailVerification(emailVerificationEntity);
             await SendEmailAsync(emailVerification.Email, "Verify your email address", $"Your verification code is {emailVerification.VerificationCode}");
@@ -61,11 +61,8 @@ namespace Account.Services.Services
         }
         public async Task ResendCodeAsync(string email)
         {
-            var code= await _emailVerificationRepository.CodeForExistingEmail(email);
-            if(code==String.Empty)
-              await  AddEmailVerificationAsync(email);
-            else
-                await SendEmailAsync(email, "Verify your email address", $"Your verification code is {code}");
+            await _emailVerificationRepository.ResendCodeForExistingEmail(email);
+            await AddEmailVerificationAsync(email);
         }
     }
 }

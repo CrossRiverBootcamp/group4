@@ -21,7 +21,7 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task CreateAccountAsync(CustomerDTO customerDTO)
+        public async Task CreateAccountAsync(CustomerDTO customerDTO,int balanceInit)
         {
             try
             {
@@ -35,7 +35,7 @@ namespace Account.Services.Services
                 account.Customer = customer;
                 account.OpenDate = DateTime.UtcNow;
                 //i want to input here from appsettings.json instead of hardcoding
-                account.Balance = 1000;
+                account.Balance = balanceInit;
 
                 await _accountRepository.CreateAccountAsync(account);
             }
