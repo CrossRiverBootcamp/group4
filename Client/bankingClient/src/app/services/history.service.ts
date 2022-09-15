@@ -13,7 +13,7 @@ export class HistoryService {
   public getAllOperations(accountId:Number , isChecked:Boolean ):Observable<Operation[]>{
     return this.http.get<Operation[]>(`https://localhost:7248/api/Operations/id?accountId=${accountId}&&sortByDateDesc=${isChecked}`);
 }
-public getOperationsByDetails(accountId:Number,isChecked:Boolean,pageNumber:NumberInput,numOfRecords:NumberInput):Observable<Operation[]>{
+public getOperationsByDetails(accountId:Number,isChecked:Boolean,pageNumber:Number,numOfRecords:Number):Observable<Operation[]>{
   return this.http.get<Operation[]>(`https://localhost:7248/api/Operations/filter?accountId=${accountId}&sortByDateDesc=${isChecked}&pageNumber=${pageNumber}&numOfRecords=${numOfRecords}`);
 }
 public getNumberOperations(accountId:Number):Observable<NumberInput>{

@@ -32,11 +32,11 @@ export class OpenAccountComponent implements OnInit {
     this.openService.emailVerification(this.email!).subscribe(
       success => {
         this.customer={
-          FirstName:this.firstName,
-          LastName:this.lastName,
-          Email:this.email,
-          Password:this.password,
-          VerificationCode:'aaaa'
+          firstName:this.firstName,
+          lastName:this.lastName,
+          email:this.email,
+          password:this.password,
+          verificationCode:'aaaa'
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
           data: { customer: this.customer}});

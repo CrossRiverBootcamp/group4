@@ -17,53 +17,37 @@ export class historyComponent implements OnInit ,AfterViewInit{
   dataSource!: MatTableDataSource<Operation>;
   accountId!: Number;
   isChecked: boolean = false;
-// pageIndex:NumberInput = 1;
-// pageSize:NumberInput = 2;
-// length:NumberInput = 4;
   constructor(private router: Router, private historyService: HistoryService) {
     const extras = this.router.getCurrentNavigation()?.extras;
     this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
     console.log(this.accountId);
     this.dataSource = new MatTableDataSource<Operation>();
     this.dataSource.paginator = this.paginator;
-    // this.paginator.pageIndex = 1;
-    // this.paginator.pageSize = 100;
-    // this.paginator.length = 100;
-  
-    this.getOperations();
+    this.getOperations(1,2);
     console.log('in ctor')
-    // this.paginator.length
   }
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Operation>();
-    this.getOperations()
+    this.getOperations(1,2)
     console.log('in init')
   }
   details(accountIdOtherSide:Number){
     this.router.navigate(['/details'],{state:{accountId:accountIdOtherSide}});
   }
-  // public getOperations(pageIndex:NumberInput,pageSize:NumberInput): void {
-  //   this.historyService.getOperationsByDetails(this.accountId, this.isChecked,pageIndex,pageSize).subscribe(op => {
-  //     // this.paginator.pageIndex = pageIndex;
-  //     // this.paginator.pageSize = pageSize;
-  //     this.historyService.getNumberOperations(this.accountId).subscribe(
-  //       num => this.paginator.length = num,err=> console.error(err)
-  //     )
-  //     this.dataSource = new MatTableDataSource(op);
-  //     this.dataSource.paginator = this.paginator; 
-  //   }, err => console.log(err))
-  // }
-
-  public getOperations():void{
-    this.historyService.getOperationsByDetails(this.accountId, this.isChecked,1,2)
+  public getOperations(pageIndex:Number,pageSize:Number):void{
+    this.historyService.getOperationsByDetails(this.accountId, this.isChecked,pageIndex,pageSize)
     .subscribe(res=>{console.log(res); this.dataSource.data = res;},err=>console.log(err));
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.getOperations();
+    this.getOperations(this.paginator.pageIndex,this.paginator.pageSize);
   }
   public changeChecked(): void {
     this.isChecked = !this.isChecked;
+  }
+  onPaginateChange(pageEvent: PageEvent) {
+
+    this.getOperations(pageEvent.pageIndex,pageEvent.pageSize);
   }
 
 }

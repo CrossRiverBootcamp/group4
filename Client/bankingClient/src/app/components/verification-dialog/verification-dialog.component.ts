@@ -23,7 +23,7 @@ export class VerificationDialogComponent implements OnInit {
     //   verificationCode:this.verificationCode
     // }
     console.log(this.data);
-    this.data.VerificationCode = this.code!;
+    this.data.verificationCode = this.code!;
     this.openService.openAccount(this.data).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
@@ -31,7 +31,7 @@ export class VerificationDialogComponent implements OnInit {
     
   }
   onSubmitAgain(){
-    this.openService.emailVerificationAgain(this.data.Email).subscribe(
+    this.openService.emailVerificationAgain(this.data.email).subscribe(
       success => {console.log(success)}
       ,err=>alert(err)
     );

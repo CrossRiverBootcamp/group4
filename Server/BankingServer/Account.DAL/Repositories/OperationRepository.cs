@@ -48,7 +48,7 @@ namespace Account.DAL.Repositories
             using var context = _factory.CreateDbContext();
             List<OperationEntity> operationList = await context.Operations
                 .Where(operation => operation.AccountId == accountId)
-                .Skip((pageNumber - 1) * numOfRecrds ).Take(numOfRecrds).ToListAsync();
+                .Skip((pageNumber * numOfRecrds )).Take(numOfRecrds).ToListAsync();
             return operationList;
         }
 
