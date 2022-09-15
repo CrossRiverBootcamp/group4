@@ -40,6 +40,7 @@ export class OpenAccountComponent implements OnInit {
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
           data: { customer: this.customer}});
+          dialogRef.afterClosed().subscribe(result => console.log(result))
       }
       ,err=>alert(err)
     );
