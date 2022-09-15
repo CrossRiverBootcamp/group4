@@ -22,14 +22,25 @@ namespace Account.Api.Controllers
         {
             try
             {
-                await _emailVerificationService.AddEmailVerification(email);
+                await _emailVerificationService.AddEmailVerificationAsync(email);
             }
             catch(Exception ex)
             {
                 throw new Exception("Couldn't verify email",ex);
             }
-            
-           
+        }
+
+        [HttpPost]
+        public async void ResendCodeAsync([FromBody] string email)
+        {
+            try
+            {
+                await _emailVerificationService.ResendCodeAsync(email);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Couldn't resend code", ex);
+            }
         }
 
     }

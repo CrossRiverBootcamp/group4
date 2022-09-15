@@ -24,5 +24,18 @@ namespace Account.DAL.Repositories
             using var context = _factory.CreateDbContext();
             return await context.Verifications.AnyAsync(v=>v.Email.Equals(email)&&v.VerificationCode.Equals(verificationCode)&&v.ExpirationTime>=DateTime.UtcNow);
         }
+        public async Task<string> CodeForExistingEmail(string email)
+        {
+            using var context = _factory.CreateDbContext();
+            var verification=await context.Verifications.FirstOrDefaultAsync(v=>v.Email.Equals(email));
+            if (verification != null)
+            {
+                return verification.VerificationCode;
+            }
+            else
+            {
+                return string.Empty;
+            }
+        }
     }
 }
