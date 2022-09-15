@@ -1,7 +1,7 @@
 export interface Customer{
-    firstName:string,
-    lastName:string,
-    email:string,
-    password:string,
-    verificationCode:string
+    FirstName:string,
+    LastName:string,
+    Email:string,
+    Password:string,
+    VerificationCode:string
 }

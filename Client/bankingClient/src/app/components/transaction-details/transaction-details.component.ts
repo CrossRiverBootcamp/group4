@@ -17,9 +17,9 @@ export class TransactionDetailsComponent implements OnInit {
     this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
     console.log(this.accountId);
     this.detailsService.getCustomer(this.accountId).subscribe(
-      res=> {this.firstName = res.firstName;
-      this.lastName = res.lastName;
-      this.email = res.email},
+      res=> {this.firstName = res.FirstName;
+      this.lastName = res.LastName;
+      this.email = res.Email},
       err=>console.log(err)
     )
   }

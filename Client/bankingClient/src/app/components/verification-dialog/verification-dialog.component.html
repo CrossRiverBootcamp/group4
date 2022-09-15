@@ -1,0 +1,17 @@
+<mat-dialog-content class="mat-typography">
+<p>In order to open an account in your name, 
+    you must verify your email address so we know it's really you.</p>
+</mat-dialog-content>
+<mat-dialog-actions align="center">
+    <form class="example-form">
+        <mat-form-field class="example-full-width" appearance="fill">
+          <mat-label>code</mat-label>
+          <input matInput #message maxlength="4" [(ngModel)]="code" name="code">
+          <mat-hint align="start"><strong>put in the verification code</strong> </mat-hint>
+          <mat-hint align="end">{{message.value.length}} / 4</mat-hint>
+        </mat-form-field>
+      </form>
+  </mat-dialog-actions>
+  <mat-dialog-actions align="end">
+    <button mat-raised-button color="primary" (click)="onSubmit()">OK</button>
+  </mat-dialog-actions>

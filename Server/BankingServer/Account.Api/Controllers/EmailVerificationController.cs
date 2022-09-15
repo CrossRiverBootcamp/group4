@@ -19,8 +19,8 @@ namespace Account.Api.Controllers
         }
     
         // POST api/<IEmailVerificationController>
-        [HttpPost("{email}")]
-        public async void PostEmailVerification(string email)
+        [HttpPost]
+        public async void PostEmailVerification([FromBody] string email)
         {
             await _emailVerificationService.AddEmailVerification(email);
            

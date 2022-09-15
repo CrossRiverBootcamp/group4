@@ -16,7 +16,7 @@
 
   <mat-card>
     <mat-card-content>
-      <form #registrationForm="ngForm" (ngSubmit)="onSubmit()">
+      <form #registrationForm="ngForm" (ngSubmit)="onSubmitForVerification()">
           <mat-form-field>
           <input matInput type="string" placeholder="First Name" [(ngModel)]="firstName" name="firstName" required minlength="2" maxlength="20">
           <mat-error>
@@ -41,7 +41,7 @@
             Password must be at least five characters long.
           </mat-error>
         </mat-form-field>
-        <button mat-raised-button color="primary" [disabled]="!registrationForm.form.valid">Login</button>
+        <button mat-raised-button color="primary" [disabled]="!registrationForm.form.valid">Signin</button>
       </form>
     </mat-card-content>
   </mat-card> 

@@ -24,10 +24,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
 import { historyComponent } from './components/history/history.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
-import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatPaginatorIntlCro } from './services/MatPaginatorIntlCro';
+import { VerificationDialogComponent } from './components/verification-dialog/verification-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
+
+// import { DialogComponent } from '@angular/material/dialog/';
 @NgModule({
   declarations: [
     AppComponent,
@@ -36,7 +39,9 @@ import { MatPaginatorIntlCro } from './services/MatPaginatorIntlCro';
     AccountDetailsComponent,
     CreateTransactionComponent,
     historyComponent,
-    TransactionDetailsComponent
+    TransactionDetailsComponent,
+    VerificationDialogComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,7 +63,12 @@ import { MatPaginatorIntlCro } from './services/MatPaginatorIntlCro';
     MatOptionModule,
     RouterTestingModule,
     MatPaginatorModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
+    // DialogComponent
+  ],
+  entryComponents: [
+    VerificationDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
