@@ -1,6 +1,5 @@
 ﻿using Account.DTO;
 
-
 namespace Account.Services.Interfaces
 {
     public interface IEmailVerificationService

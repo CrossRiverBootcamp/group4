@@ -9,15 +9,20 @@ namespace Transaction.DAL.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
+
         [Required]
         public int FromAccountId { get; set; }
+
         [Required]
         public int ToAccountId { get; set; }
+
         [Required]
         [Range(1, 100000000)]
         public int Amount { get; set; }
+
         [Required]
         public DateTime DateOfTransaction { get; set; }
+
         [Required]
         public TransactionStatus Status { get; set; }
         

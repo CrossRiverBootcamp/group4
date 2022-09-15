@@ -1,6 +1,4 @@
-﻿using Account.DTO;
-using Account.Services.Interfaces;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Account.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -22,7 +20,15 @@ namespace Account.Api.Controllers
         [HttpPost]
         public async void PostEmailVerification([FromBody] string email)
         {
-            await _emailVerificationService.AddEmailVerification(email);
+            try
+            {
+                await _emailVerificationService.AddEmailVerification(email);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception("Couldn't verify email",ex);
+            }
+            
            
         }
 

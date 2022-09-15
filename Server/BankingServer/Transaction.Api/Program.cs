@@ -24,7 +24,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     var routing = transport.Routing();
     routing.RouteToEndpoint(assembly: typeof(TransactionPayload).Assembly, destination: "Account.Api");
-    transport.ConnectionString("host=localhost");
+    transport.ConnectionString(builder.Configuration.GetConnectionString("NSB"));
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
 });
@@ -36,9 +36,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 ExtensionMethod.ExtensionDI(builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
-
-
-
 
 var app = builder.Build();
 

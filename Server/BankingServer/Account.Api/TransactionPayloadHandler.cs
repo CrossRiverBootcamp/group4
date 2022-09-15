@@ -32,28 +32,23 @@ namespace Account.Api
                         {
                             await _accountSagaService.UpdateBalanceAsync(message.FromAccountId, message.ToAccountId, message.Amount);
                             balanceUpdated.BalanceUpdatedSucceeded = true;
+                            log.Info($"Balance has been updated. TransactionId= {message.TransactionId}");
                             try
                             {
                                 await _operationService.AddToHistoryTableAsync(message);
                                 log.Info($"Manage to add to history table, TransactionId = {message.TransactionId} ...");
-
                             }
                             catch
                             {
                                 log.Info($"Failed to add to history table, TransactionId = {message.TransactionId} ...");
-
                             }
                             log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
-
                         }
                         catch
                         {
                             balanceUpdated.BalanceUpdatedSucceeded = false;
                             log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
-
                         }
-
-
                     }
                     else
                     {
@@ -68,7 +63,6 @@ namespace Account.Api
                     balanceUpdated.BalanceUpdatedSucceeded = false;
                     log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
                 }
-
             }
             else
             {

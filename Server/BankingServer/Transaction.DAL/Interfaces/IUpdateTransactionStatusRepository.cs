@@ -1,5 +1,4 @@
-﻿
-namespace Transaction.DAL.Interfaces
+﻿namespace Transaction.DAL.Interfaces
 {
     public interface IUpdateTransactionStatusRepository
     {

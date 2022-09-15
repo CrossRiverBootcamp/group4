@@ -7,9 +7,11 @@ namespace Account.DAL.Entities
     {
         [Key]
         public string Email { get; set; }
+
         [Required]
         [StringLength(4)]
         public string VerificationCode { get; set; }
+
         [Required]
         public DateTime ExpirationTime { get; set; }
     }

@@ -27,7 +27,7 @@ namespace Account.Services.Services
 
         public async Task AddEmailVerification(string email)
         {
-            EmailVerificationDto emailVerification=new EmailVerificationDto();
+            EmailVerificationDto emailVerification = new EmailVerificationDto();
             emailVerification.Email = email;
             emailVerification.VerificationCode = new Random().Next(1000, 9999).ToString();
             emailVerification.ExpirationTime = DateTime.UtcNow.AddHours(24);
@@ -57,9 +57,8 @@ namespace Account.Services.Services
         }
         public async Task<bool> CheckVerificationAsync(string email, string verificationCode)
         {
-           return await _emailVerificationRepository.CheckVerificationAsync(email, verificationCode);
+            return await _emailVerificationRepository.CheckVerificationAsync(email, verificationCode);
         }
-
     }
-    }
+}
 
