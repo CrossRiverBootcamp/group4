@@ -2,7 +2,6 @@
 using Account.DAL.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Account.DAL.Repositories
 {
     public class EmailVerificationRepository : IEmailVerificationRepository
@@ -30,17 +29,14 @@ namespace Account.DAL.Repositories
             using var context = _factory.CreateDbContext();
             return await context.Verifications.AnyAsync(v=>v.Email.Equals(email)&&v.VerificationCode.Equals(verificationCode)&&v.ExpirationTime>=DateTime.UtcNow);
         }
-        public async Task<string> CodeForExistingEmail(string email)
+        public async Task ResendCodeForExistingEmail(string email)
         {
             using var context = _factory.CreateDbContext();
             var verification=await context.Verifications.FirstOrDefaultAsync(v=>v.Email.Equals(email));
             if (verification != null)
             {
-                return verification.VerificationCode;
-            }
-            else
-            {
-                return string.Empty;
+                context.Remove(verification);
+                await context.SaveChangesAsync();
             }
         }
     }

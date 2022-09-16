@@ -6,7 +6,7 @@ namespace Account.DAL.Interfaces
     {
         Task AddEmailVerification(EmailVerificationEntity emailVerificationEntity);
         Task<bool> CheckVerificationAsync(string email, string verificationCode);
-        Task<string> CodeForExistingEmail(string email);
+        Task ResendCodeForExistingEmail(string email);
         Task RemoveEmailVerification(EmailVerificationEntity emailVerificationEntity);
     }
 }

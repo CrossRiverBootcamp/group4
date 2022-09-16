@@ -13,6 +13,20 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
     endpointConfiguration.SendFailedMessagesTo("error");
+    //Configure number of retries
+    var recoverability = endpointConfiguration.Recoverability();
+    recoverability.Immediate(
+        immediate =>
+        {
+            immediate.NumberOfRetries(2);
+        });
+
+    recoverability.Delayed(
+        delayed =>
+        {
+            delayed.NumberOfRetries(3);
+            delayed.TimeIncrease(TimeSpan.FromSeconds(10));
+        });
     var persistence = endpointConfiguration.UsePersistence<SqlPersistence>();
     persistence.ConnectionBuilder(
     connectionBuilder: () =>
