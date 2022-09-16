@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Customer } from 'src/app/models/Customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 @Component({
@@ -9,8 +9,12 @@ import { OpenAccountService } from 'src/app/services/open-account.service';
 })
 export class VerificationDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Customer,private openService:OpenAccountService) { }
-  code?:string;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private openService:OpenAccountService,private dialogRef: MatDialogRef<VerificationDialogComponent>) { 
+    dialogRef.disableClose = true;
+    console.log(data)
+  }
+  customer?:Customer;
+  code:string='';
   ngOnInit(): void {
   }
   onSubmit(){
@@ -22,16 +26,22 @@ export class VerificationDialogComponent implements OnInit {
     //   password:this.password,
     //   verificationCode:this.verificationCode
     // }
-    console.log(this.data);
-    this.data.verificationCode = this.code!;
-    this.openService.openAccount(this.data).subscribe(
+    console.log(this.dialogRef.componentInstance.data.customer);
+    this.customer={
+      firstName: this.dialogRef.componentInstance.data.customer.firstName,
+      lastName:this.dialogRef.componentInstance.data.customer.lastName,
+      email:this.dialogRef.componentInstance.data.customer.email,
+      password:this.dialogRef.componentInstance.data.customer.password,
+      verificationCode:this.code
+    }
+    this.openService.openAccount(this.customer).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
     );
     
   }
   onSubmitAgain(){
-    this.openService.emailVerificationAgain(this.data.email).subscribe(
+    this.openService.emailVerificationAgain(this.dialogRef.componentInstance.data.customer.email).subscribe(
       success => {console.log(success)}
       ,err=>alert(err)
     );

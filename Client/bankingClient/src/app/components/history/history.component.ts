@@ -11,11 +11,12 @@ import { HistoryService } from 'src/app/services/history.service';
   templateUrl: './history.component.html',
   styleUrls: ['./history.component.css']
 })
-export class historyComponent implements OnInit ,AfterViewInit{
+export class historyComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   displayedColumns = ['DebitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
   dataSource!: MatTableDataSource<Operation>;
   accountId!: Number;
+  length!:Number;
   isChecked: boolean = false;
   constructor(private router: Router, private historyService: HistoryService) {
     const extras = this.router.getCurrentNavigation()?.extras;
@@ -23,31 +24,37 @@ export class historyComponent implements OnInit ,AfterViewInit{
     console.log(this.accountId);
     this.dataSource = new MatTableDataSource<Operation>();
     this.dataSource.paginator = this.paginator;
-    this.getOperations(1,2);
-    console.log('in ctor')
+    this.getOperations(1, 2);
   }
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource<Operation>();
-    this.getOperations(1,2)
-    console.log('in init')
+    // this.getOperations(1, 2)
   }
-  details(accountIdOtherSide:Number){
-    this.router.navigate(['/details'],{state:{accountId:accountIdOtherSide}});
+  details(accountIdOtherSide: Number) {
+    this.router.navigate(['/details'], { state: { accountId: accountIdOtherSide } });
   }
-  public getOperations(pageIndex:Number,pageSize:Number):void{
-    this.historyService.getOperationsByDetails(this.accountId, this.isChecked,pageIndex,pageSize)
-    .subscribe(res=>{console.log(res); this.dataSource.data = res;},err=>console.log(err));
+  public getOperations(pageIndex: Number, pageSize: Number): void {
+    this.historyService.getOperationsByDetails(this.accountId, this.isChecked, pageIndex, pageSize)
+      .subscribe(res => { console.log(res); this.dataSource.data = res; }, err => console.log(err));
   }
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
-    this.getOperations(this.paginator.pageIndex,this.paginator.pageSize);
+    this.getOperations(this.paginator.pageIndex, this.paginator.pageSize);
   }
   public changeChecked(): void {
     this.isChecked = !this.isChecked;
+    this.getOperations(this.paginator.pageIndex, this.paginator.pageSize);
+  }
+  public getLength(): void {
+    //how to return a value from subscribe
+   this.historyService.getNumberOfOperations(this.accountId).subscribe(
+      res => {this.length = res; return this.length},
+      err => {console.log(err); return 0;}
+    )
   }
   onPaginateChange(pageEvent: PageEvent) {
 
-    this.getOperations(pageEvent.pageIndex,pageEvent.pageSize);
+    this.getOperations(pageEvent.pageIndex, pageEvent.pageSize);
   }
 
 }
@@ -77,7 +84,7 @@ export class historyComponent implements OnInit ,AfterViewInit{
 //   foreignAccountDetails!: ForeignAccountDTO;
 //   @ViewChild(MatPaginator) paginator!: MatPaginator;
 //   constructor(private _loginService: LoginService, private _operationsService: OperationsService) { }
-// ​
+//
 //   ngAfterViewInit() {
 //     this.dataSource.paginator = this.paginator;
 //     this.currentAccountID = this._loginService.getAccountID();
@@ -88,7 +95,7 @@ export class historyComponent implements OnInit ,AfterViewInit{
 //       //intialize total number of operations-history
 //       this.numOfOperaitons = res;
 //     }, err =>  console.log(err));
-// ​
+//
 //     this.getOperations();
 //   }
 //   ngOnInit(): void {
@@ -106,7 +113,7 @@ export class historyComponent implements OnInit ,AfterViewInit{
 //       this.foreignAccountDetails = res;
 //     }, (err) => { console.log(err); });
 //   }
-// ​
+//
 //   getOperationsFromDB(getOperationDT0: getOperationDTO) {
 //     this._operationsService.getOperation(getOperationDT0).subscribe(
 //       (res) => {

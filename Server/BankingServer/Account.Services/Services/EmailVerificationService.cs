@@ -34,13 +34,16 @@ namespace Account.Services.Services
             EmailVerificationEntity emailVerificationEntity = _mapper.Map<EmailVerificationEntity>(emailVerification);
             await _emailVerificationRepository.AddEmailVerification(emailVerificationEntity);
             //await runThread(emailVerificationEntity);
-             Task.Delay(300000).ContinueWith(async _ =>
-            {
-               await _emailVerificationRepository.RemoveEmailVerification(emailVerificationEntity);
-            });
+            removeFromDB(emailVerificationEntity);
             await SendEmailAsync(emailVerification.Email, "Verify your email address", $"Your verification code is {emailVerification.VerificationCode}");
         }
-        
+        private void removeFromDB(EmailVerificationEntity emailVerificationEntity)
+        {
+            Task.Delay(300000).ContinueWith(async _ =>
+            {
+                await _emailVerificationRepository.RemoveEmailVerification(emailVerificationEntity);
+            });
+        }
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {

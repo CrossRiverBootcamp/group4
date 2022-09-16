@@ -39,7 +39,7 @@ export class OpenAccountComponent implements OnInit {
           verificationCode:'aaaa'
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
-          data: { customer: this.customer}});
+          data: { customer: this.customer},  disableClose: true });
           dialogRef.afterClosed().subscribe(result => console.log(result))
       }
       ,err=>alert(err)
