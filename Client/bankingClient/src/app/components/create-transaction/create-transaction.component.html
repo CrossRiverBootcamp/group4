@@ -3,7 +3,7 @@
       <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
         <h2>Create new transaction</h2>
         <mat-form-field>
-            <input matInput type="number" placeholder="to account" [(ngModel)]="accountIdTo" name="accountTo" required>
+            <input matInput type="number" placeholder="To account" [(ngModel)]="accountIdTo" name="accountTo" required>
             <mat-error>
               Please provide a valid account Id
             </mat-error>

@@ -32,6 +32,12 @@ export class CreateTransactionComponent{
      this.createTransactionService.createNewTransaction(this.transaction)
      .subscribe(a=>console.log(a),
      err=>console.log(err));
+     this.clearForm();
+  }
+  public clearForm():void{
+    this.accountIdTo=undefined;
+    this.amount=undefined;
+    this.formValid=false;
   }
 
 }
