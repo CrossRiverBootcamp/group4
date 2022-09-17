@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { Customer } from 'src/app/models/Customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 @Component({
@@ -9,7 +10,7 @@ import { OpenAccountService } from 'src/app/services/open-account.service';
 })
 export class VerificationDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private openService:OpenAccountService,private dialogRef: MatDialogRef<VerificationDialogComponent>) { 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,private openService:OpenAccountService,private dialogRef: MatDialogRef<VerificationDialogComponent>,private router: Router) { 
     dialogRef.disableClose = true;
     console.log(data)
   }
@@ -37,7 +38,9 @@ export class VerificationDialogComponent implements OnInit {
     this.openService.openAccount(this.customer).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
+      
     );
+    this.router.navigateByUrl('/login');
     
   }
   onSubmitAgain(){
