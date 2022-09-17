@@ -9,7 +9,7 @@ import { CreateTransactionService } from 'src/app/services/create-transaction.se
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent{
-
+  transferSuccess:boolean=false;
    formValid=true;
    accountIdFrom?:Number;
    accountIdTo?:Number;
@@ -30,7 +30,7 @@ export class CreateTransactionComponent{
       amount:this.amount
      }
      this.createTransactionService.createNewTransaction(this.transaction)
-     .subscribe(a=>console.log(a),
+     .subscribe(a=>{console.log(a);this.transferSuccess=true;},
      err=>console.log(err));
   }
 

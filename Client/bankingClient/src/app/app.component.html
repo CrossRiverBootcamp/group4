@@ -4,15 +4,11 @@
       <button mat-button routerLink="/"><mat-icon>home</mat-icon></button>
     </span>
     <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-      <button mat-button routerLink="login">
+      <button mat-button routerLink="/login"  routerLinkActive="active">
         <mat-icon>power_settings_new</mat-icon>
         Login
       </button>
-      <!-- <button mat-button *ngIf="isAuthenticated" (click)="logout()">
-        <mat-icon>exit_to_app</mat-icon>
-        Logout
-      </button> -->
-      <button mat-button routerLink="/signup">
+      <button mat-button routerLink="/signup"  routerLinkActive="active">
         <mat-icon>account_circle</mat-icon>
         signup
       </button>
@@ -34,10 +30,6 @@
       <mat-icon>power_settings_new</mat-icon>
       Login
     </button>
-    <!-- <button mat-menu-item *ngIf="isAuthenticated" (click)="logout()">
-      <mat-icon>exit_to_app</mat-icon>
-      Logout
-    </button> -->
   </mat-menu>
   <router-outlet></router-outlet>
   

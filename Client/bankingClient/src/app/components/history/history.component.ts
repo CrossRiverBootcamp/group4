@@ -5,7 +5,6 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { Operation } from 'src/app/models/Operation';
 import { HistoryService } from 'src/app/services/history.service';
-// import { operations } from 'src/app/Data/Dummy';
 @Component({
   selector: 'app-history',
   templateUrl: './history.component.html',
@@ -31,7 +30,7 @@ export class historyComponent implements OnInit, AfterViewInit {
     // this.getOperations(1, 2)
   }
   details(accountIdOtherSide: Number) {
-    this.router.navigate(['/details'], { state: { accountId: accountIdOtherSide } });
+    this.router.navigateByUrl('/details', { state: { accountId: accountIdOtherSide } });
   }
   public getOperations(pageIndex: Number, pageSize: Number): void {
     this.historyService.getOperationsByDetails(this.accountId, this.isChecked, pageIndex, pageSize)

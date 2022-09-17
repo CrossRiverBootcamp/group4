@@ -30,7 +30,6 @@ export class LoginComponent {
         account => {
           this.accountId = account;
           this.loginValid = true;
-          console.log(this.accountId);
           this.router.navigateByUrl(`/accountDetails/${this.accountId}`);
         },
         error=> {this.loginValid = false;
