@@ -46,16 +46,16 @@ namespace Account.Services.Services
             }
         }
 
-        public async Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id, bool sortByDateDesc)
-        {
+        //public async Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id, bool sortByDateDesc)
+        //{
 
-            List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountIdAsync(id);
-            List<OperationDto>  operationsListDTO =await MapToOperationDto(operationList);
-            if (sortByDateDesc)
-                return sortOperations(operationsListDTO);
-            return operationsListDTO;
+        //    List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountIdAsync(id);
+        //    List<OperationDto>  operationsListDTO =await MapToOperationDto(operationList);
+        //    if (sortByDateDesc)
+        //        return sortOperations(operationsListDTO);
+        //    return operationsListDTO;
 
-        }
+        //}
         public async Task<List<OperationDto>> MapToOperationDto(List<OperationEntity> operations)
         {
             List<OperationDto> operationDtoList = new();

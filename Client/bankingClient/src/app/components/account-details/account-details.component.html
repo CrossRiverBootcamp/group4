@@ -1,14 +1,14 @@
+<br>
 <h1>Account Details</h1>
 <mat-card>
-    <mat-card-content>
+    <mat-card-content style=" font: bold 20px;">
         Name: {{firstName}} {{lastName}}
+        <br>
         Balance: {{balance}}
-        Email: {{email}}
-        Date opened: {{openDate}}
     </mat-card-content>
   </mat-card>
   <br>
-  <button mat-raised-button (click)="routeTocreateTransaction()">Deliver Money</button> &nbsp;
-  <button mat-raised-button (click)="routeToHistory()">View action history</button>
+  <button mat-raised-button style="margin:auto;" (click)="routeTocreateTransaction()">Deliver Money</button> <br><br>
+  <button mat-raised-button style="margin:auto;"(click)="routeToHistory()">View action history</button>
 
 <!-- <router-outlet></router-outlet> -->

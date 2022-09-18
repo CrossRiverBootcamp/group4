@@ -2,10 +2,9 @@
 
 
 namespace Account.DTO
-{
+{ 
     public class AccountInfoDTO
     {
-        //Why did we not put required annotations?
         public int AccountId { get; set; }
 
         [MinLength(2)]

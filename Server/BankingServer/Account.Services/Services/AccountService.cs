@@ -21,29 +21,18 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task CreateAccountAsync(CustomerDTO customerDTO,int balanceInit)
+        public async Task CreateAccountAsync(CustomerDTO customerDTO, int balanceInit)
         {
-            try
+            CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
+            if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
             {
-                //check verificatin code match
-                CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
-                if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
-                {
-                    throw new Exception("An account with this email address aleady exists.");
-                }
-                AccountEntity account = new AccountEntity();
-                account.Customer = customer;
-                account.OpenDate = DateTime.UtcNow;
-                //i want to input here from appsettings.json instead of hardcoding
-                account.Balance = balanceInit;
+                throw new Exception("An account with this email address aleady exists.");
+            }
+            AccountEntity account = new AccountEntity();
+            account.Customer = customer;
+            account.OpenDate = DateTime.UtcNow;
+            account.Balance = balanceInit;
 
-                await _accountRepository.CreateAccountAsync(account);
-            }
-            catch (Exception ex)
-            {
-                //why?
-                Console.WriteLine(ex);
-            }
         }
 
         public async Task<AccountInfoDTO> GetAccountInfoAsync(int id)
@@ -61,16 +50,13 @@ namespace Account.Services.Services
 
         public async Task<int> LoginAsync(LoginDTO loginDTO)
         {
-            string email = loginDTO.Email;
-            string password = loginDTO.Password;
-            if(await _accountRepository.CheckEmailExistsAsync(email) && await _accountRepository.CheckPasswordValidAsync(email, password))
+            if (await _accountRepository.CheckEmailExistsAsync(loginDTO.Email) && await _accountRepository.CheckPasswordValidAsync(loginDTO.Email, loginDTO.Password))
             {
-                //where to validate that get back right response?
-               return await _accountRepository.GetAccountIdByEmailAsync(email);
+                return await _accountRepository.GetAccountIdByEmailAsync(loginDTO.Email);
             }
             else
             {
-                throw new Exception("not valid email or password");
+                throw new Exception("Email or password not valid");
             }
         }
     }

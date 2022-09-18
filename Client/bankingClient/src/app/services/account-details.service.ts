@@ -10,7 +10,7 @@ import { AccountInfo } from '../models/AccountInfo';
 export class AccountDetailsService {
 
   public Login(loginDTO:Login):Observable<Number>{
-    return this.http.post<Number>("https://localhost:7248/api/Account",loginDTO);
+    return this.http.post<Number>("https://localhost:7248/api/Account/Login",loginDTO);
   }
   public getAccountInfo(accountId: Number):Observable<AccountInfo>{
     return this.http.get<AccountInfo>(`https://localhost:7248/api/Account/${accountId}`);

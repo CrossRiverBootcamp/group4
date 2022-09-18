@@ -29,6 +29,6 @@ protected get requestHeaders(): { headers: HttpHeaders | { [header: string]: str
     return this.http.post("https://localhost:7248/api/EmailVerification/ResendCode",body,this.requestHeaders);
   }
  public openAccount(newCustomer: Customer):Observable<boolean>{
-    return this.http.post<boolean>("https://localhost:7248/api/Customer",newCustomer);
+    return this.http.post<boolean>("https://localhost:7248/api/Customer/CreateAccount",newCustomer);
   }
 }

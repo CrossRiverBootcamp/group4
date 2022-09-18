@@ -27,13 +27,9 @@ namespace Account.Api.Controllers
             }
         }
         
-        [HttpPost]
+        [HttpPost("Login")]
         public async Task<ActionResult<int>> LoginAsync([FromBody] LoginDTO loginDTO)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
             try
             {
                 return await _accountService.LoginAsync(loginDTO);

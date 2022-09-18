@@ -10,11 +10,11 @@ namespace Account.Services.Mapping
         public OperationMapping()
         {
             CreateMap<OperationEntity, OperationDto>()
-                   .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.TransactionAmount))
-                .ReverseMap();
+                   .ForMember(dest => dest.Amount, opt => opt.MapFrom(src => src.TransactionAmount));
+            //.ReverseMap();
             CreateMap<OperationMapDTO, OperationEntity>()
-                   .ForMember(dest => dest.OperationTime, opt => opt.MapFrom(src => src.DateOfTransaction))
-                .ReverseMap();
+                   .ForMember(dest => dest.OperationTime, opt => opt.MapFrom(src => src.DateOfTransaction));
+                //.ReverseMap();
         }
     }
 }

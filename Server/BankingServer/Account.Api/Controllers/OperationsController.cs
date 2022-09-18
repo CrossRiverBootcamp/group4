@@ -13,19 +13,19 @@ namespace Account.Api.Controllers
         {
             _operationService = operationService;
         }
-        [HttpGet("id")]
-        public async Task<List<OperationDto>> getOpertaionsByAccountIdAsync(int accountId, bool sortByDateDesc)
-        {
-            try
-            {
-                List<OperationDto> operations = await _operationService.GetOperationsByAccountIdAsync(accountId,sortByDateDesc);
-                return operations;
-            }
-            catch(Exception ex)
-            {
-                throw new Exception("Could not get operations",ex);
-            }
-        }
+        //[HttpGet("id")]
+        //public async Task<List<OperationDto>> getOpertaionsByAccountIdAsync(int accountId, bool sortByDateDesc)
+        //{
+        //    try
+        //    {
+        //        List<OperationDto> operations = await _operationService.GetOperationsByAccountIdAsync(accountId,sortByDateDesc);
+        //        return operations;
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        throw new Exception("Could not get operations",ex);
+        //    }
+        //}
 
         [HttpGet("filter")]
         public async Task<List<OperationDto>> getOpertaionsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecords)

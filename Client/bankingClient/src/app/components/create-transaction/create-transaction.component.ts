@@ -39,7 +39,7 @@ export class CreateTransactionComponent{
   public clearForm():void{
     this.accountIdTo=undefined;
     this.amount=undefined;
-    this.formValid=false;
+    // this.formValid=false;
   }
 
 }

@@ -12,6 +12,6 @@ export class CreateTransactionService {
   constructor(private http:HttpClient) { }
 
   public createNewTransaction(newTransaction:Transaction):Observable<any>{
-       return this.http.post<boolean>("https://localhost:7035/api/Transaction",newTransaction);
+       return  this.http.post<boolean>("https://localhost:7035/api/Transaction/NewTransaction",newTransaction);
   }
 }

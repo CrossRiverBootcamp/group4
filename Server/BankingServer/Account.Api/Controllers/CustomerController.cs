@@ -11,7 +11,6 @@ namespace Account.Api.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IEmailVerificationService _emailVerificationService;
-        //private readonly IConfiguration _configuration;
         private readonly IOptions<InitBalance> _options;
      
         
@@ -22,15 +21,11 @@ namespace Account.Api.Controllers
             _options = options;
         }
 
-        [HttpPost]
+        [HttpPost("CreateAccount")]
         public async Task<ActionResult<bool>> CreateAccountAsync([FromBody] CustomerDTO customer)
         {
             if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
             {
-                if (!ModelState.IsValid)
-                {
-                    return BadRequest();
-                }
                 try
 
                 {

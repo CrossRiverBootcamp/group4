@@ -8,12 +8,14 @@
               Please provide a valid account Id
             </mat-error>
           </mat-form-field>
+          <br>
         <mat-form-field>
           <input matInput type="number" max="1000000" placeholder="Amount" [(ngModel)]="amount" name="amount" required>
           <mat-error>
             Please provide a valid amount
           </mat-error>
         </mat-form-field>
+        <br>
         <button mat-raised-button color="primary" [disabled]="!loginForm.form.valid">Transfer</button>
       </form>
     </mat-card-content>
