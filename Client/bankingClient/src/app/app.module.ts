@@ -30,8 +30,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 
-
-// import { DialogComponent } from '@angular/material/dialog/';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +66,6 @@ import { HomeComponent } from './components/home/home.component';
     MatPaginatorModule,
     MatCheckboxModule,
     MatDialogModule
-    // DialogComponent
   ],
   entryComponents: [
     VerificationDialogComponent

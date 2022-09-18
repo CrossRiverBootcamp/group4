@@ -1,35 +1,34 @@
 <mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
-    <span>
-      <button mat-button routerLink="/home">Bank</button>
-      <button mat-button routerLink="/home"><mat-icon>home</mat-icon></button>
-    </span>
-    <div fxLayout="row" fxShow="false" fxShow.gt-sm>
-      <button mat-button routerLink="/login"  routerLinkActive="active">
-        <mat-icon>power_settings_new</mat-icon>
-        Login
-      </button>
-      <button mat-button routerLink="/signup"  routerLinkActive="active">
-        <mat-icon>account_circle</mat-icon>
-        Register
-      </button>
-    </div>
-    <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar>
-  <mat-menu x-position="before" #menu="matMenu">
-    <button mat-menu-item routerLink="/home">
-      <mat-icon>home</mat-icon>
-      Home
-    </button>
-    <button mat-menu-item routerLink="/signup">
-      <mat-icon>account_circle</mat-icon>
-      Register
-    </button>
-    <button mat-menu-item routerLink="/login">
+  <span>
+    <button mat-button routerLink="/home">Bank</button>
+    <button mat-button routerLink="/home"><mat-icon>home</mat-icon></button>
+  </span>
+  <div fxLayout="row" fxShow="false" fxShow.gt-sm>
+    <button mat-button routerLink="/login"  routerLinkActive="active">
       <mat-icon>power_settings_new</mat-icon>
       Login
     </button>
-  </mat-menu>
-  <router-outlet></router-outlet>
-  
+    <button mat-button routerLink="/signup"  routerLinkActive="active">
+      <mat-icon>account_circle</mat-icon>
+      Register
+    </button>
+  </div>
+  <button mat-button [mat-menu-trigger-for]="menu" fxHide="false" fxHide.gt-sm>
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu x-position="before" #menu="matMenu">
+  <button mat-menu-item routerLink="/home">
+    <mat-icon>home</mat-icon>
+    Home
+  </button>
+  <button mat-menu-item routerLink="/signup">
+    <mat-icon>account_circle</mat-icon>
+    Register
+  </button>
+  <button mat-menu-item routerLink="/login">
+    <mat-icon>power_settings_new</mat-icon>
+    Login
+  </button>
+</mat-menu>
+<router-outlet></router-outlet>
