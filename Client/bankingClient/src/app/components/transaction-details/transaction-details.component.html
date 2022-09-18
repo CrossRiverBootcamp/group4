@@ -1,5 +1,13 @@
+
+<br>
+<h1>Transaction Details</h1>
+
 <mat-card>
     <mat-card-content>
-        {{firstName}} , {{lastName}} , {{email}}
+        From/To:{{firstName}} {{lastName}} 
+        <br>
+        Email: {{email}}
     </mat-card-content>
-  </mat-card>
+  </mat-card>\
+  <br>
+<button mat-raised-button style="margin-left:40%; width:20%" color="primary"  [routerLink]="['..']">Back</button>

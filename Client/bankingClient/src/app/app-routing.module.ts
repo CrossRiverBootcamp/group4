@@ -41,7 +41,7 @@ const routes: Routes = [
     component: TransactionDetailsComponent
   },
   {
-    path: '**',
+    path: '*',
     component: PageNotFoundComponent,
   }
 ];

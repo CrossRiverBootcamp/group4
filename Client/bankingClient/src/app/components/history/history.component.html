@@ -35,5 +35,6 @@
     <mat-paginator [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="onPaginateChange($event)"
     [pageSizeOptions]="[2, 5, 10, 20]" aria-label="Select page of users"></mat-paginator>
   </div>
-
 </div>
+<br>
+<button mat-raised-button style="margin-left:40%; width:20%" color="primary"  [routerLink]="['/accountDetails', accountId]">To return to the personal details page</button>
