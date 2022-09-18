@@ -4,6 +4,7 @@ using Account.Services.Interfaces;
 using Account.Services.Services;
 using NServiceBus;
 using System.Data.SqlClient;
+using Account.Api;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +52,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
 //Extension method for dependency injection
 ExtensionMethod.ExtensionDI( builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
+builder.Services.Configure<InitBalance>(
+    builder.Configuration.GetSection("InitBalance.InitBalance.Balance"));
 
 var app = builder.Build();
 

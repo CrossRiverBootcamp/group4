@@ -31,7 +31,7 @@ namespace Account.Api.Controllers
             {
                 try
                 {
-                    await _accountService.CreateAccountAsync(customer, _options.Value.Balance);
+                    await _accountService.CreateAccountAsync(customer,_options.Value.Balance);
                     return Ok(true);
                 }
                 catch

@@ -46,16 +46,6 @@ namespace Account.Services.Services
             }
         }
 
-        //public async Task<List<OperationDto>> GetOperationsByAccountIdAsync(int id, bool sortByDateDesc)
-        //{
-
-        //    List<OperationEntity> operationList = await _operationRepository.GetOperationsByAccountIdAsync(id);
-        //    List<OperationDto>  operationsListDTO =await MapToOperationDto(operationList);
-        //    if (sortByDateDesc)
-        //        return sortOperations(operationsListDTO);
-        //    return operationsListDTO;
-
-        //}
         public async Task<List<OperationDto>> MapToOperationDto(List<OperationEntity> operations)
         {
             List<OperationDto> operationDtoList = new();
@@ -67,12 +57,15 @@ namespace Account.Services.Services
             }
             return operationDtoList;
         }
+
+        //sort operations by date
         public List<OperationDto> sortOperations(List<OperationDto> operationsDto)
         {
             operationsDto.Sort((x, y) => DateTime.Compare(x.OperationTime, y.OperationTime));
             return operationsDto;
         }
-        public async Task<List<OperationDto>> getOpertaionsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
+
+        public async Task<List<OperationDto>> getOperationsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecrds)
         {
             List<OperationEntity> operationList = await _operationRepository.getOpertaionsByFilterPageAsync(accountId, pageNumber, numOfRecrds);
             List<OperationDto> operationsListDTO = await MapToOperationDto(operationList);
@@ -81,7 +74,7 @@ namespace Account.Services.Services
             return operationsListDTO;
         }
 
-        public async Task<int> countOpertaionsByIdAsync(int accountId)
+        public async Task<int> countOperationsByIdAsync(int accountId)
         {
            return await _operationRepository.countOpertaionsByIdAsync(accountId);
         }

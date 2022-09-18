@@ -18,6 +18,9 @@ namespace Account.Api
             _operationService = operationService;
         }
 
+        //Handler for Transaction payload message
+        //The handler checks if the transaction is valid and if it is updates balance for both accounts
+        //sends message back to saga- balance updated true or false
         public async Task Handle(TransactionPayload message, IMessageHandlerContext context)
         {
             balanceUpdated.TransactionId = message.TransactionId;

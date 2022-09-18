@@ -13,26 +13,14 @@ namespace Account.Api.Controllers
         {
             _operationService = operationService;
         }
-        //[HttpGet("id")]
-        //public async Task<List<OperationDto>> getOpertaionsByAccountIdAsync(int accountId, bool sortByDateDesc)
-        //{
-        //    try
-        //    {
-        //        List<OperationDto> operations = await _operationService.GetOperationsByAccountIdAsync(accountId,sortByDateDesc);
-        //        return operations;
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        throw new Exception("Could not get operations",ex);
-        //    }
-        //}
-
+        
+        //get operations by account Id and pagination requirments for operations history
         [HttpGet("filter")]
-        public async Task<List<OperationDto>> getOpertaionsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecords)
+        public async Task<List<OperationDto>> getOperationsByFilterPageAsync(int accountId, bool sortByDateDesc, int pageNumber, int numOfRecords)
         {
             try
             {
-                List<OperationDto> operations = await _operationService.getOpertaionsByFilterPageAsync(accountId, sortByDateDesc,pageNumber,numOfRecords);
+                List<OperationDto> operations = await _operationService.getOperationsByFilterPageAsync(accountId, sortByDateDesc,pageNumber,numOfRecords);
                 return operations;
             }
             catch (Exception ex)
@@ -40,12 +28,15 @@ namespace Account.Api.Controllers
                 throw new Exception("Could not get operations", ex);
             }
         }
+
+
+        //for pagination
         [HttpGet("count")]
-        public async Task<int> getOpertaionsByFilterPageAsync(int accountId)
+        public async Task<int> CountOperationsByAccountIdAsync(int accountId)
         {
             try
             {
-                return await _operationService.countOpertaionsByIdAsync(accountId);
+                return await _operationService.countOperationsByIdAsync(accountId);
             }
             catch (Exception ex)
             {

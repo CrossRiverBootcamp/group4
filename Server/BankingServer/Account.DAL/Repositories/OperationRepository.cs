@@ -45,6 +45,7 @@ namespace Account.DAL.Repositories
 
         public async Task<List<OperationEntity>> getOpertaionsByFilterPageAsync(int accountId, int pageNumber, int numOfRecrds)
         {
+            //get operations by pagination requirments
             using var context = _factory.CreateDbContext();
             List<OperationEntity> operationList = await context.Operations
                 .Where(operation => operation.AccountId == accountId)
