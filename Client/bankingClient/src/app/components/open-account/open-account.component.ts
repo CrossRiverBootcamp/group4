@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Customer } from 'src/app/models/Customer';
+import { Customer } from 'src/app/models/customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 import {MatDialog} from '@angular/material/dialog';
 import { VerificationDialogComponent } from '../verification-dialog/verification-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-open-account',
@@ -20,7 +21,7 @@ export class OpenAccountComponent implements OnInit {
   public registrationValid=false;
   public customer?:Customer;
 
-  constructor(public dialog: MatDialog, private openService:OpenAccountService) {
+  constructor(public dialog: MatDialog, private openService:OpenAccountService,private router: Router ) {
 
    }
 
@@ -40,7 +41,8 @@ export class OpenAccountComponent implements OnInit {
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
           data: { customer: this.customer},  disableClose: true });
-          dialogRef.afterClosed().subscribe(result => console.log(result))
+          dialogRef.afterClosed().subscribe(result => {console.log(result);   
+             this.router.navigateByUrl('/login');})
       }
       ,err=>alert(err)
     );

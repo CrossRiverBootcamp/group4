@@ -1,6 +1,7 @@
 ﻿using Account.DTO;
 using Account.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Account.Api.Controllers
 {
@@ -10,14 +11,15 @@ namespace Account.Api.Controllers
     {
         private readonly IAccountService _accountService;
         private readonly IEmailVerificationService _emailVerificationService;
-        private readonly IConfiguration _configuration;
+        //private readonly IConfiguration _configuration;
+        private readonly IOptions<InitBalance> _options;
      
-
-        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService,IConfiguration configuration)
+        
+        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService, IOptions<InitBalance> options)
         {
             _accountService = accountService;
             _emailVerificationService = emailVerificationService;
-            _configuration = configuration;
+            _options = options;
         }
 
         [HttpPost]
@@ -32,7 +34,7 @@ namespace Account.Api.Controllers
                 try
 
                 {
-                    await _accountService.CreateAccountAsync(customer, int.Parse(_configuration.GetSection("InitBalance").Value));
+                    await _accountService.CreateAccountAsync(customer, _options.Value.Balance);
                     return Ok(true);
                 }
                 catch

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Customer } from 'src/app/models/Customer';
+import { Customer } from 'src/app/models/customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
 @Component({
   selector: 'app-verification-dialog',
@@ -40,7 +40,7 @@ export class VerificationDialogComponent implements OnInit {
       ,err=>console.log(err)
       
     );
-    this.router.navigateByUrl('/login');
+
     
   }
   onSubmitAgain(){

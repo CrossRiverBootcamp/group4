@@ -27,6 +27,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { VerificationDialogComponent } from './components/verification-dialog/verification-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { HomeComponent } from './components/home/home.component';
 
 
 // import { DialogComponent } from '@angular/material/dialog/';
@@ -40,6 +42,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     historyComponent,
     TransactionDetailsComponent,
     VerificationDialogComponent,
+    PageNotFoundComponent,
+    HomeComponent,
     
   ],
   imports: [

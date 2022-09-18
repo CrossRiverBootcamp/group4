@@ -41,6 +41,7 @@ namespace Account.Services.Services
             }
             catch (Exception ex)
             {
+                //why?
                 Console.WriteLine(ex);
             }
         }

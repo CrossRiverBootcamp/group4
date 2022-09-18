@@ -4,12 +4,18 @@ import { AppComponent } from './app.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
 import { historyComponent } from './components/history/history.component';
+import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { OpenAccountComponent } from './components/open-account/open-account.component';
+import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TransactionDetailsComponent } from './components/transaction-details/transaction-details.component';
 
 
 const routes: Routes = [
+  {
+    path: 'home',
+    component: HomeComponent
+  },
   {
     path: 'login',
     component: LoginComponent
@@ -33,6 +39,10 @@ const routes: Routes = [
   {
     path: 'details',
     component: TransactionDetailsComponent
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent,
   }
 ];
 

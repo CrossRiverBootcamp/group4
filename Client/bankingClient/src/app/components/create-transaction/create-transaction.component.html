@@ -18,7 +18,10 @@
       </form>
     </mat-card-content>
   </mat-card>
-  <div *ngIf="transferSuccess">
-    <h3>The transfer was made successfully</h3>
+  <div *ngIf="transferSuccess && tryTransfer">
+    <h3>The transfer was done successfully</h3>
     <button mat-raised-button  align="canter" color="primary"  [routerLink]="['/accountDetails',accountIdFrom]">To return to the personal details page</button>
+  </div>
+  <div *ngIf="!transferSuccess && tryTransfer">
+    <h3>The transfer did not work, please try again.</h3>
   </div>

@@ -9,6 +9,7 @@ import { CreateTransactionService } from 'src/app/services/create-transaction.se
   styleUrls: ['./create-transaction.component.css']
 })
 export class CreateTransactionComponent{
+  tryTransfer:boolean=false;
   transferSuccess:boolean=false;
    formValid=true;
    accountIdFrom?:Number;
@@ -24,6 +25,7 @@ export class CreateTransactionComponent{
   }
   public onSubmit():void {
      this.formValid = true;
+     this.tryTransfer = true;
      this.transaction = {
       fromAccountId:this.accountIdFrom,
       toAccountId:this.accountIdTo,
