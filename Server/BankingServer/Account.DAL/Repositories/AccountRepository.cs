@@ -43,7 +43,9 @@ namespace Account.DAL.Repositories
         public  async Task<int> GetAccountIdByEmailAsync(string email)
         {
             using var context = _factory.CreateDbContext();
+            //find customer with email
             var customer = await context.Customers.FirstAsync(c => c.Email.Equals(email));
+            //find account id for customer
             var account = await context.Accounts.FirstAsync(a => a.CustomerId == customer.Id);
             return account.Id;
         }

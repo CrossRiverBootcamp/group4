@@ -1,5 +1,5 @@
 export interface Operation{
-    DebitOrCredit:boolean,
+    debitOrCredit:boolean,
     otherSide:Number,
     amount:number,
     balance:Number,

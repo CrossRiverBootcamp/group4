@@ -31,6 +31,7 @@ namespace Account.DAL.Repositories
         }
         public async Task ResendCodeForExistingEmail(string email)
         {
+            //checks if verification code was already entered into the db and if it was removes it so a new one can be sent 
             using var context = _factory.CreateDbContext();
             var verification=await context.Verifications.FirstOrDefaultAsync(v=>v.Email.Equals(email));
             if (verification != null)

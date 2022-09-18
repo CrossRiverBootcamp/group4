@@ -12,7 +12,7 @@ import { HistoryService } from 'src/app/services/history.service';
 })
 export class historyComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns = ['DebitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
+  displayedColumns = ['debitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
   dataSource!: MatTableDataSource<Operation>;
   accountId!: Number;
   length = 0;
