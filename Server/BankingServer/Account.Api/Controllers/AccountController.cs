@@ -14,6 +14,7 @@ namespace Account.Api.Controllers
             _accountService = accountService;
         }
 
+        //get account info for account info component
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountInfoDTO>> GetAccountInfoAsync(int id)
         {
@@ -26,7 +27,9 @@ namespace Account.Api.Controllers
                 return NotFound(ex);
             }
         }
+
         
+        //login user
         [HttpPost("Login")]
         public async Task<ActionResult<int>> LoginAsync([FromBody] LoginDTO loginDTO)
         {

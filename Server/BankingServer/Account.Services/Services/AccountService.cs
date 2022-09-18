@@ -24,14 +24,17 @@ namespace Account.Services.Services
         public async Task CreateAccountAsync(CustomerDTO customerDTO, int balanceInit)
         {
             CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
+            //checks if account with email already exists 
             if (await _accountRepository.CheckEmailExistsAsync(customerDTO.Email))
             {
                 throw new Exception("An account with this email address aleady exists.");
             }
+            //create account and customer (in db)
             AccountEntity account = new AccountEntity();
             account.Customer = customer;
             account.OpenDate = DateTime.UtcNow;
             account.Balance = balanceInit;
+            await _accountRepository.CreateAccountAsync(account);
 
         }
 
@@ -50,6 +53,7 @@ namespace Account.Services.Services
 
         public async Task<int> LoginAsync(LoginDTO loginDTO)
         {
+            //check if email exists and check that password and email match
             if (await _accountRepository.CheckEmailExistsAsync(loginDTO.Email) && await _accountRepository.CheckPasswordValidAsync(loginDTO.Email, loginDTO.Password))
             {
                 return await _accountRepository.GetAccountIdByEmailAsync(loginDTO.Email);

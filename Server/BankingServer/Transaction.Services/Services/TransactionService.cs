@@ -31,10 +31,11 @@ namespace Transaction.Services.Services
                 transactionEntity.DateOfTransaction = DateTime.UtcNow;
                 transactionEntity.Status = DAL.TransactionStatus.Processing;
                 transactionEntity.Id = Guid.NewGuid();
+                // add transaction to db
                 await _transactionRepository.AddTransactionAsync(transactionEntity);
                 TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
+                //sends message to start saga 
                 await messageSession.Publish(payload);
-                //if saga event failes should return false
                 return true;
             }
             catch

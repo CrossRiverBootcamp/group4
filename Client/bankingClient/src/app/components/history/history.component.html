@@ -5,13 +5,16 @@
 
       <ng-container matColumnDef="debitOrCredit">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Credit</th>
-        <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.debitOrCredit">arrow_downward</mat-icon><mat-icon  *ngIf="!row.debitOrCredit">arrow_upward</mat-icon>
+
+        <td mat-cell *matCellDef="let row" >
+        <mat-icon *ngIf="!row.debitOrCredit" >arrow_upward</mat-icon>
+        <mat-icon *ngIf="row.debitOrCredit">arrow_downward</mat-icon>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="otherSide">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>FromTo</th>
-        <td mat-cell *matCellDef="let row"><button  (click)="details(row.otherSide)">{{row.otherSide}}</button></td>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>From/To</th>
+        <td mat-cell *matCellDef="let row"><button (click)="details(row.otherSide)">{{row.otherSide}}</button></td>
       </ng-container>
 
       <ng-container matColumnDef="amount">

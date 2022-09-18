@@ -11,8 +11,8 @@ namespace Account.DTO
         [Required]
         public string Email { get; set; }
 
-        [MaxLength(20)]
-        [MinLength(5)]
+        //[MaxLength(20)]
+        //[MinLength(5)]
         //[Required]
         public string Password { get; set; }
     }

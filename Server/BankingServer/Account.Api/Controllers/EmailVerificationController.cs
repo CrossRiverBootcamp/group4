@@ -16,7 +16,8 @@ namespace Account.Api.Controllers
             _emailVerificationService = emailVerificationService;
         }
 
-        // POST api/<IEmailVerificationController>
+
+        //create new verification code for email 
         [HttpPost]
         public async void PostEmailVerification([FromBody] string email)
         {
@@ -30,6 +31,7 @@ namespace Account.Api.Controllers
             }
         }
 
+        //resend verification code for email
         [HttpPost("ResendCode")]
         public async void ResendCodeAsync([FromBody] string email)
         {
