@@ -33,7 +33,8 @@ namespace Account.Services.Services
             AccountEntity account = new AccountEntity();
             account.Customer = customer;
             account.OpenDate = DateTime.UtcNow;
-            account.Balance = balanceInit;
+            account.Balance = 100000;
+                //balanceInit;
             await _accountRepository.CreateAccountAsync(account);
 
         }
