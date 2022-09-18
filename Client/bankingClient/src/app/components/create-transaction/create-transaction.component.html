@@ -22,8 +22,9 @@
   </mat-card>
   <div *ngIf="transferSuccess && tryTransfer">
     <h3>The transfer was done successfully</h3>
-    <button mat-raised-button  align="canter" color="primary"  [routerLink]="['/accountDetails',accountIdFrom]">To return to the personal details page</button>
   </div>
   <div *ngIf="!transferSuccess && tryTransfer">
     <h3>The transfer did not work, please try again.</h3>
   </div>
+  <br>
+  <button mat-raised-button style="margin-left:40%; width:20%" color="primary"  [routerLink]="['/accountDetails',accountIdFrom]">To return to the personal details page</button>
