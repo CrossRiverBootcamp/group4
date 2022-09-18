@@ -3,9 +3,9 @@
   <div class="example-table-container">
     <table mat-table [dataSource]="dataSource" class="example-table">
 
-      <ng-container matColumnDef="DebitOrCredit">
+      <ng-container matColumnDef="debitOrCredit">
         <th mat-header-cell *matHeaderCellDef mat-sort-header disableClear>Credit</th>
-        <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.DebitOrCredit">arrow_upward</mat-icon><mat-icon  *ngIf="!row.DebitOrCredit">arrow_downward</mat-icon>
+        <td mat-cell *matCellDef="let row"><mat-icon *ngIf="row.debitOrCredit">arrow_downward</mat-icon><mat-icon  *ngIf="!row.debitOrCredit">arrow_upward</mat-icon>
         </td>
       </ng-container>
 

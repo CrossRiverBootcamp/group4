@@ -14,8 +14,9 @@ import { TransactionDetailsComponent } from './components/transaction-details/tr
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent,
+    component: HomeComponent
   },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   {
     path: 'login',
     component: LoginComponent
@@ -41,7 +42,7 @@ const routes: Routes = [
     component: TransactionDetailsComponent
   },
   {
-    path: '*',
+    path: '**',
     component: PageNotFoundComponent,
   }
 ];

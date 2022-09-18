@@ -35,9 +35,9 @@ export class AccountDetailsComponent implements OnInit{
     );
 }
 public routeTocreateTransaction():void{
-  this.router.navigateByUrl('/newTransaction',{state: {accountId: this.accountId}});
+  this.router.navigateByUrl('newTransaction',{state: {accountId: this.accountId}});
 }
 public routeToHistory():void{
-  this.router.navigateByUrl('/history',{state: {accountId: this.accountId}});
+  this.router.navigateByUrl('history',{state: {accountId: this.accountId}});
 }
 }

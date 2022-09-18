@@ -1,4 +1,3 @@
-import { NumberInput } from '@angular/cdk/coercion';
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,11 +11,11 @@ import { HistoryService } from 'src/app/services/history.service';
 })
 export class historyComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  displayedColumns = ['DebitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
+  displayedColumns = ['debitOrCredit', 'otherSide', 'amount', 'balance', 'operationTime'];
   dataSource!: MatTableDataSource<Operation>;
   accountId!: Number;
   length = 0;
-  pageIndex = 1;
+  pageIndex = 0;
   pageSize = 2;
   isChecked: boolean = false;
   constructor(private router: Router, private historyService: HistoryService) {
