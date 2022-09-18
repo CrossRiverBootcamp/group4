@@ -12,8 +12,8 @@ namespace Account.Api.Controllers
         private readonly IAccountService _accountService;
         private readonly IEmailVerificationService _emailVerificationService;
         private readonly IOptions<InitBalance> _options;
-     
-        
+
+
         public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService, IOptions<InitBalance> options)
         {
             _accountService = accountService;
@@ -27,37 +27,38 @@ namespace Account.Api.Controllers
         public async Task<ActionResult<bool>> CreateAccountAsync([FromBody] CustomerDTO customer)
         {
             //check verification 
-            if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
-            {
-                try
-                {
-                    await _accountService.CreateAccountAsync(customer,_options.Value.Balance);
-                    return Ok(true);
-                }
-                catch
-                {
-                    return Ok(false);
-                }
-            }
-            else
-            {
-                throw new Exception("The verification code is wrong or expired. Can't create account");
-            }
-        }
 
-        //get customer by account id for transaction details
-        [HttpGet("{accountId}")]
-        public async Task<ActionResult<CustomerDTO>> GetCustomerByAccountId(int accountId)
-        {
             try
             {
-                return await _accountService.GetCustomerByAccountId(accountId);
+                if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
+                {
+                    await _accountService.CreateAccountAsync(customer, _options.Value.Balance);
+                    return Ok(true);
+                }
+                else
+                {
+                    throw new Exception("The verification code is wrong or expired. Can't create account");
+                }
             }
             catch
             {
-                return NotFound();
+                return Ok(false);
             }
         }
 
+    //get customer by account id for transaction details
+    [HttpGet("{accountId}")]
+    public async Task<ActionResult<CustomerDTO>> GetCustomerByAccountId(int accountId)
+    {
+        try
+        {
+            return await _accountService.GetCustomerByAccountId(accountId);
+        }
+        catch
+        {
+            return NotFound();
+        }
     }
+
+}
 }
