@@ -2,6 +2,6 @@
 {
     public class InitBalance
     {
-        public int Balance { get; set; } = 100000;
+        public int Balance { get; set; }
     }
 }

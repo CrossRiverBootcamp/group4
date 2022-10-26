@@ -23,7 +23,7 @@ namespace Transaction.Api
             });
             _mapper = config.CreateMapper();
         }
-        static BalanceUpdated balanceUpdated = new();
+        //static BalanceUpdated balanceUpdated = new();
         static ILog log = LogManager.GetLogger<TransactionSaga>();
         public async Task Handle(TransactionPayloaded message, IMessageHandlerContext context)
         {
@@ -31,17 +31,16 @@ namespace Transaction.Api
             TransactionPayload transaction = _mapper.Map<TransactionPayload>(message);
             await context.Send(transaction);
             Data.GetEventPayload = true;
-            //await ProccessTransaction(context);
         }
-        public async Task/*<bool>*/ Handle(BalanceUpdated message, IMessageHandlerContext context)
+        public async Task Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
             log.Info($"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...");
             try
             {
                 await _updateTransaction.UpdateStatusAsync(message.BalanceUpdatedSucceeded, message.TransactionId);
-                await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
-                if (message.FailureReason == null)
+                if (message.FailureReason != null)
                 {
+                    await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
                     Data.IsBalanceUpdated = false;
                     log.Info($"Couldn't execute transcation because {message.FailureReason} , TransactionId = {message.TransactionId} ...");
                 }
@@ -57,16 +56,12 @@ namespace Transaction.Api
                 log.Info($"Couldn't update transaction balance, TransactionId = {message.TransactionId} ...");
 
             }
-            //bool flag = ProccessTransaction(context);
             MarkAsComplete();
-            //return flag;    
         }
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<TransactionData> mapper)
         {
             mapper.MapSaga(sagaData => sagaData.TransactionId)
-                .ToMessage<TransactionPayloaded>(message => message.TransactionId);
-
-            mapper.MapSaga(sagaData => sagaData.TransactionId)
+                .ToMessage<TransactionPayloaded>(message => message.TransactionId)
                 .ToMessage<BalanceUpdated>(message => message.TransactionId);
         }
     }

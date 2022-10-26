@@ -50,10 +50,9 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(typeof(Program));
+builder.Services.Configure<InitBalance>(builder.Configuration.GetSection(nameof(InitBalance)));
 //Extension method for dependency injection
 ExtensionMethod.ExtensionDI( builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
-builder.Services.Configure<InitBalance>(
-    builder.Configuration.GetSection("InitBalance.InitBalance.Balance"));
 
 var app = builder.Build();
 

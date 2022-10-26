@@ -28,7 +28,7 @@ namespace Account.DAL.Repositories
         public async Task<int> GetAccountBalanceByAccountIdAsync(int id)
         {
             using var context = _factory.CreateDbContext();
-            var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
+            var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));
             if(account == null)
             {
                 throw new Exception("Account doesn't exist");

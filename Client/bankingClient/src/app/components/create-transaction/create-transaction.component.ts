@@ -25,15 +25,15 @@ export class CreateTransactionComponent{
   }
   public onSubmit():void {
      this.formValid = true;
-     this.tryTransfer = true;
+     
      this.transaction = {
       fromAccountId:this.accountIdFrom,
       toAccountId:this.accountIdTo,
       amount:this.amount
      }
      this.createTransactionService.createNewTransaction(this.transaction)
-     .subscribe(a=>{console.log(a);this.transferSuccess=true;},
-     err=>console.log(err));
+     .subscribe(a=>{console.log(a);this.tryTransfer = true;this.transferSuccess=true;},
+     err=>{console.log(err);this.tryTransfer = true;this.transferSuccess=false;});
      this.clearForm();
   }
   public clearForm():void{

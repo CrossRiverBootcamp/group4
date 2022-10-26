@@ -5,7 +5,7 @@ namespace Account.DAL.Entities
     public class OperationEntity
     {
         [Key]
-        [Required]
+        //[Required]
         public int Id{ get; set; }
 
         [Required]

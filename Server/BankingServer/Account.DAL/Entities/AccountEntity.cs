@@ -7,7 +7,7 @@ namespace Account.DAL.Entities
     {
         [Key]
         //[Index(IsUnique = true)]
-        [Required]
+        //[Required]
         public int Id { get; set; }
         [ForeignKey("CustomerEntity")]
         public int CustomerId { get; set; }
