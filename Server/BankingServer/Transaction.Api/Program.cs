@@ -2,6 +2,7 @@
 using Messages;
 using Microsoft.EntityFrameworkCore;
 using NServiceBus;
+using Serilog;
 using System.Data.SqlClient;
 using Transaction.Services.Services;
 
@@ -42,6 +43,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
 });
+builder.Host.UseSerilog();
 
 // Add services to the container.
 
@@ -50,7 +52,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 ExtensionMethod.ExtensionDI(builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
-
+IConfigurationRoot configuration = new
+            ConfigurationBuilder().AddJsonFile("appsettings.json",
+            optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration
+            (configuration).CreateLogger();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

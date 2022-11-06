@@ -13,8 +13,9 @@ namespace Transaction.Api
     {
         private readonly IUpdateTransactionStatusService _updateTransaction;
         private readonly IMapper _mapper;
+        private readonly ILogger<TransactionSaga> _logger;
 
-        public TransactionSaga(IUpdateTransactionStatusService updateTransaction)
+        public TransactionSaga(IUpdateTransactionStatusService updateTransaction, ILogger<TransactionSaga> logger)
         {
             _updateTransaction = updateTransaction;
             var config = new MapperConfiguration(cfg =>
@@ -22,19 +23,23 @@ namespace Transaction.Api
                 cfg.AddProfile<TransactionMap>();
             });
             _mapper = config.CreateMapper();
+            _logger = logger;
         }
+        string messageLog;
         //static BalanceUpdated balanceUpdated = new();
         static ILog log = LogManager.GetLogger<TransactionSaga>();
         public async Task Handle(TransactionPayloaded message, IMessageHandlerContext context)
         {
-            log.Info($"Received TransactionPayloaded, TransactionId = {message.TransactionId} ...");
+            messageLog = $"Received TransactionPayloaded, TransactionId = {message.TransactionId} ...";
+            log.Info(messageLog);
             TransactionPayload transaction = _mapper.Map<TransactionPayload>(message);
             await context.Send(transaction);
             Data.GetEventPayload = true;
         }
         public async Task Handle(BalanceUpdated message, IMessageHandlerContext context)
         {
-            log.Info($"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...");
+            messageLog = $"In saga handler for balanceUpdated, TransactionId = {message.TransactionId} ...";
+            log.Info(messageLog);
             try
             {
                 await _updateTransaction.UpdateStatusAsync(message.BalanceUpdatedSucceeded, message.TransactionId);
@@ -42,19 +47,24 @@ namespace Transaction.Api
                 {
                     await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
                     Data.IsBalanceUpdated = false;
-                    log.Info($"Couldn't execute transcation because {message.FailureReason} , TransactionId = {message.TransactionId} ...");
+                    messageLog = $"Couldn't execute transcation because {message.FailureReason} , TransactionId = {message.TransactionId} ...";
+                    log.Error(messageLog);
+                    _logger.LogError(messageLog);
                 }
                 else
                 {
                     Data.IsBalanceUpdated = true;
-                    log.Info($"Balance was updated, transcation succeeded , TransactionId = {message.TransactionId} ...");
+                    messageLog = $"Balance was updated, transcation succeeded , TransactionId = {message.TransactionId} ...";
+                    log.Info(messageLog);
+                    _logger.LogInformation(messageLog);
                 }
             }
             catch(Exception ex)
             {
                 Data.IsBalanceUpdated = false;
-                log.Info($"Couldn't update transaction balance, TransactionId = {message.TransactionId} ...");
-
+                messageLog = $"Couldn't update transaction balance, TransactionId = {message.TransactionId} ...";
+                log.Error(messageLog);
+                _logger.LogError(messageLog);
             }
             MarkAsComplete();
         }

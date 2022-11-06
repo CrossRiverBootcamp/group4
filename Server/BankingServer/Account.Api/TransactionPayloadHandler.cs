@@ -8,14 +8,17 @@ namespace Account.Api
 {
     public class TransactionPayloadHandler : IHandleMessages<TransactionPayload>
     {
+        private readonly ILogger<TransactionPayloadHandler> _logger;
         private readonly IAccountSagaService _accountSagaService;
         private readonly IOperationService _operationService;
         static ILog log = LogManager.GetLogger<TransactionPayloadHandler>();
         static BalanceUpdated balanceUpdated = new();
-        public TransactionPayloadHandler(IAccountSagaService accountSagaService, IOperationService operationService)
+        string messageLog;
+        public TransactionPayloadHandler(IAccountSagaService accountSagaService, IOperationService operationService, ILogger<TransactionPayloadHandler> logger)
         {
             _accountSagaService = accountSagaService;
             _operationService = operationService;
+            _logger = logger;
         }
 
         //Handler for Transaction payload message
@@ -35,43 +38,59 @@ namespace Account.Api
                         {
                             await _accountSagaService.UpdateBalanceAsync(message.FromAccountId, message.ToAccountId, message.Amount);
                             balanceUpdated.BalanceUpdatedSucceeded = true;
-                            log.Info($"Balance has been updated. TransactionId= {message.TransactionId}");
+                            messageLog = $"Balance has been updated. TransactionId= {message.TransactionId}";
+                            log.Info(messageLog);
+                            _logger.LogInformation(messageLog);
                             try
                             {
                                 await _operationService.AddToHistoryTableAsync(message);
-                                log.Info($"Manage to add to history table, TransactionId = {message.TransactionId} ...");
+                                messageLog = $"Manage to add to history table, TransactionId = {message.TransactionId} ...";
+                                log.Info(messageLog);
+                                _logger.LogInformation(messageLog);
                             }
                             catch
                             {
-                                log.Info($"Failed to add to history table, TransactionId = {message.TransactionId} ...");
+                                messageLog = $"Failed to add to history table, TransactionId = {message.TransactionId} ...";
+                                log.Error(messageLog);
+                                _logger.LogError(messageLog);
                             }
-                            log.Info($"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...");
+                            messageLog = $"Received TransactionPayload command updated, TransactionId = {message.TransactionId} ...";
+                            log.Info(messageLog);
+                            _logger.LogInformation(messageLog);
                         }
                         catch
                         {
                             balanceUpdated.BalanceUpdatedSucceeded = false;
-                            log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
+                            messageLog = $"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...";
+                            log.Error(messageLog);
+                            _logger.LogError(messageLog);
                         }
                     }
                     else
                     {
                         balanceUpdated.FailureReason = "Transaction failed because there is not enough money in your account";
                         balanceUpdated.BalanceUpdatedSucceeded = false;
-                        log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
+                        messageLog = $"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...";
+                        log.Error(messageLog);
+                        _logger.LogError(messageLog);
                     }
                 }
                 else
                 {
                     balanceUpdated.FailureReason = "The account you are trying to transfer to doesn't exist";
                     balanceUpdated.BalanceUpdatedSucceeded = false;
-                    log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
+                    messageLog = $"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...";
+                    log.Error(messageLog);
+                    _logger.LogError(messageLog);
                 }
             }
             else
             {
-                balanceUpdated.BalanceUpdatedSucceeded = false;
                 balanceUpdated.FailureReason = "The account you are trying to transfer from doesn't exist";
-                log.Info($"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...");
+                balanceUpdated.BalanceUpdatedSucceeded = false;
+                messageLog = $"Received TransactionPayload command didn't update, TransactionId = {message.TransactionId} ...";
+                log.Error(messageLog);
+                _logger.LogError(messageLog);
             }
             await context.Publish(balanceUpdated);
         }

@@ -8,9 +8,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Account.Services.Services
 {
-    public class ExtensionMethod
+    public static class ExtensionMethod
     {
-        public static void ExtensionDI(IServiceCollection service, string connectionString)
+        public static void ExtensionDI(this IServiceCollection service, string connectionString)
         {
             service.AddDbContextFactory<AccountDBContext>(item => item.UseSqlServer(connectionString));
             service.AddScoped<IAccountRepository, AccountRepository>();

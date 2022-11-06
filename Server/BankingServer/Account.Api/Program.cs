@@ -5,7 +5,7 @@ using Account.Services.Services;
 using NServiceBus;
 using System.Data.SqlClient;
 using Account.Api;
-
+using Serilog;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseNServiceBus(hostBuilderContext =>
@@ -42,7 +42,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     transport.UseConventionalRoutingTopology(QueueType.Quorum);
     return endpointConfiguration;
 });
-
+builder.Host.UseSerilog();
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -53,6 +53,11 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<InitBalance>(builder.Configuration.GetSection(nameof(InitBalance)));
 //Extension method for dependency injection
 ExtensionMethod.ExtensionDI( builder.Services, builder.Configuration.GetConnectionString("myContextCon"));
+IConfigurationRoot configuration = new
+            ConfigurationBuilder().AddJsonFile("appsettings.json",
+            optional: false, reloadOnChange: true).Build();
+Log.Logger = new LoggerConfiguration().ReadFrom.Configuration
+            (configuration).CreateLogger();
 
 var app = builder.Build();
 
