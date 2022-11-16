@@ -21,6 +21,7 @@ export class OpenAccountComponent implements OnInit {
   public registrationValid=false;
   public customer?:Customer;
 
+  public accountId?:Number;
   constructor(public dialog: MatDialog, private openService:OpenAccountService,private router: Router ) {
 
    }
@@ -41,8 +42,9 @@ export class OpenAccountComponent implements OnInit {
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
           data: { customer: this.customer},  disableClose: true });
-          dialogRef.afterClosed().subscribe(result => {console.log(result);   
-             this.router.navigateByUrl('/login');})
+          dialogRef.afterClosed().subscribe(result => {console.log(result);
+            this.accountId = result;   
+             this.router.navigateByUrl('create-cashbox',{state: {accountId: this.accountId}});})
       }
       ,err=>alert(err)
     );

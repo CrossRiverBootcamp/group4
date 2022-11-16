@@ -19,14 +19,6 @@ export class VerificationDialogComponent implements OnInit {
   ngOnInit(): void {
   }
   onSubmit(){
-    // this.registrationValid=true;
-    // this.customer={
-    //   firstName: this.firstName,
-    //   lastName:this.lastName,
-    //   email:this.email,
-    //   password:this.password,
-    //   verificationCode:this.verificationCode
-    // }
     console.log(this.dialogRef.componentInstance.data.customer);
     this.customer={
       firstName: this.dialogRef.componentInstance.data.customer.firstName,
@@ -35,10 +27,10 @@ export class VerificationDialogComponent implements OnInit {
       password:this.dialogRef.componentInstance.data.customer.password,
       verificationCode:this.code
     }
+    //change open account func in server to return the id!!!!!!!!!
     this.openService.openAccount(this.customer).subscribe(
       success => {console.log(success)}
       ,err=>console.log(err)
-      
     );
 
     

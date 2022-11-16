@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AccountDetailsComponent } from './components/account-details/account-details.component';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
+import { CreateCashboxComponent } from './components/create-cashbox/create-cashbox.component';
 import { historyComponent } from './components/history/history.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -24,6 +25,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: OpenAccountComponent
+  },
+  {
+    path: 'create-cashbox',
+    component: CreateCashboxComponent
   },
   {
     path: 'accountDetails/:id',

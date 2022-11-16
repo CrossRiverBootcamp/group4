@@ -1,0 +1,30 @@
+<h1>Would you like to open a cashBox?</h1>
+<button mat-raised-button color="primary" *ngIf="!createFlag" style="text-align:center"
+    (click)="createCashBox()">yes</button>
+<button mat-raised-button color="primary" *ngIf="!createFlag" style="text-align:center"
+    routerLink="/accountDetails/{{accountId}}">no thank's</button>
+<mat-card *ngIf="createFlag">
+
+    <mat-card-content>
+        Choose your cashbox definitions:
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Desired percentages</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let per of percentages" [value]="per.value">
+                    {{per.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <br>
+        <mat-form-field appearance="fill">
+            <mat-label>Duration</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let dur of duration" [value]="dur.value">
+                    {{dur.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <button mat-raised-button color="primary" (click)="savecashbox()">save cashbox</button>
+    </mat-card-content>
+</mat-card>

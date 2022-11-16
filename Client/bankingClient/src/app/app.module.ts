@@ -29,6 +29,7 @@ import { VerificationDialogComponent } from './components/verification-dialog/ve
 import { MatDialogModule } from '@angular/material/dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
+import { CreateCashboxComponent } from './components/create-cashbox/create-cashbox.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { HomeComponent } from './components/home/home.component';
     VerificationDialogComponent,
     PageNotFoundComponent,
     HomeComponent,
+    CreateCashboxComponent,
     
   ],
   imports: [
