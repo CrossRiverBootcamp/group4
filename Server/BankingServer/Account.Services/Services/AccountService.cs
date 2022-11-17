@@ -21,7 +21,7 @@ namespace Account.Services.Services
             });
             _mapper = config.CreateMapper();
         }
-        public async Task CreateAccountAsync(CustomerDTO customerDTO, int balanceInit)
+        public async Task<int> CreateAccountAsync(CustomerDTO customerDTO, int balanceInit)
         {
             CustomerEntity customer = _mapper.Map<CustomerEntity>(customerDTO);
             //checks if account with email already exists 
@@ -35,7 +35,7 @@ namespace Account.Services.Services
             account.OpenDate = DateTime.UtcNow;
             account.Balance = balanceInit;
                 //balanceInit;
-            await _accountRepository.CreateAccountAsync(account);
+            return await _accountRepository.CreateAccountAsync(account);
 
         }
 

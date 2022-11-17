@@ -26,18 +26,19 @@ namespace Account.DAL.Repositories
 
         }
 
-        public async Task CreateAccountAsync(AccountEntity account)
+        public async Task<int> CreateAccountAsync(AccountEntity account)
         {
-            try
-            {
+            //try
+            //{
                 using var context = _factory.CreateDbContext();
                 await context.Accounts.AddAsync(account);
                 await context.SaveChangesAsync();
-            }
-            catch
-            {
-                throw;
-            }
+                return account.Id;
+            //}
+            //catch
+            //{
+            //    throw;
+            //}
         }
 
         public  async Task<int> GetAccountIdByEmailAsync(string email)

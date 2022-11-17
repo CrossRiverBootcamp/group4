@@ -19,7 +19,7 @@ namespace Account.Api.Controllers
 
         //create new verification code for email 
         [HttpPost]
-        public async void PostEmailVerification([FromBody] string email)
+        public async Task PostEmailVerification([FromBody] string email)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace Account.Api.Controllers
 
         //resend verification code for email
         [HttpPost("ResendCode")]
-        public async void ResendCodeAsync([FromBody] string email)
+        public async Task ResendCodeAsync([FromBody] string email)
         {
             try
             {

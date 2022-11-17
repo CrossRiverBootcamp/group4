@@ -5,7 +5,7 @@ namespace Account.DAL.Interfaces
 {
     public interface IAccountRepository
     {
-        Task CreateAccountAsync(AccountEntity account);
+        Task<int> CreateAccountAsync(AccountEntity account);
         Task<bool> CheckEmailExistsAsync(string email);
         Task<bool> CheckPasswordValidAsync(string email, string password);
         Task<int> GetAccountIdByEmailAsync(string email);

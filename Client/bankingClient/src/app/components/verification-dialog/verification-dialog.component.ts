@@ -29,11 +29,12 @@ export class VerificationDialogComponent implements OnInit {
     }
     //change open account func in server to return the id!!!!!!!!!
     this.openService.openAccount(this.customer).subscribe(
-      success => {console.log(success)}
+      async success => {console.log("get the id of new account");
+       console.log(success);
+      await this.router.navigateByUrl('create-cashbox',{state: {accountId: success}});}
       ,err=>console.log(err)
     );
 
-    
   }
   onSubmitAgain(){
     this.openService.emailVerificationAgain(this.dialogRef.componentInstance.data.customer.email).subscribe(

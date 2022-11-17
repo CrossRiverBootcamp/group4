@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Customer } from 'src/app/models/customer';
 import { OpenAccountService } from 'src/app/services/open-account.service';
-import {MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { VerificationDialogComponent } from '../verification-dialog/verification-dialog.component';
 import { Router } from '@angular/router';
 
@@ -12,43 +12,41 @@ import { Router } from '@angular/router';
   styleUrls: ['./open-account.component.css']
 })
 export class OpenAccountComponent implements OnInit {
-  
-  public firstName='';
-  public lastName='';
+
+  public firstName = '';
+  public lastName = '';
   public email = '';
   public password = '';
-  public verificationCode?:string;
-  public registrationValid=false;
-  public customer?:Customer;
+  public verificationCode?: string;
+  public registrationValid = false;
+  public customer?: Customer;
 
-  public accountId?:Number;
-  constructor(public dialog: MatDialog, private openService:OpenAccountService,private router: Router ) {
+  public accountId?: Number;
+  constructor(public dialog: MatDialog, private openService: OpenAccountService, private router: Router) {
 
-   }
+  }
 
 
   ngOnInit(): void {
   }
-  
-  onSubmitForVerification(){
+
+  onSubmitForVerification() {
     this.openService.emailVerification(this.email!).subscribe(
-      success => {
-        this.customer={
-          firstName:this.firstName,
-          lastName:this.lastName,
-          email:this.email,
-          password:this.password,
-          verificationCode:'aaaa'
+      () => {
+        this.customer = {
+          firstName: this.firstName,
+          lastName: this.lastName,
+          email: this.email,
+          password: this.password,
+          verificationCode: 'aaaa'
         };
         const dialogRef = this.dialog.open(VerificationDialogComponent, {
-          data: { customer: this.customer},  disableClose: true });
-          dialogRef.afterClosed().subscribe(result => {console.log(result);
-            this.accountId = result;   
-             this.router.navigateByUrl('create-cashbox',{state: {accountId: this.accountId}});})
+          data: { customer: this.customer }, disableClose: true
+        });
       }
-      ,err=>alert(err)
+      , err => alert(err)
     );
-    
+
   }
 
 }

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { cashbox } from 'src/app/models/Cashbox';
 import { CreateCashboxService } from 'src/app/services/create-cashbox.service';
 
 interface Percents {
@@ -16,7 +17,10 @@ interface Duration {
   styleUrls: ['./create-cashbox.component.css']
 })
 export class CreateCashboxComponent implements OnInit {
-  accountId?: Number;
+  accountId!: Number;
+  cashbox?:cashbox;
+  @ViewChild('durat') durat!: ElementRef;
+  @ViewChild('percent') percent!: ElementRef;
   percentages: Percents[] = [
     {value: 5, viewValue: '5%'},
     {value: 10, viewValue: '10%'},
@@ -28,16 +32,24 @@ export class CreateCashboxComponent implements OnInit {
     {value: 6, viewValue: '6 month'},
   ];
   createFlag:Boolean = false;
-  constructor(private router: Router, private createCashBoxService:CreateCashboxComponent) {
+  constructor(private router: Router, private createCashBoxService:CreateCashboxService) {
+    console.log("in ctor create cashbox");
+    console.log(this.router.getCurrentNavigation()?.extras);
     const extras = this.router.getCurrentNavigation()?.extras;
     this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
     console.log(this.accountId);
   }
    
   savecashbox():void{
-    this.createCashBoxService.createNewCashBox()
-    .subscribe(a=>{console.log(a);this.tryTransfer = true;this.transferSuccess=true;},
-    err=>{console.log(err);this.tryTransfer = true;this.transferSuccess=false;});
+    this.cashbox = {
+      accountId:this.accountId,
+      duration:this.durat.nativeElement.value,
+      percentages:this.percent.nativeElement.value
+     };
+    this.createCashBoxService.createNewCashBox(this.cashbox)
+    .subscribe(()=>this.router.navigateByUrl(`accountDetails/${this.accountId}`,{state: {accountId: this.accountId}}),
+    err=>console.log(err));
+    
   }
   ngOnInit(): void {
   }

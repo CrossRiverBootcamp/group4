@@ -10,7 +10,7 @@
         <br>
         <mat-form-field appearance="fill">
             <mat-label>Desired percentages</mat-label>
-            <mat-select>
+            <mat-select #percent>
                 <mat-option *ngFor="let per of percentages" [value]="per.value">
                     {{per.viewValue}}
                 </mat-option>
@@ -19,7 +19,7 @@
         <br>
         <mat-form-field appearance="fill">
             <mat-label>Duration</mat-label>
-            <mat-select>
+            <mat-select #durat>
                 <mat-option *ngFor="let dur of duration" [value]="dur.value">
                     {{dur.viewValue}}
                 </mat-option>

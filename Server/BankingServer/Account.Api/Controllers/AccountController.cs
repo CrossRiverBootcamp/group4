@@ -35,7 +35,7 @@ namespace Account.Api.Controllers
         {
             try
             {
-                return await _accountService.LoginAsync(loginDTO);
+                return Ok(await _accountService.LoginAsync(loginDTO));
             }
             catch(Exception ex)
             {

@@ -24,7 +24,7 @@ namespace Account.Api.Controllers
 
         //create new account
         [HttpPost("CreateAccount")]
-        public async Task<ActionResult<bool>> CreateAccountAsync([FromBody] CustomerDTO customer)
+        public async Task<ActionResult<int>> CreateAccountAsync([FromBody] CustomerDTO customer)
         {
             //check verification 
 
@@ -32,17 +32,16 @@ namespace Account.Api.Controllers
             {
                 if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
                 {
-                    await _accountService.CreateAccountAsync(customer, _options.Value.Balance);
-                    return Ok(true);
+                  return Ok(await _accountService.CreateAccountAsync(customer, _options.Value.Balance));
                 }
                 else
                 {
                     throw new Exception("The verification code is wrong or expired. Can't create account");
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return Ok(false);
+                return Unauthorized(ex);
             }
         }
 
