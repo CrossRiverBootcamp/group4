@@ -10,9 +10,11 @@ namespace Account.DTO
 {
     public class CashboxDTO
     {
-
+        [Required]
         public int AccountId { get; set; }
-        public int Duration { get; set; }
+        [Required]
+        public DateTime Duration { get; set; }
+        [Required]
         public int Percentages { get; set; }
 
     }

@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@material/form-field": "^14.0.0",
+    "angular-material-sidenav": "^0.1.1",
     "material-icons": "^1.11.11",
     "ngx-mat-errors": "^14.0.0",
     "rxjs": "~7.5.0",

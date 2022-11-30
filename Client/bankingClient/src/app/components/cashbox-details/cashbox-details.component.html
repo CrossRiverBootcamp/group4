@@ -1,0 +1,13 @@
+<h1 *ngIf="!cashboxExists">You do not have an active cashbox<br>In Order to create one press here</h1>
+<button *ngIf="!cashboxExists" mat-raised-button style="margin-left:45%; width:10%" (click)="CreateCashbox()">Create
+    Casbox</button>
+<div *ngIf="cashboxExists">
+    <mat-card>
+        <mat-card-content style=" font: bold 20px;">
+            Percentages: {{per}}%
+            <br>
+            valid until: {{dur}}
+        </mat-card-content>
+    </mat-card>
+    <button mat-raised-button style="margin-left:40%; width:20%" color="primary" [routerLink]="['..']">Back</button>
+</div>

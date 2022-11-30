@@ -8,6 +8,7 @@ namespace Account.DAL.Entities
         public DbSet<AccountEntity> Accounts { get; set; }
         public DbSet<OperationEntity> Operations { get; set; }
         public DbSet<EmailVerificationEntity> Verifications { get; set; }
+        public DbSet<CashboxEntity> Cashboxes { get; set; }
         public AccountDBContext(DbContextOptions<AccountDBContext> options) :base(options)
         {
 

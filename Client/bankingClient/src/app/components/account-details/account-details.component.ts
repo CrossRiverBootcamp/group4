@@ -40,4 +40,7 @@ public routeTocreateTransaction():void{
 public routeToHistory():void{
   this.router.navigateByUrl('history',{state: {accountId: this.accountId}});
 }
+public watchCashbox():void{
+  this.router.navigateByUrl('view-cashbox',{state: {accountId: this.accountId}});
+}
 }

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Account.DAL.Migrations
 {
     [DbContext(typeof(AccountDBContext))]
-    [Migration("20220914072923_RebuildDB")]
-    partial class RebuildDB
+    [Migration("20221121145848_addCashbox")]
+    partial class addCashbox
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -46,6 +46,36 @@ namespace Account.DAL.Migrations
                     b.HasIndex("CustomerId");
 
                     b.ToTable("Accounts");
+                });
+
+            modelBuilder.Entity("Account.DAL.Entities.CashboxEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Active")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ExpirationTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PercentageOfRevenue")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("Cashboxes");
                 });
 
             modelBuilder.Entity("Account.DAL.Entities.CustomerEntity", b =>
@@ -138,6 +168,17 @@ namespace Account.DAL.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("Account.DAL.Entities.CashboxEntity", b =>
+                {
+                    b.HasOne("Account.DAL.Entities.AccountEntity", "Account")
+                        .WithMany()
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 #pragma warning restore 612, 618
         }

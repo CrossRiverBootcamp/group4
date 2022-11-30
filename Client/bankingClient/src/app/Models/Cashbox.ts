@@ -1,5 +1,7 @@
+import { Percents } from "./Percent";
+
 export interface cashbox{
     accountId:Number,
-    duration:Number,
-    percentages:Number
+    duration:Date,
+    percentages:Percents
 }

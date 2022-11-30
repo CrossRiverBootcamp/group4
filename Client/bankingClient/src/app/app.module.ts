@@ -30,6 +30,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/home/home.component';
 import { CreateCashboxComponent } from './components/create-cashbox/create-cashbox.component';
+import { CashboxDetailsComponent } from './components/cashbox-details/cashbox-details.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { CreateCashboxComponent } from './components/create-cashbox/create-cashb
     PageNotFoundComponent,
     HomeComponent,
     CreateCashboxComponent,
+    CashboxDetailsComponent,
     
   ],
   imports: [
