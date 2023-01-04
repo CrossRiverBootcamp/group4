@@ -25,7 +25,7 @@ namespace Account.DAL.Repositories
             return await context.Operations.CountAsync(operation => operation.AccountId == accountId);
         }
 
-        public async Task<int> GetAccountBalanceByAccountIdAsync(int id)
+        public async Task<float> GetAccountBalanceByAccountIdAsync(int id)
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));

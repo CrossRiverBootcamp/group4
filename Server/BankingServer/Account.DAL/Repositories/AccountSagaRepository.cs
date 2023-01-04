@@ -24,19 +24,19 @@ namespace Account.DAL.Repositories
                 return false;
             }
         }
-        public async Task<bool> CheckBalanceAsync(int id, int amount)
+        public async Task<bool> CheckBalanceAsync(int id, float amount)
         {
             using var context = _factory.CreateDbContext();
             AccountEntity account = await context.Accounts.FirstAsync(a => a.Id == id);
             return account.Balance >= amount;
         }
-        public async Task UpdateBalanceAsync(int fromAccount, int toAccount, int amount)
+        public async Task UpdateBalanceAsync(int fromAccount, int toAccount, float amount, float amountPercent)
         {
             using var context = _factory.CreateDbContext();
             AccountEntity accountFrom = await context.Accounts.FirstAsync(a => a.Id == fromAccount);
             AccountEntity accountTo = await context.Accounts.FirstAsync(a => a.Id == toAccount);
             accountFrom.Balance -= amount;
-            accountTo.Balance += amount;
+            accountTo.Balance += (amount - amountPercent);
             await context.SaveChangesAsync();
         }
     }

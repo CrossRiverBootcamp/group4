@@ -8,6 +8,7 @@ import { AccountDetailsService } from 'src/app/services/account-details.service'
   styleUrls: ['./account-details.component.css']
 })
 export class AccountDetailsComponent implements OnInit{
+  opened = false;
   accountId!:Number; 
   public balance:Number=0;
   public email:string='';

@@ -9,5 +9,7 @@ namespace Account.Services.Interfaces
         Task<CashboxDTO> GetCashboxAsync(int accountId);
         Task<bool> CheckCashboxExists(int accountId);
         void UpdateCahboxAsync(int accountId, CashboxDTO cashboxDTO);
+        Task<int> GetCashboxPercentsAsync(int accountId);
+        void UpdateAmountInCahboxAsync(int accountId, float additionToCashboxAmount);
     }
 }

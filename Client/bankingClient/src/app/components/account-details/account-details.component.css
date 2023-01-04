@@ -16,3 +16,10 @@ mat-card-content{
     font-size: 20px;
     font-weight: bold;
 }
+
+mat-sidenav-container{
+    height: 150px;
+}
+mat-sidenav{
+    width: 200px;
+}

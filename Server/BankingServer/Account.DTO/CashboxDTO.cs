@@ -13,6 +13,8 @@ namespace Account.DTO
         [Required]
         public int AccountId { get; set; }
         [Required]
+        public float Amount { get; set; }
+        [Required]
         public DateTime Duration { get; set; }
         [Required]
         public int Percentages { get; set; }

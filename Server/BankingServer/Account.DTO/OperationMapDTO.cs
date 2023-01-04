@@ -14,12 +14,12 @@ namespace Account.DTO
         public bool DebitOrCredit { get; set; }
 
         [Required]
-        public int TransactionAmount { get; set; }
+        public float TransactionAmount { get; set; }
 
         [Required]
         public DateTime DateOfTransaction { get; set; }
 
-        public OperationMapDTO(int accountId, Guid transactionId, bool debitOrCredit, int transactionAmount, DateTime dateOfTransaction)
+        public OperationMapDTO(int accountId, Guid transactionId, bool debitOrCredit, float transactionAmount, DateTime dateOfTransaction)
         {
             AccountId = accountId;
             TransactionId = transactionId;

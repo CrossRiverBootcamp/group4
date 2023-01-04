@@ -42,7 +42,8 @@ export class CreateCashboxComponent implements OnInit {
     this.cashbox = {
       accountId:this.accountId,
       duration:this.selectedDuration,
-      percentages:this.selectedPercent
+      percentages:this.selectedPercent,
+      amount:0
      };
     this.cashBoxService.createNewCashBox(this.cashbox)
     .subscribe(()=>this.router.navigateByUrl(`accountDetails/${this.accountId}`,{state: {accountId: this.accountId}}),

@@ -18,6 +18,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatOptionModule } from '@angular/material/core';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CreateTransactionComponent } from './components/create-transaction/create-transaction.component';
@@ -61,6 +62,7 @@ import { CashboxDetailsComponent } from './components/cashbox-details/cashbox-de
     MatCardModule,
     MatMenuModule,
     MatIconModule,
+    MatSidenavModule,
     MatButtonModule,
     MatTableModule,
     MatSlideToggleModule,

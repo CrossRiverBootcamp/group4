@@ -19,7 +19,7 @@ namespace Account.DAL.Entities
         public AccountEntity Account { get; set; }
 
         [Required]
-        public int Amount { get; set; }
+        public float Amount { get; set; }
         [Required]
         public int PercentageOfRevenue { get; set; }
         [Required]

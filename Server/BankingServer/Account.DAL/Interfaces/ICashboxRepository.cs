@@ -9,5 +9,6 @@ namespace Account.DAL.Interfaces
         Task<CashboxEntity> GetCashboxAsync(int accountId);
         Task<bool> CheckCashboxExists(int accountId);
         Task UpdateCahboxAsync(int accountId, CashboxEntity cashbox);
+        Task UpdateAmountInCahboxAsync(int accountId, float addition);
     }
 }

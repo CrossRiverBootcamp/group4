@@ -23,7 +23,6 @@ namespace Account.Services.Services
             service.AddScoped<IEmailVerificationService, EmailVerificationService>();
             service.AddScoped<ICashboxService, CashboxService>();
             service.AddScoped<ICashboxRepository, CashboxRepository>();
-
         }
     }
 }

@@ -15,6 +15,7 @@ export class CashboxDetailsComponent implements OnInit {
   cashbox?: cashbox;
   per?: Percents;
   dur?: Date;
+  amount?:Number;
   constructor(private router: Router, private cashboxService: CashboxService) {
     const extras = this.router.getCurrentNavigation()?.extras;
     this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
@@ -28,7 +29,7 @@ export class CashboxDetailsComponent implements OnInit {
   }
   getCashboxFunc(): void {
     this.cashboxService.getCashboxInfo(this.accountId).subscribe(cbox => {console.log(cbox);
-     this.per = cbox.percentages; this.dur = cbox.duration },
+     this.per = cbox.percentages; this.dur = cbox.duration;this.amount = cbox.amount },
       err => console.log(err))
   }
   ngOnInit(): void {

@@ -40,5 +40,12 @@ namespace Account.DAL.Repositories
             cashboxEntity = cashbox;
             await context.SaveChangesAsync();
         }
+        public async Task UpdateAmountInCahboxAsync(int accountId, float addition)
+        {
+            var context = _factory.CreateDbContext();
+            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId);
+            cashboxEntity.Amount += addition;
+            await context.SaveChangesAsync();
+        }
     }
 }

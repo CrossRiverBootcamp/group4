@@ -18,10 +18,10 @@ namespace Account.DAL.Entities
         public bool DebitOrCredit { get; set; }
 
         [Required]
-        public int TransactionAmount { get; set; }
+        public float TransactionAmount { get; set; }
 
         [Required]
-        public int Balance { get; set; }
+        public float Balance { get; set; }
 
         [Required]
         public DateTime OperationTime { get; set; }

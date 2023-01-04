@@ -34,7 +34,7 @@ namespace Account.Services.Services
             //}
             //create account and customer (in db)
             cashbox.Active = true;
-            cashbox.Amount = 0;
+            //cashbox.Amount = 0;
             //cashbox.ExpirationTime = DateTime.UtcNow.AddMonths(cashboxDTO.Duration);
             return await _cashboxRepository.CreateCashboxAsync(cashbox);
         }
@@ -44,6 +44,11 @@ namespace Account.Services.Services
             CashboxDTO cashboxDTO = _mapper.Map<CashboxDTO>(cashbox);
             return cashboxDTO;
         }
+        public async Task<int> GetCashboxPercentsAsync(int accountId)
+        {
+            CashboxEntity cashbox = await _cashboxRepository.GetCashboxAsync(accountId);
+            return cashbox.PercentageOfRevenue;
+        }
         public async Task<bool> CheckCashboxExists(int accountId)
         {
             return await _cashboxRepository.CheckCashboxExists(accountId);
@@ -52,6 +57,10 @@ namespace Account.Services.Services
         {
             CashboxEntity cashbox = _mapper.Map<CashboxEntity>(cashboxDTO);
              _cashboxRepository.UpdateCahboxAsync(accountId, cashbox);
+        }
+        public void UpdateAmountInCahboxAsync(int accountId, float additionToCashboxAmount)
+        {
+            _cashboxRepository.UpdateAmountInCahboxAsync(accountId, additionToCashboxAmount);
         }
     }
 }
