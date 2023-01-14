@@ -44,7 +44,7 @@ export class OpenAccountComponent implements OnInit {
           data: { customer: this.customer }, disableClose: true
         });
       }
-      , err => alert(err)
+      , err =>console.log(err)
     );
 
   }

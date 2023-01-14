@@ -36,7 +36,8 @@ namespace Account.Api.Controllers
                 }
                 else
                 {
-                    throw new Exception("The verification code is wrong or expired. Can't create account");
+                    /////////////////
+                    return Unauthorized("The verification code is wrong or expired. Can't create account");
                 }
             }
             catch(Exception ex)

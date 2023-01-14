@@ -1,6 +1,6 @@
 <mat-card>
     <mat-card-content>
-      <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
+      <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
         <h2>Create new transaction</h2>
         <mat-form-field>
             <input matInput type="number" placeholder="To account" [(ngModel)]="accountIdTo" name="accountTo" required>

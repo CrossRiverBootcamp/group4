@@ -26,12 +26,12 @@ namespace Account.DAL.Repositories
         public async Task<CashboxEntity> GetCashboxAsync(int accountId)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Cashboxes.FirstAsync(c => c.AccountId == accountId);
+            return await context.Cashboxes.FirstAsync(account => account.AccountId == accountId);
         }
         public async Task<bool> CheckCashboxExists(int accountId)
         {
             var context = _factory.CreateDbContext();
-            return await context.Cashboxes.AnyAsync(account => account.AccountId == accountId);
+            return await context.Cashboxes.AnyAsync(account =>  account.AccountId == accountId && DateTime.UtcNow < account.ExpirationTime );
         }
         public async Task UpdateCahboxAsync(int accountId, CashboxEntity cashbox)
         {

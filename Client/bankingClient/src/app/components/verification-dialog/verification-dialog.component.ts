@@ -1,4 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
+import { FormControl, FormGroupDirective, NgForm } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material/core';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Customer } from 'src/app/models/customer';
@@ -32,9 +34,9 @@ export class VerificationDialogComponent implements OnInit {
       async success => {console.log("get the id of new account");
        console.log(success);
       await this.router.navigateByUrl('create-cashbox',{state: {accountId: success}});}
-      ,err=>console.log(err)
+      ,err=>{console.log(err);GlobalConstants.validCode = false;console.log('this.validCode:',GlobalConstants.validCode);
+      ;this.code ='';}
     );
-
   }
   onSubmitAgain(){
     this.openService.emailVerificationAgain(this.dialogRef.componentInstance.data.customer.email).subscribe(
@@ -42,4 +44,14 @@ export class VerificationDialogComponent implements OnInit {
       ,err=>alert(err)
     );
   }
+  matcher = new MyErrorStateMatcher();
+}
+//1 to make variable global 2. to make validCode:boolean part of the form validation.
+export class MyErrorStateMatcher implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return !GlobalConstants.validCode;
+  }
+}
+export class GlobalConstants {
+  public static validCode: boolean = true;
 }
