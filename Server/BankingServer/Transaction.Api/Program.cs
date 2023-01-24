@@ -13,6 +13,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
     var endpointConfiguration = new EndpointConfiguration("Transaction");
     endpointConfiguration.EnableInstallers();
     endpointConfiguration.EnableOutbox();
+    endpointConfiguration.SendFailedMessagesTo("error");
     //Configure number of retries
     var recoverability = endpointConfiguration.Recoverability();
     recoverability.Immediate(

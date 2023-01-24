@@ -14,15 +14,15 @@ namespace Account.DAL.Repositories
         }
         public async Task<bool> CheckIdValidAsync(int id)
         {
-            try
-            {
+            //try
+            //{
                 using var context = _factory.CreateDbContext();
                 return await context.Accounts.AnyAsync(a => a.Id == id);
-            }
-            catch
-            {
-                return false;
-            }
+            //}
+            //catch
+            //{
+            //    return false;
+            //}
         }
         public async Task<bool> CheckBalanceAsync(int id, float amount)
         {

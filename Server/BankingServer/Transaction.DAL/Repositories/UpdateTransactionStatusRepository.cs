@@ -16,10 +16,10 @@ namespace Transaction.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
-            if (transaction == null)
-            {
-                throw new Exception("Couldn't find transaction");
-            }
+            //if (transaction == null)
+            //{
+            //    throw new Exception("Couldn't find transaction");
+            //}
             transaction.FailureReason = reason;
             await context.SaveChangesAsync();
 
@@ -29,12 +29,12 @@ namespace Transaction.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var transaction = await context.Transactions.FirstOrDefaultAsync(t => t.Id.Equals(transactionId));
-            if (transaction == null)
-            {
-                throw new InvalidOperationException();
-            }
-            else
-            {
+            //if (transaction == null)
+            //{
+            //    throw new InvalidOperationException();
+            //}
+            //else
+            //{
                 if (status)
                 {
                     transaction.Status = TransactionStatus.Succeeded;
@@ -43,7 +43,7 @@ namespace Transaction.DAL.Repositories
                 {
                     transaction.Status = TransactionStatus.Failed;
                 }
-            }
+            //}
             await context.SaveChangesAsync();
         }
     }

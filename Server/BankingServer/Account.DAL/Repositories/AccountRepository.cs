@@ -55,10 +55,10 @@ namespace Account.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.Include(a => a.Customer).FirstOrDefaultAsync(a => a.Id.Equals(id));
-            if(account == null)
-            {
-                throw new Exception("Account doesn't exisit");
-            }
+            //if(account == null)
+            //{
+            //    throw new Exception("Account doesn't exisit");
+            //}
             return account;
         }
         public async Task<CustomerEntity> GetCustomerByAccountId(int accountId)
@@ -70,17 +70,17 @@ namespace Account.DAL.Repositories
 
         public async Task<CustomerEntity> GetCustomerByEmailAsync(string email)
         {
-            try { 
+            //try { 
             using var context = _factory.CreateDbContext();
             var customer= await context.Customers.FirstOrDefaultAsync(c => c.Email.Equals(email));
-                if (customer != null)
-                    return customer;
-                else throw new Exception();
-            }
-            catch
-            {
-                throw;
-            }
+                //if (customer != null)
+                   return customer;
+                //else throw new Exception();
+            //}
+            //catch
+            //{
+            //    throw;
+            //}
         }
     }
 }

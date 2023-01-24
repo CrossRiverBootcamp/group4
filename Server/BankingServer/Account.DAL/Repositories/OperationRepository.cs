@@ -29,10 +29,10 @@ namespace Account.DAL.Repositories
         {
             using var context = _factory.CreateDbContext();
             var account = await context.Accounts.FirstOrDefaultAsync(a => a.Id.Equals(id));
-            if(account == null)
-            {
-                throw new Exception("Account doesn't exist");
-            }
+            //if(account == null)
+            //{
+            //    throw new Exception("Account doesn't exist");
+            //}
             return account.Balance;
         }
 

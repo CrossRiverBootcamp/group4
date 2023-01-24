@@ -42,6 +42,10 @@ namespace Account.Services.Services
         public async Task<AccountInfoDTO> GetAccountInfoAsync(int id)
         {
             var account = await _accountRepository.GetAccountInfoByAccountIdAsync(id);
+            if (account == null)
+            {
+                throw new Exception("Account doesn't exisit");
+            }
             AccountInfoDTO accountDTO = _mapper.Map<AccountInfoDTO>(account);
             return accountDTO;
         }
