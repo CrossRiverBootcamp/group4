@@ -9,8 +9,10 @@ h1{
     text-align: center;
     margin: auto;
 }
-mat-raised-button{
-    text-align: center; 
+button{
+    float:right;
+    margin-bottom: 30px;
+    width: 150px;
 }
 mat-card-content{
     font-size: 20px;
@@ -18,8 +20,12 @@ mat-card-content{
 }
 
 mat-sidenav-container{
-    height: 150px;
+    height: 250px;
+} 
+mat-sidenav-content{
+    margin-top: 50px;
 }
-mat-sidenav{
-    width: 200px;
+#page_details{
+    display: flex;
+    flex-direction: row;
 }

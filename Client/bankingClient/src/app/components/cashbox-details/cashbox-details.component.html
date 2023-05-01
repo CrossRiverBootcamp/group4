@@ -11,5 +11,7 @@
             valid until: {{dur | date:'medium'}}
         </mat-card-content>
     </mat-card>
-    <button mat-raised-button style="margin-left:40%; width:20%" color="primary" [routerLink]="['..']">Back</button>
+    <br><br>
+    <button mat-raised-button color="primary" (click)="closeCashBox()">close cashbox and put money in the account</button><br><br>
+    <button mat-raised-button color="primary" routerLink="/accountDetails/{{accountId}}">return to personal details page</button>
 </div>

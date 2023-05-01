@@ -35,7 +35,7 @@ builder.Host.UseNServiceBus(hostBuilderContext =>
         return new SqlConnection(builder.Configuration.GetConnectionString("myPersistenceCon"));
     });
     var dialect = persistence.SqlDialect<SqlDialect.MsSqlServer>();
-    persistence.TablePrefix("Transaction");
+    //persistence.TablePrefix("Transaction");
     dialect.Schema("dboTransaction");
     var transport = endpointConfiguration.UseTransport<RabbitMQTransport>();
     var routing = transport.Routing();

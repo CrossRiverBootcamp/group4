@@ -46,6 +46,7 @@ namespace Account.Api
                                 await _operationService.AddToHistoryTableAsync(message);
                                 messageLog = $"Manage to add to history table, TransactionId = {message.TransactionId} ...";
                                 log.Info(messageLog);
+                                //send to log table from serilog
                                 _logger.LogInformation(messageLog);
                             }
                             catch

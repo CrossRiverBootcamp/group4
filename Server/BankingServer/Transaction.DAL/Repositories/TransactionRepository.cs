@@ -11,6 +11,7 @@ namespace Transaction.DAL.Repositories
         {
             _factory = factory;
         }
+        //a func that adds transaction details to db
         public async Task AddTransactionAsync(TransactionEntity transaction) {
             using var context = _factory.CreateDbContext();
             await context.Transactions.AddAsync(transaction);

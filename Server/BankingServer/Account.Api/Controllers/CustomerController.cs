@@ -14,7 +14,8 @@ namespace Account.Api.Controllers
         private readonly IOptions<InitBalance> _options;
 
 
-        public CustomerController(IAccountService accountService, IEmailVerificationService emailVerificationService, IOptions<InitBalance> options)
+        public CustomerController(IAccountService accountService, 
+            IEmailVerificationService emailVerificationService, IOptions<InitBalance> options)
         {
             _accountService = accountService;
             _emailVerificationService = emailVerificationService;
@@ -32,11 +33,12 @@ namespace Account.Api.Controllers
             {
                 if (await _emailVerificationService.CheckVerificationAsync(customer.Email, customer.VerificationCode))
                 {
-                  return Ok(await _accountService.CreateAccountAsync(customer, _options.Value.Balance));
+                    // create account with option value : 100 
+                    int accountId = await _accountService.CreateAccountAsync(customer, _options.Value.Balance);
+                    return Ok(accountId);
                 }
                 else
                 {
-                    /////////////////
                     return Unauthorized("The verification code is wrong or expired. Can't create account");
                 }
             }
@@ -54,9 +56,9 @@ namespace Account.Api.Controllers
         {
             return await _accountService.GetCustomerByAccountId(accountId);
         }
-        catch
-        {
-            return NotFound();
+        catch (Exception ex)
+            {
+            return NotFound(ex);
         }
     }
 

@@ -32,6 +32,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { HomeComponent } from './components/home/home.component';
 import { CreateCashboxComponent } from './components/create-cashbox/create-cashbox.component';
 import { CashboxDetailsComponent } from './components/cashbox-details/cashbox-details.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { CashboxDetailsComponent } from './components/cashbox-details/cashbox-de
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    MatFormFieldModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule,

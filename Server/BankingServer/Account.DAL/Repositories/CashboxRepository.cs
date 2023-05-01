@@ -26,26 +26,56 @@ namespace Account.DAL.Repositories
         public async Task<CashboxEntity> GetCashboxAsync(int accountId)
         {
             using var context = _factory.CreateDbContext();
-            return await context.Cashboxes.FirstAsync(account => account.AccountId == accountId);
+            return await context.Cashboxes.FirstAsync(account => account.AccountId == accountId && account.Active);
         }
         public async Task<bool> CheckCashboxExists(int accountId)
         {
             var context = _factory.CreateDbContext();
-            return await context.Cashboxes.AnyAsync(account =>  account.AccountId == accountId && DateTime.UtcNow < account.ExpirationTime );
+            CashboxEntity? cashboxEntity =  await context.Cashboxes.FirstOrDefaultAsync(account => account.AccountId == accountId && account.Active);
+            if (cashboxEntity == null)
+                return false;
+            else
+            {
+                if(cashboxEntity.ExpirationTime < DateTime.UtcNow) 
+                { 
+                    if(cashboxEntity.Amount > 0)
+                    {
+                        AccountEntity accountEntity = await context.Accounts.FirstOrDefaultAsync(account => account.Id == accountId);
+                        accountEntity.Balance += cashboxEntity.Amount;
+                        cashboxEntity.Amount = 0;
+                    }
+                    cashboxEntity.Active = false;
+                    await context.SaveChangesAsync();
+                }
+                return cashboxEntity.Active;
+            }
+        }
+        public async Task<bool> CloseCashbox(int accountId)
+        {
+            var context = _factory.CreateDbContext();
+            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId && account.Active);
+            cashboxEntity.Active = false;
+            AccountEntity accountEntity = await context.Accounts.FirstOrDefaultAsync(account => account.Id == accountId);
+            accountEntity.Balance += cashboxEntity.Amount;
+            cashboxEntity.Amount = 0;
+            await context.SaveChangesAsync();
+            return true;
         }
         public async Task UpdateCahboxAsync(int accountId, CashboxEntity cashbox)
         {
             var context = _factory.CreateDbContext();
-            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId);
+            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId && account.Active);
             cashboxEntity = cashbox;
             await context.SaveChangesAsync();
         }
+        //update amount in cashbox
         public async Task UpdateAmountInCahboxAsync(int accountId, float addition)
         {
             var context = _factory.CreateDbContext();
-            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId);
+            CashboxEntity cashboxEntity = await context.Cashboxes.FirstAsync(account => account.AccountId == accountId && account.Active);
             cashboxEntity.Amount += addition;
             await context.SaveChangesAsync();
         }
+
     }
 }

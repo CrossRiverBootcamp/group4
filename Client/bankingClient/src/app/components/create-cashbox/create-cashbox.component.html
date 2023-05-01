@@ -1,6 +1,6 @@
 <h1>Would you like to open a cashBox?</h1>
 <button mat-raised-button color="primary" *ngIf="!createFlag" style="text-align:center"
-    (click)="createCashBox()">yes</button>
+    (click)="createCashBox()" id="firstButton">yes</button>
 <button mat-raised-button color="primary" *ngIf="!createFlag" style="text-align:center"
     routerLink="/accountDetails/{{accountId}}">no thank's</button>
 <mat-card *ngIf="createFlag">

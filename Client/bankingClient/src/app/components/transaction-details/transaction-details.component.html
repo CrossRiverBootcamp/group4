@@ -7,8 +7,8 @@
         From/To:{{firstName}} {{lastName}} 
         <br>
         <!-- Email: {{email}} -->
-         <a href="mailto:${{email}}"> Email</a>
+         <a href="mailto:${{email}}"> Email: {{email}}</a>
     </mat-card-content>
   </mat-card>
   <br>
-<button mat-raised-button style="margin-left:40%; width:20%" color="primary"  [routerLink]="['..']">Back</button>
+<button mat-raised-button style="margin-left:40%; width:20%" color="primary" (click)="routeToHistory()">Back</button>

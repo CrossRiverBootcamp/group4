@@ -27,7 +27,7 @@ namespace Account.Services.Services
 
         public async Task AddEmailVerificationAsync(string email)
         {
-            //create new verification
+            //create new verification code
             EmailVerificationDto emailVerification = new EmailVerificationDto();
             emailVerification.Email = email;
             emailVerification.VerificationCode = new Random().Next(1000, 9999).ToString();
@@ -35,12 +35,15 @@ namespace Account.Services.Services
             EmailVerificationEntity emailVerificationEntity = _mapper.Map<EmailVerificationEntity>(emailVerification);
             //send verification to Dal
             await _emailVerificationRepository.AddEmailVerification(emailVerificationEntity);
-            removeFromDB(emailVerificationEntity);
+            //send to func that sends the code to email
             await SendEmailAsync(emailVerification.Email, "Verify your email address", $"Your verification code is {emailVerification.VerificationCode}");
+            //send to func that removes the code from db in 5 minutes
+            removeFromDB(emailVerificationEntity);
+            
         }
         private void removeFromDB(EmailVerificationEntity emailVerificationEntity)
         {
-            //remove verification from Verification table five mi utes after it was created
+            //remove verification from Verification table five minutes after it was created
             Task.Delay(300000).ContinueWith(async _ =>
             {
                 await _emailVerificationRepository.RemoveEmailVerification(emailVerificationEntity);
@@ -69,6 +72,7 @@ namespace Account.Services.Services
         }
         public async Task<bool> CheckVerificationAsync(string email, string verificationCode)
         {
+            //check if the code is the right code
             return await _emailVerificationRepository.CheckVerificationAsync(email, verificationCode);
         }
         public async Task ResendCodeAsync(string email)

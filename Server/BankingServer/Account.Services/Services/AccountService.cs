@@ -10,10 +10,12 @@ namespace Account.Services.Services
     public class AccountService : IAccountService
     {
         private readonly IAccountRepository _accountRepository;
+        private readonly ICashboxService _cashboxService;
         private readonly IMapper _mapper;
-        public AccountService(IAccountRepository accountRepository)
+        public AccountService(IAccountRepository accountRepository, ICashboxService cashboxService)
         {
             _accountRepository = accountRepository;
+            _cashboxService = cashboxService;
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile<AccountInfoMap>();
@@ -34,7 +36,7 @@ namespace Account.Services.Services
             account.Customer = customer;
             account.OpenDate = DateTime.UtcNow;
             account.Balance = balanceInit;
-                //balanceInit;
+            //balanceInit;
             return await _accountRepository.CreateAccountAsync(account);
 
         }
@@ -46,13 +48,19 @@ namespace Account.Services.Services
             {
                 throw new Exception("Account doesn't exisit");
             }
+            await _cashboxService.CheckCashboxExists(id);
             AccountInfoDTO accountDTO = _mapper.Map<AccountInfoDTO>(account);
             return accountDTO;
         }
 
         public async Task<CustomerDTO> GetCustomerByAccountId(int accountId)
         {
-            CustomerDTO customer = _mapper.Map<CustomerDTO>(await _accountRepository.GetCustomerByAccountId(accountId));
+            AccountEntity account = await _accountRepository.GetCustomerByAccountId(accountId);
+            if (account == null || account.Customer == null)
+            {
+                throw new Exception("Account doesn't exisit");
+            }
+            CustomerDTO customer = _mapper.Map<CustomerDTO>(account.Customer);
             return customer;
         }
 

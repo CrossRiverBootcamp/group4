@@ -33,9 +33,10 @@ export class VerificationDialogComponent implements OnInit {
     this.openService.openAccount(this.customer).subscribe(
       async success => {console.log("get the id of new account");
        console.log(success);
-      await this.router.navigateByUrl('create-cashbox',{state: {accountId: success}});}
+      await this.router.navigateByUrl('create-cashbox',{state: {accountId: success}});
+    this.dialogRef.close()}
       ,err=>{console.log(err);GlobalConstants.validCode = false;console.log('this.validCode:',GlobalConstants.validCode);
-      ;this.code ='';}
+      this.code ='';}
     );
   }
   onSubmitAgain(){

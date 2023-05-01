@@ -24,9 +24,9 @@ export class CreateCashboxComponent implements OnInit {
   selectedPercent = this.percentages[1];
   currentDate:Date = new Date(); 
   duration: Duration[] = [
-    {value: new Date(this.currentDate.setMonth(this.currentDate.getMonth()+2)), viewValue: '2 month'},
-    {value: new Date(this.currentDate.setMonth(this.currentDate.getMonth()+4)), viewValue: '4 month'},
-    {value: new Date(this.currentDate.setMonth(this.currentDate.getMonth()+6)), viewValue: '6 month'},
+    {value: 2, viewValue: '2 month'},
+    {value: 4, viewValue: '4 month'},
+    {value: 6, viewValue: '6 month'},
   ];
   selectedDuration = this.duration[1].value; 
   createFlag:Boolean = false;
@@ -41,7 +41,7 @@ export class CreateCashboxComponent implements OnInit {
   savecashbox():void{
     this.cashbox = {
       accountId:this.accountId,
-      duration:this.selectedDuration,
+      duration:new Date(this.currentDate.setMonth(this.currentDate.getMonth()+this.selectedDuration)),
       percentages:this.selectedPercent,
       amount:0
      };

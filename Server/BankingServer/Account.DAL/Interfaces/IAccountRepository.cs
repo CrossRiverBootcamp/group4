@@ -11,6 +11,6 @@ namespace Account.DAL.Interfaces
         Task<int> GetAccountIdByEmailAsync(string email);
         Task<AccountEntity> GetAccountInfoByAccountIdAsync(int id);
         Task<CustomerEntity> GetCustomerByEmailAsync(string email);
-        Task<CustomerEntity> GetCustomerByAccountId(int accountId);
+        Task<AccountEntity> GetCustomerByAccountId(int accountId);
     }
 }

@@ -26,8 +26,9 @@ namespace Transaction.Api
             _logger = logger;
         }
         string messageLog;
-        //static BalanceUpdated balanceUpdated = new();
         static ILog log = LogManager.GetLogger<TransactionSaga>();
+        //this function starts the saga
+        //and sends to transactionPayload command
         public async Task Handle(TransactionPayloaded message, IMessageHandlerContext context)
         {
             messageLog = $"Received TransactionPayloaded, TransactionId = {message.TransactionId} ...";
@@ -47,7 +48,8 @@ namespace Transaction.Api
                 {
                     await _updateTransaction.UpdateReasonFailedAsync(message.FailureReason, message.TransactionId);
                     Data.IsBalanceUpdated = false;
-                    messageLog = $"Couldn't execute transcation because {message.FailureReason} , TransactionId = {message.TransactionId} ...";
+                    messageLog = $"Couldn't execute transcation because {message.FailureReason} , " +
+                        $"TransactionId = {message.TransactionId} ...";
                     log.Error(messageLog);
                     _logger.LogError(messageLog);
                 }

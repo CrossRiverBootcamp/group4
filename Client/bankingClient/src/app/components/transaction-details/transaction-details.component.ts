@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DetailsService } from 'src/app/services/details.service';
 
 @Component({
@@ -12,9 +12,14 @@ export class TransactionDetailsComponent implements OnInit {
   lastName!:string;
   email!:string;
   accountId!:Number;
-  constructor(private router: Router, private detailsService: DetailsService) {
-    const extras = this.router.getCurrentNavigation()?.extras;
-    this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
+  currentAccountId!:Number;
+  constructor( private activatedroute: ActivatedRoute,private router: Router, private detailsService: DetailsService) {
+    // const extras = this.router.getCurrentNavigation()?.extras;
+    // this.accountId = !!extras && !!extras.state ? extras.state['accountId'] : null;
+    this.activatedroute.params.subscribe(params=> {
+      this.accountId = parseInt(params['id'])}
+      ,err=>console.log(err)
+      );
     console.log(this.accountId);
     this.detailsService.getCustomer(this.accountId).subscribe(
       res=> {console.log(res);
@@ -23,8 +28,14 @@ export class TransactionDetailsComponent implements OnInit {
       this.email = res.email},
       err=>console.log(err)
     )
+    this.activatedroute.params.subscribe(params=> {
+      this.currentAccountId = parseInt(params['currentId'])}
+      ,err=>console.log(err)
+      );
   }
-
+  public routeToHistory():void{
+    this.router.navigateByUrl('history',{state: {accountId: this.currentAccountId}});
+  }
   ngOnInit(): void {
   }
 

@@ -41,17 +41,30 @@ namespace Account.Services.Services
         public async Task<CashboxDTO> GetCashboxAsync(int accountId)
         {
             CashboxEntity cashbox = await _cashboxRepository.GetCashboxAsync(accountId);
+            if(cashbox == null)
+            {
+                throw new Exception("cashbox doesn't exist");
+            }
             CashboxDTO cashboxDTO = _mapper.Map<CashboxDTO>(cashbox);
             return cashboxDTO;
         }
         public async Task<int> GetCashboxPercentsAsync(int accountId)
         {
             CashboxEntity cashbox = await _cashboxRepository.GetCashboxAsync(accountId);
+            if (cashbox == null)
+            {
+                throw new Exception("cashbox doesn't exist");
+            }
             return cashbox.PercentageOfRevenue;
         }
         public async Task<bool> CheckCashboxExists(int accountId)
         {
             return await _cashboxRepository.CheckCashboxExists(accountId);
+        }
+        public async Task<bool> CloseCashbox(int accountId)
+        {
+            return await _cashboxRepository.CloseCashbox(accountId); 
+            
         }
         public void  UpdateCahboxAsync(int accountId, CashboxDTO cashboxDTO)
         {

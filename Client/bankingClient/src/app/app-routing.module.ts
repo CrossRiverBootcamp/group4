@@ -48,7 +48,7 @@ const routes: Routes = [
     component: historyComponent
   },
   {
-    path: 'details',
+    path: 'details/:id/:currentId',
     component: TransactionDetailsComponent
   },
   {

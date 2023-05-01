@@ -1,26 +1,24 @@
-<br>
-<h1>Account Details</h1>
+<div id="page_details">
+<mat-card>
+  <mat-card-content style=" font: bold 20px;">
+    hello {{firstName}} {{lastName}}!
+      <br><br>
+      account number {{accountId}}
+      <br><br>
+      Your balance is: {{balance}}
+  </mat-card-content>
+</mat-card>
+
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+  <mat-sidenav-content>
    <button mat-raised-button color="primary" (click)="routeTocreateTransaction()">Deliver Money</button> <br><br>
    <button mat-raised-button color="primary" (click)="routeToHistory()">View action history</button> <br><br>
    <button mat-raised-button color="primary" (click)="watchCashbox()">View cashbox details</button>
-  </mat-sidenav>
- <mat-sidenav-content>
+  </mat-sidenav-content>
+ <!-- <mat-sidenav-content>
    <button mat-raised-button color="primary" (click)="sidenav.toggle()">toggle</button>
- </mat-sidenav-content>
+ </mat-sidenav-content> -->
 </mat-sidenav-container>
-<mat-card>
-    <mat-card-content style=" font: bold 20px;">
-        Name: {{firstName}} {{lastName}}
-        <br>
-        Balance: {{balance}}
-    </mat-card-content>
-  </mat-card>
-  <br>
-  <!-- <mat-sidenav-container>
-    <mat-sidenav>Start</mat-sidenav>
-    <mat-sidenav-content>Main</mat-sidenav-content>
-  </mat-sidenav-container> -->
+</div>
  
 

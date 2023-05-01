@@ -3,6 +3,6 @@ export interface Percents {
     viewValue: string;
   }
  export interface Duration {
-    value: Date;
+    value: number;
     viewValue: string;
   }

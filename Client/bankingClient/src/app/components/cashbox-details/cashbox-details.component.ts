@@ -37,4 +37,13 @@ export class CashboxDetailsComponent implements OnInit {
   public CreateCashbox(): void {
     this.router.navigateByUrl('create-cashbox', { state: { accountId: this.accountId } });
   }
+  public closeCashBox(): void {
+    var c = confirm("are you sure you want to close your cashbox?")
+    if(c)
+      this.cashboxService.closeCashbox(this.accountId).subscribe(flag => {
+         if(flag) alert("you closed your cashbox successfully!")
+         else alert("there was a problem with closing the cashbox, the action failed")
+         this.router.navigateByUrl(`accountDetails/${this.accountId}`,{state: {accountId: this.accountId}});},
+       err => alert("there was an error while closing the cashbox: "+err))
+  }
 }

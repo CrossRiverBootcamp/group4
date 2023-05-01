@@ -20,7 +20,8 @@ namespace Account.Api.Controllers
         {
             try
             {
-               return Ok(await _cashboxService.CreateCashboxAsync(cashboxDTO));
+                int cashbox = await _cashboxService.CreateCashboxAsync(cashboxDTO);
+               return Ok(cashbox);
             }
             catch (Exception ex)
             {
@@ -32,7 +33,8 @@ namespace Account.Api.Controllers
         {
             try
             {
-                return Ok(await _cashboxService.GetCashboxAsync(accountId));
+                CashboxDTO cashbox = await _cashboxService.GetCashboxAsync(accountId);
+                return Ok(cashbox);
             }
             catch (Exception ex)
             {
@@ -44,7 +46,21 @@ namespace Account.Api.Controllers
         {
             try
             {
-                return Ok(await _cashboxService.CheckCashboxExists(accountId));
+                bool flag = await _cashboxService.CheckCashboxExists(accountId);
+                return Ok(flag);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet("close/{accountId}")]
+        public async Task<ActionResult<bool>> CloseCashbox(int accountId)
+        {
+            try
+            {
+                bool flag = await _cashboxService.CloseCashbox(accountId);
+                return Ok(flag);
             }
             catch (Exception ex)
             {

@@ -34,7 +34,7 @@ namespace Transaction.Services.Services
                 // add transaction to db
                 await _transactionRepository.AddTransactionAsync(transactionEntity);
                 TransactionPayloaded payload = _mapper.Map<TransactionPayloaded>(transactionEntity);
-                //sends message to start saga 
+                //publish message to start saga 
                 await messageSession.Publish(payload);
                 return true;
             }

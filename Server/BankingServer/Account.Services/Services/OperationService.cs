@@ -23,26 +23,20 @@ namespace Account.Services.Services
         }
         public async Task AddToHistoryTableAsync(TransactionPayload message)
         {
-            OperationMapDTO fromAccount = new OperationMapDTO(message.FromAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
-            OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, true, message.Amount, message.DateOfTransaction);
-            OperationEntity accountFrom = _mapper.Map<OperationEntity>(fromAccount);
-            OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
+            
             try
             {
+                OperationMapDTO fromAccount = new OperationMapDTO(message.FromAccountId, message.TransactionId, false, message.Amount, message.DateOfTransaction);
+                OperationMapDTO toAccount = new OperationMapDTO(message.ToAccountId, message.TransactionId, true, message.Amount, message.DateOfTransaction);
+                OperationEntity accountFrom = _mapper.Map<OperationEntity>(fromAccount);
+                OperationEntity accountTo = _mapper.Map<OperationEntity>(toAccount);
                 accountFrom.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.FromAccountId);
                 accountTo.Balance = await _operationRepository.GetAccountBalanceByAccountIdAsync(message.ToAccountId);
-            }
-            catch
-            {
-                throw;
-            }
-            try
-            {
                 await _operationRepository.AddToHistoryTableAsync(accountFrom, accountTo);
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                throw new Exception("couldn't add to history table", ex);
             }
         }
 

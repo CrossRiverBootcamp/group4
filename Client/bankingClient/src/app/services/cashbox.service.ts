@@ -23,4 +23,7 @@ public checkCashboxExists(accountId:Number):Observable<boolean>{
 public updateCashbox(accountId:Number,newCashbox:cashbox):Observable<any>{
   return  this.http.put(`https://localhost:7248/api/Cashbox/${accountId}`,newCashbox);
 }
+public closeCashbox(accountId:Number):Observable<boolean>{
+  return  this.http.get<boolean>(`https://localhost:7248/api/Cashbox/close/${accountId}`);
+}
 }
